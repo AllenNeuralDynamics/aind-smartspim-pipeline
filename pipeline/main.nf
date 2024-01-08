@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:65584030d8ecd1953bea513ab716109fe843516d6d42270d7dd954eed15dfd3f
+// hash:sha256:af826e8597a50e4ee11c67085e82243a1204d7538bb48a661a03e78bf063bb06
 
 nextflow.enable.dsl = 1
 
@@ -133,8 +133,8 @@ process capsule_aind_destripe_shadow_correction_2 {
 
 // capsule - aind-smartspim-stitch
 process capsule_aind_smartspim_stitch_3 {
-	tag 'capsule-9714515'
-	container 'registry.codeocean.allenneuraldynamics.org/capsule/444e7e5e-7767-4f64-a9e2-bfca04c74256'
+	tag 'capsule-4153248'
+	container 'registry.codeocean.allenneuraldynamics.org/capsule/1c4065c1-93e6-4bfc-af9d-7c6f4eea7e63'
 
 	cpus 32
 	memory '256 GB'
@@ -153,7 +153,7 @@ process capsule_aind_smartspim_stitch_3 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=444e7e5e-7767-4f64-a9e2-bfca04c74256
+	export CO_CAPSULE_ID=1c4065c1-93e6-4bfc-af9d-7c6f4eea7e63
 	export CO_CPUS=32
 	export CO_MEMORY=274877906944
 
@@ -163,8 +163,7 @@ process capsule_aind_smartspim_stitch_3 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-9714515.git" capsule-repo
-	git -C capsule-repo checkout aad70f7f7601f52ff69a9ffffee66e9943280ffc --quiet
+	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-4153248.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -179,8 +178,8 @@ process capsule_aind_smartspim_stitch_3 {
 
 // capsule - aind-smartspim-fuse
 process capsule_aind_smartspim_fuse_4 {
-	tag 'capsule-5563123'
-	container 'registry.codeocean.allenneuraldynamics.org/capsule/2022a370-8723-47ba-a567-8d535784ae5a'
+	tag 'capsule-2013512'
+	container 'registry.codeocean.allenneuraldynamics.org/capsule/96191619-86f4-4f28-85c7-4f992fc4b30c'
 
 	cpus 32
 	memory '256 GB'
@@ -202,7 +201,7 @@ process capsule_aind_smartspim_fuse_4 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=2022a370-8723-47ba-a567-8d535784ae5a
+	export CO_CAPSULE_ID=96191619-86f4-4f28-85c7-4f992fc4b30c
 	export CO_CPUS=32
 	export CO_MEMORY=274877906944
 
@@ -212,8 +211,7 @@ process capsule_aind_smartspim_fuse_4 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-5563123.git" capsule-repo
-	git -C capsule-repo checkout 41e556bb0484707532da836c332204b6734a7c1e --quiet
+	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-2013512.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -228,8 +226,8 @@ process capsule_aind_smartspim_fuse_4 {
 
 // capsule - aind-smartspim-ccf-registration
 process capsule_aind_smartspim_ccf_registration_5 {
-	tag 'capsule-5181162'
-	container 'registry.codeocean.allenneuraldynamics.org/capsule/bef4d086-b2a9-4502-b2cc-3ce638dfe85a'
+	tag 'capsule-6045222'
+	container 'registry.codeocean.allenneuraldynamics.org/capsule/30b4f986-4d55-452f-aae7-463e19dba67d'
 
 	cpus 16
 	memory '128 GB'
@@ -248,7 +246,7 @@ process capsule_aind_smartspim_ccf_registration_5 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=bef4d086-b2a9-4502-b2cc-3ce638dfe85a
+	export CO_CAPSULE_ID=30b4f986-4d55-452f-aae7-463e19dba67d
 	export CO_CPUS=16
 	export CO_MEMORY=137438953472
 
@@ -260,8 +258,7 @@ process capsule_aind_smartspim_ccf_registration_5 {
 	ln -s "/tmp/data/ccf_atlas_image" "capsule/data/ccf_atlas_image" # id: 165a797d-cfca-420b-becc-0c89295ecf3f
 	
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-5181162.git" capsule-repo
-	git -C capsule-repo checkout 5148a715cede604ec8bee759f476ed36c2f2708d --quiet
+	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-6045222.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -330,8 +327,8 @@ process capsule_aind_smartspim_pipeline_dispatcher_6 {
 
 // capsule - aind-smartspim-cell-segmentation
 process capsule_aind_smartspim_cell_segmentation_7 {
-	tag 'capsule-2618458'
-	container 'registry.codeocean.allenneuraldynamics.org/capsule/7ce351d3-bef0-469d-baf7-515381c33ea1'
+	tag 'capsule-9761832'
+	container 'registry.codeocean.allenneuraldynamics.org/capsule/e2be5aab-618f-4a9e-9d50-b5b649e169b1'
 
 	cpus 16
 	memory '256 GB'
@@ -350,7 +347,7 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=7ce351d3-bef0-469d-baf7-515381c33ea1
+	export CO_CAPSULE_ID=e2be5aab-618f-4a9e-9d50-b5b649e169b1
 	export CO_CPUS=16
 	export CO_MEMORY=274877906944
 
@@ -360,8 +357,7 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-2618458.git" capsule-repo
-	git -C capsule-repo checkout 7745db5ca3586ca75bba155033fcdc31c7b95b0f --quiet
+	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-9761832.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -376,8 +372,8 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 
 // capsule - aind-smartspim-cell-quantification
 process capsule_aind_smartspim_cell_quantification_8 {
-	tag 'capsule-4278719'
-	container 'registry.codeocean.allenneuraldynamics.org/capsule/5b190bec-514c-4bea-8035-ac443ba0b692'
+	tag 'capsule-8884276'
+	container 'registry.codeocean.allenneuraldynamics.org/capsule/2486f4d2-79b2-4862-946b-e3a14e780f1d'
 
 	cpus 16
 	memory '128 GB'
@@ -397,7 +393,7 @@ process capsule_aind_smartspim_cell_quantification_8 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=5b190bec-514c-4bea-8035-ac443ba0b692
+	export CO_CAPSULE_ID=2486f4d2-79b2-4862-946b-e3a14e780f1d
 	export CO_CPUS=16
 	export CO_MEMORY=137438953472
 
@@ -407,8 +403,7 @@ process capsule_aind_smartspim_cell_quantification_8 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-4278719.git" capsule-repo
-	git -C capsule-repo checkout 465959b2063bb79f206ef716277d5fff700077e3 --quiet
+	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-8884276.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
