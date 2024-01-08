@@ -1,2 +1,18 @@
 metadata_version: 1
 name: aind-smartspim-pipeline
+description: A pipeline to process teravoxel-sized microscopy images using cloud computing resources.
+tags:
+- SmartSPIM
+authors:
+- name: Camilo Laiton
+  affiliations:
+  - name: Allen Institute for Neural Dynamics
+- name: Nicholas Lusk
+  affiliations:
+  - name: Allen Institute for Brain Science
+- name: David Feng
+  affiliations:
+  - name: Allen Institute for Neural Dynamics
+- name: Sharmishtaa Seshamani
+  affiliations:
+  - name: Allen Institute for Neural Dynamics
