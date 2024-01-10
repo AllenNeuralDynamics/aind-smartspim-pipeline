@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:6d7b7111f519012f7b172683ca4d298b063cc57a7f927a2edccfc753213acc17
+// hash:sha256:876cd7076ddab3aede18ab936d511235c96b4fa73c34d6610f12d052d8167d79
 
 nextflow.enable.dsl = 1
 
@@ -86,8 +86,8 @@ process capsule_aind_smartspim_validation_1 {
 
 // capsule - aind-destripe-shadow-correction
 process capsule_aind_destripe_shadow_correction_2 {
-	tag 'capsule-3325535'
-	container 'registry.codeocean.allenneuraldynamics.org/capsule/fcca3922-bc11-430e-9c63-faa7575af52d'
+	tag 'capsule-2988281'
+	container 'registry.codeocean.allenneuraldynamics.org/published/c055a106-47c8-4975-8606-b8125c1e8da8:v2'
 
 	cpus 32
 	memory '128 GB'
@@ -109,7 +109,7 @@ process capsule_aind_destripe_shadow_correction_2 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=fcca3922-bc11-430e-9c63-faa7575af52d
+	export CO_CAPSULE_ID=c055a106-47c8-4975-8606-b8125c1e8da8
 	export CO_CPUS=32
 	export CO_MEMORY=137438953472
 
@@ -119,8 +119,8 @@ process capsule_aind_destripe_shadow_correction_2 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-3325535.git" capsule-repo
-	git -C capsule-repo checkout 2a67dfd336416287aecb3d696073158ac7617717 --quiet
+	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-2988281.git" capsule-repo
+	git -C capsule-repo checkout v2.0
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
