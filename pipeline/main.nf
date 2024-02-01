@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:b15a32b9b74c401b94ddd564613c5a58e2316609967f07fc9e92c52121c6b913
+// hash:sha256:24a2eccf4531c6b6075f5f36594ec44c4a00bd9b685452f4881bf98a2ffb2580
 
 nextflow.enable.dsl = 1
 
@@ -45,7 +45,7 @@ capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_pipeline_di
 // capsule - aind-smartspim-validation
 process capsule_aind_smartspim_validation_1 {
 	tag 'capsule-7794579'
-	container 'registry.codeocean.allenneuraldynamics.org/published/9aab765d-b4b5-4e11-84fa-27557bc3c043:v3'
+	container 'registry.codeocean.allenneuraldynamics.org/published/9aab765d-b4b5-4e11-84fa-27557bc3c043:v4'
 
 	cpus 8
 	memory '64 GB'
@@ -72,7 +72,7 @@ process capsule_aind_smartspim_validation_1 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-7794579.git" capsule-repo
-	git -C capsule-repo checkout v3.0
+	git -C capsule-repo checkout v4.0
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
