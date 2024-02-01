@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:9dea836f8ee0fbad3bf1172b659da4c9551c1de9d65586d56828c16ebd0b1a3c
+// hash:sha256:0ca96a90e3f73409daffe9bca8f809b0541a0567327d29e8e384f25cecbb5823
 
 nextflow.enable.dsl = 1
 
@@ -279,7 +279,7 @@ process capsule_aind_smartspim_ccf_registration_5 {
 // capsule - aind-smartspim-pipeline-dispatcher
 process capsule_aind_smartspim_pipeline_dispatcher_6 {
 	tag 'capsule-6466712'
-	container 'registry.codeocean.allenneuraldynamics.org/published/b020c3b5-693e-418b-ad6a-f204a681ad89:v6'
+	container 'registry.codeocean.allenneuraldynamics.org/published/b020c3b5-693e-418b-ad6a-f204a681ad89:v7'
 
 	cpus 16
 	memory '128 GB'
@@ -318,7 +318,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_6 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-6466712.git" capsule-repo
-	git -C capsule-repo checkout v6.0
+	git -C capsule-repo checkout v7.0
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -427,7 +427,7 @@ process capsule_aind_smartspim_cell_quantification_8 {
 // capsule - aind-smartspim-pipeline-dispatcher
 process capsule_aind_smartspim_pipeline_dispatcher_9 {
 	tag 'capsule-6466712'
-	container 'registry.codeocean.allenneuraldynamics.org/published/b020c3b5-693e-418b-ad6a-f204a681ad89:v6'
+	container 'registry.codeocean.allenneuraldynamics.org/published/b020c3b5-693e-418b-ad6a-f204a681ad89:v7'
 
 	cpus 16
 	memory '128 GB'
@@ -460,7 +460,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_9 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-6466712.git" capsule-repo
-	git -C capsule-repo checkout v6.0
+	git -C capsule-repo checkout v7.0
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
