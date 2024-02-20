@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:24a2eccf4531c6b6075f5f36594ec44c4a00bd9b685452f4881bf98a2ffb2580
+// hash:sha256:7b2eca43be78f62cbedd6f8630843e85770969ced85dc837091cc19d0b508bc0
 
 nextflow.enable.dsl = 1
 
@@ -31,16 +31,17 @@ capsule_aind_smartspim_stitch_3_to_capsule_aind_smartspim_pipeline_dispatcher_6_
 capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_segmentation_7_24 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_25 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_26 = channel.create()
-capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_quantification_8_27 = channel.create()
-capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_cell_quantification_8_28 = channel.create()
-capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_cell_quantification_8_29 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_30 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_31 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_32 = channel.create()
+capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_27 = channel.create()
+capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_28 = channel.create()
+capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_29 = channel.create()
+capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_quantification_8_30 = channel.create()
+capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_cell_quantification_8_31 = channel.create()
+capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_cell_quantification_8_32 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_33 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_34 = channel.create()
-capsule_aind_smartspim_cell_quantification_8_to_capsule_aind_smartspim_pipeline_dispatcher_9_35 = channel.create()
-capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_pipeline_dispatcher_9_36 = channel.create()
+capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_35 = channel.create()
+capsule_aind_smartspim_cell_quantification_8_to_capsule_aind_smartspim_pipeline_dispatcher_9_36 = channel.create()
+capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_pipeline_dispatcher_9_37 = channel.create()
 
 // capsule - aind-smartspim-validation
 process capsule_aind_smartspim_validation_1 {
@@ -88,7 +89,7 @@ process capsule_aind_smartspim_validation_1 {
 // capsule - aind-destripe-shadow-correction
 process capsule_aind_destripe_shadow_correction_2 {
 	tag 'capsule-2988281'
-	container 'registry.codeocean.allenneuraldynamics.org/published/c055a106-47c8-4975-8606-b8125c1e8da8:v3'
+	container 'registry.codeocean.allenneuraldynamics.org/published/c055a106-47c8-4975-8606-b8125c1e8da8:v4'
 
 	cpus 32
 	memory '128 GB'
@@ -122,7 +123,7 @@ process capsule_aind_destripe_shadow_correction_2 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-2988281.git" capsule-repo
-	git -C capsule-repo checkout v3.0
+	git -C capsule-repo checkout v4.0
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -199,7 +200,7 @@ process capsule_aind_smartspim_fuse_4 {
 	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_ccf_registration_5_14
 	path 'capsule/results/fusion_*' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_pipeline_dispatcher_6_20
 	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_segmentation_7_24
-	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_quantification_8_27
+	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_quantification_8_30
 
 	script:
 	"""
@@ -245,7 +246,7 @@ process capsule_aind_smartspim_ccf_registration_5 {
 
 	output:
 	path 'capsule/results/*' into capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_pipeline_dispatcher_6_19
-	path 'capsule/results/*' into capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_cell_quantification_8_29
+	path 'capsule/results/*' into capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_cell_quantification_8_32
 
 	script:
 	"""
@@ -281,7 +282,7 @@ process capsule_aind_smartspim_ccf_registration_5 {
 // capsule - aind-smartspim-pipeline-dispatcher
 process capsule_aind_smartspim_pipeline_dispatcher_6 {
 	tag 'capsule-6466712'
-	container 'registry.codeocean.allenneuraldynamics.org/published/b020c3b5-693e-418b-ad6a-f204a681ad89:v7'
+	container 'registry.codeocean.allenneuraldynamics.org/published/b020c3b5-693e-418b-ad6a-f204a681ad89:v9'
 
 	cpus 16
 	memory '128 GB'
@@ -298,11 +299,12 @@ process capsule_aind_smartspim_pipeline_dispatcher_6 {
 	output:
 	path 'capsule/results/segmentation_processing_manifest_*.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_25
 	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_26
-	path 'capsule/results/segmentation_processing_manifest_*.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_30
-	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_31
-	path 'capsule/results/output_aind_metadata/processing.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_32
-	path 'capsule/results/modified_processing_manifest.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_33
-	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_34
+	path 'capsule/results/segmentation_processing_manifest_*.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_27
+	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_28
+	path 'capsule/results/output_aind_metadata/acquisition.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_29
+	path 'capsule/results/output_aind_metadata/processing.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_33
+	path 'capsule/results/modified_processing_manifest.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_34
+	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_35
 
 	script:
 	"""
@@ -320,7 +322,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_6 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-6466712.git" capsule-repo
-	git -C capsule-repo checkout v7.0
+	git -C capsule-repo checkout v9.0
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -347,8 +349,8 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_26.collect()
 
 	output:
-	path 'capsule/results/*' into capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_cell_quantification_8_28
-	path 'capsule/results/*' into capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_pipeline_dispatcher_9_36
+	path 'capsule/results/*' into capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_cell_quantification_8_31
+	path 'capsule/results/*' into capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_pipeline_dispatcher_9_37
 
 	script:
 	"""
@@ -382,20 +384,21 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 // capsule - aind-smartspim-cell-quantification
 process capsule_aind_smartspim_cell_quantification_8 {
 	tag 'capsule-3254921'
-	container 'registry.codeocean.allenneuraldynamics.org/published/73da6d60-4501-40cd-b258-1672d6a1773e:v2'
+	container 'registry.codeocean.allenneuraldynamics.org/published/73da6d60-4501-40cd-b258-1672d6a1773e:v3'
 
 	cpus 16
 	memory '128 GB'
 
 	input:
-	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_quantification_8_27.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_cell_quantification_8_28.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_cell_quantification_8_29.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_30.flatten()
-	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_31.collect()
+	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_27.flatten()
+	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_28.collect()
+	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_29.collect()
+	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_quantification_8_30.collect()
+	path 'capsule/data/' from capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_cell_quantification_8_31.collect()
+	path 'capsule/data/' from capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_cell_quantification_8_32.collect()
 
 	output:
-	path 'capsule/results/*' into capsule_aind_smartspim_cell_quantification_8_to_capsule_aind_smartspim_pipeline_dispatcher_9_35
+	path 'capsule/results/*' into capsule_aind_smartspim_cell_quantification_8_to_capsule_aind_smartspim_pipeline_dispatcher_9_36
 
 	script:
 	"""
@@ -413,7 +416,7 @@ process capsule_aind_smartspim_cell_quantification_8 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-3254921.git" capsule-repo
-	git -C capsule-repo checkout v2.0
+	git -C capsule-repo checkout v3.0
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -429,7 +432,7 @@ process capsule_aind_smartspim_cell_quantification_8 {
 // capsule - aind-smartspim-pipeline-dispatcher
 process capsule_aind_smartspim_pipeline_dispatcher_9 {
 	tag 'capsule-6466712'
-	container 'registry.codeocean.allenneuraldynamics.org/published/b020c3b5-693e-418b-ad6a-f204a681ad89:v7'
+	container 'registry.codeocean.allenneuraldynamics.org/published/b020c3b5-693e-418b-ad6a-f204a681ad89:v9'
 
 	cpus 16
 	memory '128 GB'
@@ -437,11 +440,11 @@ process capsule_aind_smartspim_pipeline_dispatcher_9 {
 	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
 
 	input:
-	path 'capsule/data/output_aind_metadata/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_32.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_33.collect()
-	path 'capsule/data/input_aind_metadata/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_34.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_cell_quantification_8_to_capsule_aind_smartspim_pipeline_dispatcher_9_35.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_pipeline_dispatcher_9_36.collect()
+	path 'capsule/data/output_aind_metadata/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_33.collect()
+	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_34.collect()
+	path 'capsule/data/input_aind_metadata/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_35.collect()
+	path 'capsule/data/' from capsule_aind_smartspim_cell_quantification_8_to_capsule_aind_smartspim_pipeline_dispatcher_9_36.collect()
+	path 'capsule/data/' from capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_pipeline_dispatcher_9_37.collect()
 
 	output:
 	path 'capsule/results/*'
@@ -462,7 +465,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_9 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@codeocean.allenneuraldynamics.org/capsule-6466712.git" capsule-repo
-	git -C capsule-repo checkout v7.0
+	git -C capsule-repo checkout v9.0
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
