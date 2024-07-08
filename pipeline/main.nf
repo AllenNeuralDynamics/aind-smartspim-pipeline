@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:53fe9d9e8608fe18cb38cdf06aa32e0ff0f3dd9dbe2997edda833bbd260ecb80
+// hash:sha256:515603968286c605f726a9721d50bb9ac802e80c007789d68eab9377024b610a
 
 nextflow.enable.dsl = 1
 
@@ -234,7 +234,7 @@ process capsule_aind_smartspim_fuse_4 {
 // capsule - aind-smartspim-ccf-registration
 process capsule_aind_smartspim_ccf_registration_5 {
 	tag 'capsule-8584302'
-	container "$REGISTRY_HOST/published/d61333f3-fd41-464e-9dac-dbdad02aec54:v1"
+	container "$REGISTRY_HOST/published/d61333f3-fd41-464e-9dac-dbdad02aec54:v2"
 
 	cpus 16
 	memory '128 GB'
@@ -262,10 +262,10 @@ process capsule_aind_smartspim_ccf_registration_5 {
 	mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
-	ln -s "/tmp/data/ccf_atlas_image" "capsule/data/ccf_atlas_image" # id: 165a797d-cfca-420b-becc-0c89295ecf3f
+	ln -s "/tmp/data/lightsheet_template_ccf_registration" "capsule/data/lightsheet_template_ccf_registration" # id: 9be4e3ac-adfb-4335-824c-bd99364a2c0f
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8584302.git" capsule-repo
+	git clone --branch v2.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8584302.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -381,7 +381,7 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 // capsule - aind-smartspim-cell-quantification
 process capsule_aind_smartspim_cell_quantification_8 {
 	tag 'capsule-3254921'
-	container "$REGISTRY_HOST/published/73da6d60-4501-40cd-b258-1672d6a1773e:v6"
+	container "$REGISTRY_HOST/published/73da6d60-4501-40cd-b258-1672d6a1773e:v7"
 
 	cpus 16
 	memory '128 GB'
@@ -411,8 +411,10 @@ process capsule_aind_smartspim_cell_quantification_8 {
 	mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
+	ln -s "/tmp/data/lightsheet_template_ccf_registration" "capsule/data/lightsheet_template_ccf_registration" # id: 9be4e3ac-adfb-4335-824c-bd99364a2c0f
+
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v6.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-3254921.git" capsule-repo
+	git clone --branch v7.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-3254921.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
