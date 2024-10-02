@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:dbbe98d828a483241892c4062ea1b5229ecbab68a624fa319ea75f53ceaa8d61
+// hash:sha256:4180bc504f8a86f1d9e5a85a7fcb95bdbba94e75dcfb8eff106a8d295b79b93b
 
 nextflow.enable.dsl = 1
 
@@ -93,7 +93,7 @@ process capsule_aind_smartspim_validation_1 {
 // capsule - aind-destripe-shadow-correction
 process capsule_aind_destripe_shadow_correction_2 {
 	tag 'capsule-3325535'
-	container "$REGISTRY_HOST/capsule/fcca3922-bc11-430e-9c63-faa7575af52d:9ee1448dc8c6eb3450012143d43a9868"
+	container "$REGISTRY_HOST/capsule/fcca3922-bc11-430e-9c63-faa7575af52d"
 
 	cpus 32
 	memory '128 GB'
@@ -143,7 +143,7 @@ process capsule_aind_destripe_shadow_correction_2 {
 // capsule - aind-smartspim-stitch
 process capsule_aind_smartspim_stitch_3 {
 	tag 'capsule-4153248'
-	container "$REGISTRY_HOST/capsule/1c4065c1-93e6-4bfc-af9d-7c6f4eea7e63:ee33f7e4ac020ada28808c1536b43b23"
+	container "$REGISTRY_HOST/capsule/1c4065c1-93e6-4bfc-af9d-7c6f4eea7e63"
 
 	cpus 32
 	memory '256 GB'
@@ -190,7 +190,7 @@ process capsule_aind_smartspim_stitch_3 {
 // capsule - aind-smartspim-fuse
 process capsule_aind_smartspim_fuse_4 {
 	tag 'capsule-2013512'
-	container "$REGISTRY_HOST/capsule/96191619-86f4-4f28-85c7-4f992fc4b30c:1dc3321739c76428a66de781faa41de5"
+	container "$REGISTRY_HOST/capsule/96191619-86f4-4f28-85c7-4f992fc4b30c"
 
 	cpus 32
 	memory '256 GB'
@@ -241,7 +241,7 @@ process capsule_aind_smartspim_fuse_4 {
 // capsule - aind-smartspim-ccf-registration
 process capsule_aind_smartspim_ccf_registration_5 {
 	tag 'capsule-6045222'
-	container "$REGISTRY_HOST/capsule/30b4f986-4d55-452f-aae7-463e19dba67d:e8b1e6e1c4b54647502bddfebc466738"
+	container "$REGISTRY_HOST/capsule/30b4f986-4d55-452f-aae7-463e19dba67d"
 
 	cpus 16
 	memory '128 GB'
@@ -289,7 +289,7 @@ process capsule_aind_smartspim_ccf_registration_5 {
 // capsule - aind-smartspim-pipeline-dispatcher
 process capsule_aind_smartspim_pipeline_dispatcher_6 {
 	tag 'capsule-2991712'
-	container "$REGISTRY_HOST/capsule/18f160f3-be42-49c7-87a3-0ed0938bfa28:2d14cf9a8e6c473e295a9b7ce1361f07"
+	container "$REGISTRY_HOST/capsule/18f160f3-be42-49c7-87a3-0ed0938bfa28"
 
 	cpus 16
 	memory '128 GB'
@@ -346,7 +346,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_6 {
 // capsule - aind-smartspim-cell-segmentation
 process capsule_aind_smartspim_cell_segmentation_7 {
 	tag 'capsule-9761832'
-	container "$REGISTRY_HOST/capsule/e2be5aab-618f-4a9e-9d50-b5b649e169b1:17e869d659f42df724f3dd2205d0e24c"
+	container "$REGISTRY_HOST/capsule/e2be5aab-618f-4a9e-9d50-b5b649e169b1"
 
 	cpus 16
 	memory '256 GB'
@@ -391,7 +391,7 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 // capsule - reprocess-aind-smartspim-cell-quantification
 process capsule_aind_smartspim_cell_quantification_8 {
 	tag 'capsule-8884276'
-	container "$REGISTRY_HOST/capsule/2486f4d2-79b2-4862-946b-e3a14e780f1d:4be0ae63398b43b395616bf29d1b8e56"
+	container "$REGISTRY_HOST/capsule/2486f4d2-79b2-4862-946b-e3a14e780f1d"
 
 	cpus 16
 	memory '128 GB'
@@ -432,7 +432,7 @@ process capsule_aind_smartspim_cell_quantification_8 {
 	echo "[${task.tag}] running capsule..."
 	cd capsule/code
 	chmod +x run
-	./run
+	./run detect
 
 	echo "[${task.tag}] completed!"
 	"""
@@ -441,7 +441,7 @@ process capsule_aind_smartspim_cell_quantification_8 {
 // capsule - aind-smartspim-pipeline-dispatcher
 process capsule_aind_smartspim_pipeline_dispatcher_9 {
 	tag 'capsule-2991712'
-	container "$REGISTRY_HOST/capsule/18f160f3-be42-49c7-87a3-0ed0938bfa28:2d14cf9a8e6c473e295a9b7ce1361f07"
+	container "$REGISTRY_HOST/capsule/18f160f3-be42-49c7-87a3-0ed0938bfa28"
 
 	cpus 16
 	memory '128 GB'
@@ -490,7 +490,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_9 {
 // capsule - aind-smartspim-cell-classification
 process capsule_aind_smartspim_cell_classification_gpu_10 {
 	tag 'capsule-0963828'
-	container "$REGISTRY_HOST/capsule/6fa72b6b-7b12-466e-94da-6cc5699b68f3:7c618213fd35c9049e9d656de6c3392c"
+	container "$REGISTRY_HOST/capsule/6fa72b6b-7b12-466e-94da-6cc5699b68f3"
 
 	cpus 16
 	memory '61 GB'
