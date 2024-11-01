@@ -1,27 +1,28 @@
 #!/usr/bin/env nextflow
 """
-Nextflow script to execute the SmartSPIM pipeline. This script executes
-the following steps:
-- Retrospective flatfield correction
-- Image horizontal destriping
-- Flatfield correction
-- Image stitching
-- Image fusion
-- Image atlas registration to the CCF Allen v3 atlas
-- Image cell detection
-- Image cell quantification
+Nextflow Script: SmartSPIM Pipeline
+
+This script executes the SmartSPIM pipeline, performing the following operations:
+1. Retrospective flatfield correction
+2. Image horizontal destriping
+3. Flatfield correction
+4. Image stitching
+5. Image fusion
+6. Image atlas registration to the Allen CCF v3 atlas
+7. Image cell detection
+8. Image cell quantification
 
 Parameters
 ----------
+DATA_PATH : str
+    Path to the dataset.
+RESULTS_PATH : str
+    Path to the results folder.
+PARAMS : dict
+    Configuration parameters for the SmartSPIM pipeline.
 
-DATA_PATH: str
-    Path where the dataset is located.
-
-RESULTS_PATH: str
-    Path where the results folder is located.
-
-PARAMS: dict
-    Parameters provided to the smartspim pipeline.
+Author: Camilo Laiton
+Date: Nov 1st, 2024.
 """
 nextflow.enable.dsl = 1
 
@@ -77,6 +78,12 @@ stitch_to_fuse = channel.create()
 // Channels from fusion to CCF registration
 fuse_to_registration = channel.create()
 
+// Channels from fusion to cell detection
+fuse_to_cell_detect = channel.create()
+
+// channels from fusion to quantification
+fuse_to_quantification = channel.create()
+
 // Channels from dataset to registration
 dataset_to_registration_manifest = channel.fromPath(params.lightsheet_dataset + "/derivatives/processing_manifest.json", type: 'any')
 dataset_to_registration_acquisition = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
@@ -85,40 +92,39 @@ dataset_to_registration_acquisition = channel.fromPath(params.lightsheet_dataset
 preprocessing_to_dispatch_1 = channel.create()
 preprocessing_to_dispatch_2 = channel.create()
 
-// Channels from registration to dispatcher
-registration_to_dispatcher = channel.create()
+// Channels from stitching to dispatcher
+stitch_to_dispatch = channel.create()
 
 // Channels from fusion to dispatcher
 fuse_to_dispatch = channel.create()
+
+// Channels from registration to dispatcher
+registration_to_dispatcher = channel.create()
 
 // Channels from dataset to dispatcher
 dataset_to_dispatch_metadata = channel.fromPath(params.lightsheet_dataset + "/*.json", type: 'any')
 dataset_to_dispatch_manifest = channel.fromPath(params.lightsheet_dataset + "/derivatives/processing_manifest.json", type: 'any')
 
-// Channels from stitching to dispatcher
-stitch_to_dispatch = channel.create()
-
-// Channels from fusion to cell detection
-fuse_to_cell_detect = channel.create()
-
-// channels from fusion to quantification
-fuse_to_quantification = channel.create()
-
 // Channels from dispatcher to cell detection
-dispatch_to_cell_detect_1 = channel.create()
-dispatch_to_cell_detect_2 = channel.create()
-
-
-// Channels from classification to quantification
-classification_to_quantification = channel.create()
+dispatch_to_cell_detect_manifests = channel.create()
+dispatch_to_cell_detect_data_description = channel.create()
 
 // Channels from dispatch to cell quantification
 dispatcher_to_quantification_manifests = channel.create()
 dispatcher_to_quantification_data_description = channel.create()
 dispatcher_to_quantification_acquisition = channel.create()
 
+// Channels from fusion to classification
+fusion_to_classification = channel.create()
+
 // Channels from registration to quantification
 registration_to_quantification = channel.create()
+
+// Channels from cell detection to cell classification
+cell_detect_to_classification = channel.create()
+
+// Channels from classification to quantification
+classification_to_quantification = channel.create()
 
 // Dispatch outputs
 dispatch_to_dispatch_processing_json_output = channel.create()
@@ -130,12 +136,6 @@ classification_to_dispatch = channel.create()
 
 // Channels from quantification to dispatcher
 quantification_to_dispatcher = channel.create()
-
-// Channels from cell detection to cell classification
-cell_detect_to_classification = channel.create()
-
-// Channels from usion to classification
-fusion_to_classification = channel.create()
 
 // Channels from dispatcher to classification
 dispatch_to_classification = channel.create()
@@ -396,8 +396,8 @@ process capsule_aind_smartspim_pipeline_dispatcher_6 {
 	path 'capsule/data/stitched/' from stitch_to_dispatch.collect()
 
 	output:
-	path 'capsule/results/segmentation_processing_manifest_*.json' into dispatch_to_cell_detect_1
-	path 'capsule/results/output_aind_metadata/data_description.json' into dispatch_to_cell_detect_2
+	path 'capsule/results/segmentation_processing_manifest_*.json' into dispatch_to_cell_detect_manifests
+	path 'capsule/results/output_aind_metadata/data_description.json' into dispatch_to_cell_detect_data_description
 	path 'capsule/results/segmentation_processing_manifest_*.json' into dispatcher_to_quantification_manifests
 	path 'capsule/results/output_aind_metadata/data_description.json' into dispatcher_to_quantification_data_description
 	path 'capsule/results/output_aind_metadata/acquisition.json' into dispatcher_to_quantification_acquisition
@@ -445,8 +445,8 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 
 	input:
 	path 'capsule/data/fused/' from fuse_to_cell_detect.collect()
-	path 'capsule/data/' from dispatch_to_cell_detect_1.flatten()
-	path 'capsule/data/' from dispatch_to_cell_detect_2.collect()
+	path 'capsule/data/' from dispatch_to_cell_detect_manifests.flatten()
+	path 'capsule/data/' from dispatch_to_cell_detect_data_description.collect()
 
 	output:
 	path 'capsule/results/*' into cell_detect_to_classification
