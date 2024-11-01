@@ -55,28 +55,54 @@ dataset_to_preprocessing_derivatives = channel.fromPath(params.lightsheet_datase
 // Channels from validation to preprocessing capsule
 validation_to_preprocessing = channel.create()
 
-smartspim_test_dataset_to_aind_smartspim_stitch_7 = channel.fromPath(params.lightsheet_dataset + "/derivatives/processing_manifest.json", type: 'any')
-smartspim_test_dataset_to_aind_smartspim_stitch_8 = channel.fromPath(params.lightsheet_dataset + "/data_description.json", type: 'any')
-smartspim_test_dataset_to_aind_smartspim_stitch_9 = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
-capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_stitch_3_10 = channel.create()
-smartspim_test_dataset_to_aind_smartspim_fuse_11 = channel.fromPath(params.lightsheet_dataset + "/derivatives/processing_manifest.json", type: 'any')
-smartspim_test_dataset_to_aind_smartspim_fuse_12 = channel.fromPath(params.lightsheet_dataset + "/data_description.json", type: 'any')
-smartspim_test_dataset_to_aind_smartspim_fuse_13 = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
-capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_fuse_4_14 = channel.create()
-capsule_aind_smartspim_stitch_3_to_capsule_aind_smartspim_fuse_4_15 = channel.create()
-capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_ccf_registration_5_16 = channel.create()
-smartspim_test_dataset_to_aind_smartspim_ccf_registration_17 = channel.fromPath(params.lightsheet_dataset + "/derivatives/processing_manifest.json", type: 'any')
-smartspim_test_dataset_to_aind_smartspim_ccf_registration_18 = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
-capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_pipeline_dispatcher_6_19 = channel.create()
-capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_pipeline_dispatcher_6_20 = channel.create()
-capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_pipeline_dispatcher_6_21 = channel.create()
-capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_pipeline_dispatcher_6_22 = channel.create()
-smartspim_test_dataset_to_aind_smartspim_pipeline_dispatcher_23 = channel.fromPath(params.lightsheet_dataset + "/*.json", type: 'any')
-smartspim_test_dataset_to_aind_smartspim_pipeline_dispatcher_24 = channel.fromPath(params.lightsheet_dataset + "/derivatives/processing_manifest.json", type: 'any')
-capsule_aind_smartspim_stitch_3_to_capsule_aind_smartspim_pipeline_dispatcher_6_25 = channel.create()
-capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_segmentation_7_26 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_27 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_28 = channel.create()
+// Channels from dataset to stitching
+dataset_to_stitch_manifest = channel.fromPath(params.lightsheet_dataset + "/derivatives/processing_manifest.json", type: 'any')
+dataset_to_stitch_data_description = channel.fromPath(params.lightsheet_dataset + "/data_description.json", type: 'any')
+dataset_to_stitch_acquisition = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
+
+// Channels from preprocessing to stitching
+preprocessing_to_stitch = channel.create()
+
+// Channels from dataset to fusion
+dataset_to_fuse_manifest = channel.fromPath(params.lightsheet_dataset + "/derivatives/processing_manifest.json", type: 'any')
+dataset_to_fuse_data_description = channel.fromPath(params.lightsheet_dataset + "/data_description.json", type: 'any')
+dataset_to_fuse_acquisition = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
+
+// Channels from preprocessing to fusion
+preprocessing_to_fuse = channel.create()
+
+// Channels from stiching to fusion
+stitch_to_fuse = channel.create()
+
+// Channels from fusion to CCF registration
+fuse_to_registration = channel.create()
+
+// Channels from dataset to registration
+dataset_to_registration_manifest = channel.fromPath(params.lightsheet_dataset + "/derivatives/processing_manifest.json", type: 'any')
+dataset_to_registration_acquisition = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
+
+// Channels from preprocessing to dispatcher
+preprocessing_to_dispatch_1 = channel.create()
+preprocessing_to_dispatch_2 = channel.create()
+
+// Channels from registration to dispatcher
+registration_to_dispatcher = channel.create()
+
+// Channels from fusion to dispatcher
+fuse_to_dispatch = channel.create()
+
+// Channels from dataset to dispatcher
+dataset_to_dispatch_metadata = channel.fromPath(params.lightsheet_dataset + "/*.json", type: 'any')
+dataset_to_dispatch_manifest = channel.fromPath(params.lightsheet_dataset + "/derivatives/processing_manifest.json", type: 'any')
+
+// Channels from stitching to dispatcher
+stitch_to_dispatch = channel.create()
+
+// Channels from fusion to cell detection
+fuse_to_cell_detect = channel.create()
+dispatch_to_cell_detect_1 = channel.create()
+dispatch_to_cell_detect_2 = channel.create()
+
 capsule_aind_smartspim_cell_classification_gpu_10_to_capsule_aind_smartspim_cell_quantification_8_29 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_30 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_31 = channel.create()
@@ -150,10 +176,10 @@ process capsule_aind_destripe_shadow_correction_2 {
 	path 'capsule/data/' from validation_to_preprocessing.collect()
 
 	output:
-	path 'capsule/results/Ex_*_Em_*' into capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_stitch_3_10
-	path 'capsule/results/Ex_*_Em_*' into capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_fuse_4_14
-	path 'capsule/results/image_destriping_*_processing.json' into capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_pipeline_dispatcher_6_19
-	path 'capsule/results/flatfield_correction_*' into capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_pipeline_dispatcher_6_20
+	path 'capsule/results/Ex_*_Em_*' into preprocessing_to_stitch
+	path 'capsule/results/Ex_*_Em_*' into preprocessing_to_fuse
+	path 'capsule/results/image_destriping_*_processing.json' into preprocessing_to_dispatch_1
+	path 'capsule/results/flatfield_correction_*' into preprocessing_to_dispatch_2
 
 	script:
 	"""
@@ -193,14 +219,14 @@ process capsule_aind_smartspim_stitch_3 {
 	memory '256 GB'
 
 	input:
-	path 'capsule/data/' from smartspim_test_dataset_to_aind_smartspim_stitch_7.collect()
-	path 'capsule/data/' from smartspim_test_dataset_to_aind_smartspim_stitch_8.collect()
-	path 'capsule/data/' from smartspim_test_dataset_to_aind_smartspim_stitch_9.collect()
-	path 'capsule/data/' from capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_stitch_3_10.collect()
+	path 'capsule/data/' from dataset_to_stitch_manifest.collect()
+	path 'capsule/data/' from dataset_to_stitch_data_description.collect()
+	path 'capsule/data/' from dataset_to_stitch_acquisition.collect()
+	path 'capsule/data/' from preprocessing_to_stitch.collect()
 
 	output:
-	path 'capsule/results/volume_alignments.xml' into capsule_aind_smartspim_stitch_3_to_capsule_aind_smartspim_fuse_4_15
-	path 'capsule/results/stitch_*' into capsule_aind_smartspim_stitch_3_to_capsule_aind_smartspim_pipeline_dispatcher_6_25
+	path 'capsule/results/volume_alignments.xml' into stitch_to_fuse
+	path 'capsule/results/stitch_*' into stitch_to_dispatch
 
 	script:
 	"""
@@ -240,16 +266,16 @@ process capsule_aind_smartspim_fuse_4 {
 	memory '256 GB'
 
 	input:
-	path 'capsule/data/' from smartspim_test_dataset_to_aind_smartspim_fuse_11.collect()
-	path 'capsule/data/' from smartspim_test_dataset_to_aind_smartspim_fuse_12.collect()
-	path 'capsule/data/' from smartspim_test_dataset_to_aind_smartspim_fuse_13.collect()
-	path 'capsule/data/' from capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_fuse_4_14.flatten()
-	path 'capsule/data/' from capsule_aind_smartspim_stitch_3_to_capsule_aind_smartspim_fuse_4_15.collect()
+	path 'capsule/data/' from dataset_to_fuse_manifest.collect()
+	path 'capsule/data/' from dataset_to_fuse_data_description.collect()
+	path 'capsule/data/' from dataset_to_fuse_acquisition.collect()
+	path 'capsule/data/' from preprocessing_to_fuse.flatten()
+	path 'capsule/data/' from stitch_to_fuse.collect()
 
 	output:
-	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_ccf_registration_5_16
-	path 'capsule/results/fusion_*' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_pipeline_dispatcher_6_22
-	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_segmentation_7_26
+	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into fuse_to_registration
+	path 'capsule/results/fusion_*' into fuse_to_dispatch
+	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into fuse_to_cell_detect
 	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_quantification_8_33
 	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_classification_gpu_10_41
 
@@ -291,12 +317,12 @@ process capsule_aind_smartspim_ccf_registration_5 {
 	memory '128 GB'
 
 	input:
-	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_ccf_registration_5_16.collect()
-	path 'capsule/data/' from smartspim_test_dataset_to_aind_smartspim_ccf_registration_17.collect()
-	path 'capsule/data/' from smartspim_test_dataset_to_aind_smartspim_ccf_registration_18.collect()
+	path 'capsule/data/fused/' from fuse_to_registration.collect()
+	path 'capsule/data/' from dataset_to_registration_manifest.collect()
+	path 'capsule/data/' from dataset_to_registration_acquisition.collect()
 
 	output:
-	path 'capsule/results/*' into capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_pipeline_dispatcher_6_21
+	path 'capsule/results/*' into registration_to_dispatcher
 	path 'capsule/results/*' into capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_cell_quantification_8_34
 
 	script:
@@ -339,17 +365,17 @@ process capsule_aind_smartspim_pipeline_dispatcher_6 {
 	memory '128 GB'
 
 	input:
-	path 'capsule/data/' from capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_pipeline_dispatcher_6_19.collect()
-	path 'capsule/data/' from capsule_aind_destripe_shadow_correction_2_to_capsule_aind_smartspim_pipeline_dispatcher_6_20.collect()
-	path 'capsule/data/ccf_registration_results/' from capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_pipeline_dispatcher_6_21.collect()
-	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_pipeline_dispatcher_6_22.collect()
-	path 'capsule/data/input_aind_metadata/' from smartspim_test_dataset_to_aind_smartspim_pipeline_dispatcher_23.collect()
-	path 'capsule/data/' from smartspim_test_dataset_to_aind_smartspim_pipeline_dispatcher_24.collect()
-	path 'capsule/data/stitched/' from capsule_aind_smartspim_stitch_3_to_capsule_aind_smartspim_pipeline_dispatcher_6_25.collect()
+	path 'capsule/data/' from preprocessing_to_dispatch_1.collect()
+	path 'capsule/data/' from preprocessing_to_dispatch_2.collect()
+	path 'capsule/data/ccf_registration_results/' from registration_to_dispatcher.collect()
+	path 'capsule/data/fused/' from fuse_to_dispatch.collect()
+	path 'capsule/data/input_aind_metadata/' from dataset_to_dispatch_metadata.collect()
+	path 'capsule/data/' from dataset_to_dispatch_manifest.collect()
+	path 'capsule/data/stitched/' from stitch_to_dispatch.collect()
 
 	output:
-	path 'capsule/results/segmentation_processing_manifest_*.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_27
-	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_28
+	path 'capsule/results/segmentation_processing_manifest_*.json' into dispatch_to_cell_detect_1
+	path 'capsule/results/output_aind_metadata/data_description.json' into dispatch_to_cell_detect_2
 	path 'capsule/results/segmentation_processing_manifest_*.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_30
 	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_31
 	path 'capsule/results/output_aind_metadata/acquisition.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_32
@@ -396,9 +422,9 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 	memory '256 GB'
 
 	input:
-	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_segmentation_7_26.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_27.flatten()
-	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_segmentation_7_28.collect()
+	path 'capsule/data/fused/' from fuse_to_cell_detect.collect()
+	path 'capsule/data/' from dispatch_to_cell_detect_1.flatten()
+	path 'capsule/data/' from dispatch_to_cell_detect_2.collect()
 
 	output:
 	path 'capsule/results/*' into capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_cell_classification_gpu_10_40
