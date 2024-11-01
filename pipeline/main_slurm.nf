@@ -100,23 +100,45 @@ stitch_to_dispatch = channel.create()
 
 // Channels from fusion to cell detection
 fuse_to_cell_detect = channel.create()
+
+// channels from fusion to quantification
+fuse_to_quantification = channel.create()
+
+// Channels from dispatcher to cell detection
 dispatch_to_cell_detect_1 = channel.create()
 dispatch_to_cell_detect_2 = channel.create()
 
-capsule_aind_smartspim_cell_classification_gpu_10_to_capsule_aind_smartspim_cell_quantification_8_29 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_30 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_31 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_32 = channel.create()
-capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_quantification_8_33 = channel.create()
-capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_cell_quantification_8_34 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_35 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_36 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_37 = channel.create()
-capsule_aind_smartspim_cell_classification_gpu_10_to_capsule_aind_smartspim_pipeline_dispatcher_9_38 = channel.create()
-capsule_aind_smartspim_cell_quantification_8_to_capsule_aind_smartspim_pipeline_dispatcher_9_39 = channel.create()
-capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_cell_classification_gpu_10_40 = channel.create()
-capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_classification_gpu_10_41 = channel.create()
-capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_classification_gpu_10_42 = channel.create()
+
+// Channels from classification to quantification
+classification_to_quantification = channel.create()
+
+// Channels from dispatch to cell quantification
+dispatcher_to_quantification_manifests = channel.create()
+dispatcher_to_quantification_data_description = channel.create()
+dispatcher_to_quantification_acquisition = channel.create()
+
+// Channels from registration to quantification
+registration_to_quantification = channel.create()
+
+// Dispatch outputs
+dispatch_to_dispatch_processing_json_output = channel.create()
+dispatch_to_dispatch_mod_manifest_output = channel.create()
+dispatch_to_dispatch_data_description_output = channel.create()
+
+// Channels from cell classification to dispatcher
+classification_to_dispatch = channel.create()
+
+// Channels from quantification to dispatcher
+quantification_to_dispatcher = channel.create()
+
+// Channels from cell detection to cell classification
+cell_detect_to_classification = channel.create()
+
+// Channels from usion to classification
+fusion_to_classification = channel.create()
+
+// Channels from dispatcher to classification
+dispatch_to_classification = channel.create()
 
 // capsule - aind-smartspim-validation
 process capsule_aind_smartspim_validation_1 {
@@ -276,8 +298,8 @@ process capsule_aind_smartspim_fuse_4 {
 	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into fuse_to_registration
 	path 'capsule/results/fusion_*' into fuse_to_dispatch
 	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into fuse_to_cell_detect
-	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_quantification_8_33
-	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_classification_gpu_10_41
+	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into fuse_to_quantification
+	path 'capsule/results/fusion_*/OMEZarr/Ex_*_Em_*.zarr' into fusion_to_classification
 
 	script:
 	"""
@@ -323,7 +345,7 @@ process capsule_aind_smartspim_ccf_registration_5 {
 
 	output:
 	path 'capsule/results/*' into registration_to_dispatcher
-	path 'capsule/results/*' into capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_cell_quantification_8_34
+	path 'capsule/results/*' into registration_to_quantification
 
 	script:
 	"""
@@ -376,13 +398,13 @@ process capsule_aind_smartspim_pipeline_dispatcher_6 {
 	output:
 	path 'capsule/results/segmentation_processing_manifest_*.json' into dispatch_to_cell_detect_1
 	path 'capsule/results/output_aind_metadata/data_description.json' into dispatch_to_cell_detect_2
-	path 'capsule/results/segmentation_processing_manifest_*.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_30
-	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_31
-	path 'capsule/results/output_aind_metadata/acquisition.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_32
-	path 'capsule/results/output_aind_metadata/processing.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_35
-	path 'capsule/results/modified_processing_manifest.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_36
-	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_37
-	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_classification_gpu_10_42
+	path 'capsule/results/segmentation_processing_manifest_*.json' into dispatcher_to_quantification_manifests
+	path 'capsule/results/output_aind_metadata/data_description.json' into dispatcher_to_quantification_data_description
+	path 'capsule/results/output_aind_metadata/acquisition.json' into dispatcher_to_quantification_acquisition
+	path 'capsule/results/output_aind_metadata/processing.json' into dispatch_to_dispatch_processing_json_output
+	path 'capsule/results/modified_processing_manifest.json' into dispatch_to_dispatch_mod_manifest_output
+	path 'capsule/results/output_aind_metadata/data_description.json' into dispatch_to_dispatch_data_description_output
+	path 'capsule/results/output_aind_metadata/data_description.json' into dispatch_to_classification
 
 	script:
 	"""
@@ -427,7 +449,7 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 	path 'capsule/data/' from dispatch_to_cell_detect_2.collect()
 
 	output:
-	path 'capsule/results/*' into capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_cell_classification_gpu_10_40
+	path 'capsule/results/*' into cell_detect_to_classification
 
 	script:
 	"""
@@ -467,15 +489,15 @@ process capsule_aind_smartspim_cell_quantification_8 {
 	memory '128 GB'
 
 	input:
-	path 'capsule/data/' from capsule_aind_smartspim_cell_classification_gpu_10_to_capsule_aind_smartspim_cell_quantification_8_29.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_30.flatten()
-	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_31.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_quantification_8_32.collect()
-	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_quantification_8_33.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_ccf_registration_5_to_capsule_aind_smartspim_cell_quantification_8_34.collect()
+	path 'capsule/data/' from classification_to_quantification.collect()
+	path 'capsule/data/' from dispatcher_to_quantification_manifests.flatten()
+	path 'capsule/data/' from dispatcher_to_quantification_data_description.collect()
+	path 'capsule/data/' from dispatcher_to_quantification_acquisition.collect()
+	path 'capsule/data/fused/' from fuse_to_quantification.collect()
+	path 'capsule/data/' from registration_to_quantification.collect()
 
 	output:
-	path 'capsule/results/*' into capsule_aind_smartspim_cell_quantification_8_to_capsule_aind_smartspim_pipeline_dispatcher_9_39
+	path 'capsule/results/*' into quantification_to_dispatcher
 
 	script:
 	"""
@@ -519,11 +541,11 @@ process capsule_aind_smartspim_pipeline_dispatcher_9 {
 	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
 
 	input:
-	path 'capsule/data/output_aind_metadata/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_35.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_36.collect()
-	path 'capsule/data/input_aind_metadata/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_pipeline_dispatcher_9_37.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_cell_classification_gpu_10_to_capsule_aind_smartspim_pipeline_dispatcher_9_38.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_cell_quantification_8_to_capsule_aind_smartspim_pipeline_dispatcher_9_39.collect()
+	path 'capsule/data/output_aind_metadata/' from dispatch_to_dispatch_processing_json_output.collect()
+	path 'capsule/data/' from dispatch_to_dispatch_mod_manifest_output.collect()
+	path 'capsule/data/input_aind_metadata/' from dispatch_to_dispatch_data_description_output.collect()
+	path 'capsule/data/' from classification_to_dispatch.collect()
+	path 'capsule/data/' from quantification_to_dispatcher.collect()
 
 	output:
 	path 'capsule/results/*'
@@ -568,13 +590,13 @@ process capsule_aind_smartspim_cell_classification_gpu_10 {
 	label 'gpu'
 
 	input:
-	path 'capsule/data/' from capsule_aind_smartspim_cell_segmentation_7_to_capsule_aind_smartspim_cell_classification_gpu_10_40
-	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_4_to_capsule_aind_smartspim_cell_classification_gpu_10_41.collect()
-	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_6_to_capsule_aind_smartspim_cell_classification_gpu_10_42.collect()
+	path 'capsule/data/' from cell_detect_to_classification
+	path 'capsule/data/fused/' from fusion_to_classification.collect()
+	path 'capsule/data/' from dispatch_to_classification.collect()
 
 	output:
-	path 'capsule/results/*' into capsule_aind_smartspim_cell_classification_gpu_10_to_capsule_aind_smartspim_cell_quantification_8_29
-	path 'capsule/results/*' into capsule_aind_smartspim_cell_classification_gpu_10_to_capsule_aind_smartspim_pipeline_dispatcher_9_38
+	path 'capsule/results/*' into classification_to_quantification
+	path 'capsule/results/*' into classification_to_dispatch
 
 	script:
 	"""
