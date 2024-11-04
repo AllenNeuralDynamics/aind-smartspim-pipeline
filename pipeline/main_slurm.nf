@@ -140,13 +140,14 @@ quantification_to_dispatcher = channel.create()
 // Channels from dispatcher to classification
 dispatch_to_classification = channel.create()
 
-// capsule - aind-smartspim-validation
-process capsule_aind_smartspim_validation_1 {
+// capsule - aind-smartspim-validation -> Only for PNGs
+process data_validation {
 	tag 'capsule-7794579'
 	container "$REGISTRY_HOST/published/9aab765d-b4b5-4e11-84fa-27557bc3c043:v4"
 
 	cpus 8
 	memory '64 GB'
+	time '1h'
 
 	input:
 	path 'capsule/data' from dataset_to_validation.collect()
@@ -183,12 +184,13 @@ process capsule_aind_smartspim_validation_1 {
 }
 
 // capsule - aind-destripe-shadow-correction
-process capsule_aind_destripe_shadow_correction_2 {
+process preprocessing {
 	tag 'capsule-3325535'
 	container "$REGISTRY_HOST/capsule/fcca3922-bc11-430e-9c63-faa7575af52d"
 
 	cpus 32
 	memory '128 GB'
+	time '12h'
 
 	input:
 	path 'capsule/data/' from dataset_to_preprocessing_imgs
@@ -233,12 +235,13 @@ process capsule_aind_destripe_shadow_correction_2 {
 }
 
 // capsule - aind-smartspim-stitch
-process capsule_aind_smartspim_stitch_3 {
+process stitching {
 	tag 'capsule-4153248'
 	container "$REGISTRY_HOST/capsule/1c4065c1-93e6-4bfc-af9d-7c6f4eea7e63"
 
 	cpus 32
 	memory '256 GB'
+	time '6h'
 
 	input:
 	path 'capsule/data/' from dataset_to_stitch_manifest.collect()
@@ -280,12 +283,13 @@ process capsule_aind_smartspim_stitch_3 {
 }
 
 // capsule - aind-smartspim-fuse
-process capsule_aind_smartspim_fuse_4 {
+process fusion {
 	tag 'capsule-2013512'
 	container "$REGISTRY_HOST/capsule/96191619-86f4-4f28-85c7-4f992fc4b30c"
 
 	cpus 32
 	memory '256 GB'
+	time '12h'
 
 	input:
 	path 'capsule/data/' from dataset_to_fuse_manifest.collect()
@@ -331,12 +335,13 @@ process capsule_aind_smartspim_fuse_4 {
 }
 
 // capsule - aind-smartspim-ccf-registration
-process capsule_aind_smartspim_ccf_registration_5 {
+process atlas_registration {
 	tag 'capsule-6045222'
 	container "$REGISTRY_HOST/capsule/30b4f986-4d55-452f-aae7-463e19dba67d"
 
 	cpus 16
 	memory '128 GB'
+	time '3h'
 
 	input:
 	path 'capsule/data/fused/' from fuse_to_registration.collect()
@@ -379,12 +384,13 @@ process capsule_aind_smartspim_ccf_registration_5 {
 }
 
 // capsule - aind-smartspim-pipeline-dispatcher
-process capsule_aind_smartspim_pipeline_dispatcher_6 {
+process dispatcher {
 	tag 'capsule-2991712'
 	container "$REGISTRY_HOST/capsule/18f160f3-be42-49c7-87a3-0ed0938bfa28"
 
 	cpus 16
 	memory '128 GB'
+	time '12h'
 
 	input:
 	path 'capsule/data/' from preprocessing_to_dispatch_1.collect()
@@ -436,12 +442,13 @@ process capsule_aind_smartspim_pipeline_dispatcher_6 {
 }
 
 // capsule - aind-smartspim-cell-segmentation
-process capsule_aind_smartspim_cell_segmentation_7 {
+process cell_segmentation {
 	tag 'capsule-9761832'
 	container "$REGISTRY_HOST/capsule/e2be5aab-618f-4a9e-9d50-b5b649e169b1"
 
 	cpus 16
 	memory '256 GB'
+	time '12h'
 
 	input:
 	path 'capsule/data/fused/' from fuse_to_cell_detect.collect()
@@ -480,13 +487,66 @@ process capsule_aind_smartspim_cell_segmentation_7 {
 	"""
 }
 
+// capsule - aind-smartspim-cell-classification
+process cell_classification {
+	tag 'capsule-0963828'
+	container "$REGISTRY_HOST/capsule/6fa72b6b-7b12-466e-94da-6cc5699b68f3"
+
+	cpus 16
+	memory '61 GB'
+	accelerator 1
+	label 'gpu'
+	time '12h'
+
+
+	input:
+	path 'capsule/data/' from cell_detect_to_classification
+	path 'capsule/data/fused/' from fusion_to_classification.collect()
+	path 'capsule/data/' from dispatch_to_classification.collect()
+
+	output:
+	path 'capsule/results/*' into classification_to_quantification
+	path 'capsule/results/*' into classification_to_dispatch
+
+	script:
+	"""
+	#!/usr/bin/env bash
+	set -e
+
+	export CO_CAPSULE_ID=6fa72b6b-7b12-466e-94da-6cc5699b68f3
+	export CO_CPUS=16
+	export CO_MEMORY=65498251264
+
+	mkdir -p capsule
+	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
+	mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
+	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
+
+	ln -s "/tmp/data/smartspim_18_model" "capsule/data/smartspim_18_model" # id: 459560f0-c7bb-406a-8a67-73ba8450bbd0
+
+	echo "[${task.tag}] cloning git repo..."
+	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-0963828.git" capsule-repo
+	git -C capsule-repo checkout 338c64934a1e54758be4ed3acd03ff8422fcada8 --quiet
+	mv capsule-repo/code capsule/code
+	rm -rf capsule-repo
+
+	echo "[${task.tag}] running capsule..."
+	cd capsule/code
+	chmod +x run
+	./run
+
+	echo "[${task.tag}] completed!"
+	"""
+}
+
 // capsule - reprocess-aind-smartspim-cell-quantification
-process capsule_aind_smartspim_cell_quantification_8 {
+process cell_quantification {
 	tag 'capsule-8884276'
 	container "$REGISTRY_HOST/capsule/2486f4d2-79b2-4862-946b-e3a14e780f1d"
 
 	cpus 16
 	memory '128 GB'
+	time '12h'
 
 	input:
 	path 'capsule/data/' from classification_to_quantification.collect()
@@ -531,12 +591,13 @@ process capsule_aind_smartspim_cell_quantification_8 {
 }
 
 // capsule - aind-smartspim-pipeline-dispatcher
-process capsule_aind_smartspim_pipeline_dispatcher_9 {
+process dispatcher_2 {
 	tag 'capsule-2991712'
 	container "$REGISTRY_HOST/capsule/18f160f3-be42-49c7-87a3-0ed0938bfa28"
 
 	cpus 16
 	memory '128 GB'
+	time '12h'
 
 	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
 
@@ -574,56 +635,6 @@ process capsule_aind_smartspim_pipeline_dispatcher_9 {
 	cd capsule/code
 	chmod +x run
 	./run clean
-
-	echo "[${task.tag}] completed!"
-	"""
-}
-
-// capsule - aind-smartspim-cell-classification
-process capsule_aind_smartspim_cell_classification_gpu_10 {
-	tag 'capsule-0963828'
-	container "$REGISTRY_HOST/capsule/6fa72b6b-7b12-466e-94da-6cc5699b68f3"
-
-	cpus 16
-	memory '61 GB'
-	accelerator 1
-	label 'gpu'
-
-	input:
-	path 'capsule/data/' from cell_detect_to_classification
-	path 'capsule/data/fused/' from fusion_to_classification.collect()
-	path 'capsule/data/' from dispatch_to_classification.collect()
-
-	output:
-	path 'capsule/results/*' into classification_to_quantification
-	path 'capsule/results/*' into classification_to_dispatch
-
-	script:
-	"""
-	#!/usr/bin/env bash
-	set -e
-
-	export CO_CAPSULE_ID=6fa72b6b-7b12-466e-94da-6cc5699b68f3
-	export CO_CPUS=16
-	export CO_MEMORY=65498251264
-
-	mkdir -p capsule
-	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-	mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
-
-	ln -s "/tmp/data/smartspim_18_model" "capsule/data/smartspim_18_model" # id: 459560f0-c7bb-406a-8a67-73ba8450bbd0
-
-	echo "[${task.tag}] cloning git repo..."
-	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-0963828.git" capsule-repo
-	git -C capsule-repo checkout 338c64934a1e54758be4ed3acd03ff8422fcada8 --quiet
-	mv capsule-repo/code capsule/code
-	rm -rf capsule-repo
-
-	echo "[${task.tag}] running capsule..."
-	cd capsule/code
-	chmod +x run
-	./run
 
 	echo "[${task.tag}] completed!"
 	"""
