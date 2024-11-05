@@ -19,3 +19,5 @@ RUN pip install -U --no-cache-dir \
     BaSiCPy==1.1.0 \
     natsort==8.4.0 \
     imageio==2.35.1
+
+RUN conda install -c conda-forge jaxlib jax
