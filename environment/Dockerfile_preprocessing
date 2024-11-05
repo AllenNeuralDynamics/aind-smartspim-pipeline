@@ -1,8 +1,8 @@
-FROM continuumio/miniconda3:23.9.0-0
+FROM continuumio/miniconda3:4.7.12
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN conda create -n destriper python=3.8 -y
+RUN conda create -n destriper python=3.10 -y && conda clean -afy
 SHELL ["conda", "run", "-n", "destriper", "/bin/bash", "-c"]
 
 RUN pip install -U --no-cache-dir \
@@ -18,4 +18,4 @@ RUN pip install -U --no-cache-dir \
     psutil==5.9.5 \
     BaSiCPy==1.1.0 \
     natsort==8.4.0 \
-    git+https://github.com/imageio/imageio.git
+    imageio==2.35.1

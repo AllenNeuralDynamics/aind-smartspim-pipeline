@@ -3,7 +3,7 @@ FROM continuumio/miniconda3:23.9.0-0
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Creating a new conda environment for argschema python bug
-RUN conda create -n dispatcher python=3.8
+RUN conda create -n dispatcher python=3.10
 
 # Make RUN commands use the new environment:
 SHELL ["conda", "run", "-n", "dispatcher", "/bin/bash", "-c"]

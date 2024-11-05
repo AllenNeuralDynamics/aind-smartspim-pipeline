@@ -8,13 +8,13 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN cd /home && \
-    wget https://exiftool.org/Image-ExifTool-12.57.tar.gz --no-check-certificate && \
-    gzip -dc Image-ExifTool-12.57.tar.gz | tar -xf -
+    wget https://exiftool.org/Image-ExifTool-13.01.tar.gz --no-check-certificate && \
+    gzip -dc Image-ExifTool-13.01.tar.gz | tar -xf -
 
-ENV PATH "/home/Image-ExifTool-12.57:$PATH"
+ENV PATH "/home/Image-ExifTool-13.01:$PATH"
 
 # Creating a new conda environment for argschema python bug
-RUN conda create -n smartspim_validation python=3.8
+RUN conda create -n smartspim_validation python=3.10
 
 # Make RUN commands use the new environment:
 SHELL ["conda", "run", "-n", "smartspim_validation", "/bin/bash", "-c"]
