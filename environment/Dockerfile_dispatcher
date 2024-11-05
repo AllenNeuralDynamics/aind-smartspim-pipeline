@@ -1,6 +1,18 @@
-FROM continuumio/miniconda3:4.7.12
+FROM continuumio/miniconda3:23.9.0-0
 
 ARG DEBIAN_FRONTEND=noninteractive
+
+# Install curl to download AWS CLI binary
+RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
+
+# Download and install AWS CLI
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && unzip awscliv2.zip \
+    && ./aws/install \
+    && rm -rf awscliv2.zip aws
+
+# Clean up by removing unnecessary packages if desired
+RUN apt-get remove -y curl unzip && apt-get autoremove -y
 
 # Creating a new conda environment for argschema python bug
 RUN conda create -n dispatcher python=3.8 -y
@@ -14,5 +26,3 @@ RUN pip install -U --no-cache-dir \
     aind-ng-link==1.0.17 \
     python-dotenv==0.21.1 \
     smartsheet-dataframe==0.3.4
-
-RUN conda install conda-forge::awscli

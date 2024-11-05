@@ -1,56 +1,61 @@
+# Base image with Miniconda
 FROM continuumio/miniconda3:23.9.0-0
 
 ARG DEBIAN_FRONTEND=noninteractive
-
 ARG MAVEN_VERSION=3.9.9
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+# Install necessary system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     cmake \
     git \
     libopenmpi-dev \
     software-properties-common \
-    wget \
-    && rm -rf /var/lib/apt/lists/*
+    wget && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN cd /home && git clone --single-branch --branch fix/data_paths https://github.com/camilolaiton/TeraStitcher.git && \
-    mkdir build-terastitcher && \
-    cd build-terastitcher && \
-    cmake -DWITH_UTILITY_MODULE_teraconverter=ON -DWITH_UTILITY_MODULE_mdatagenerator=ON -DWITH_UTILITY_MODULE_volumeconverter=ON -DWITH_UTILITY_MODULE_mergedisplacements=ON ../TeraStitcher/src && \
-    make -j `nproc` && \
-    # need ownership of /usr/local to install without sudo
-    # chown -R ${USER}:${USER} /usr/local/ && \
+# Clone TeraStitcher and build it
+RUN git clone --depth=1 --branch fix/data_paths https://github.com/camilolaiton/TeraStitcher.git /home/TeraStitcher && \
+    mkdir /home/build-terastitcher && \
+    cd /home/build-terastitcher && \
+    cmake -DWITH_UTILITY_MODULE_teraconverter=ON \
+          -DWITH_UTILITY_MODULE_mdatagenerator=ON \
+          -DWITH_UTILITY_MODULE_volumeconverter=ON \
+          -DWITH_UTILITY_MODULE_mergedisplacements=ON \
+          /home/TeraStitcher/src && \
+    make -j$(nproc) && \
     make install && \
-    pip install --upgrade autopep8 && \
-    autopep8 -i ../TeraStitcher/src/utils/pyscripts/*.py
+    rm -rf /home/TeraStitcher /home/build-terastitcher && \
+    pip install --no-cache-dir --upgrade autopep8 && \
+    autopep8 -i /home/TeraStitcher/src/utils/pyscripts/*.py
 
-# ENV PATH "$PATH:/data/TeraStitcher-portable-1.11.10-with-BF-Linux"
-ENV LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/opt/java/openjdk/lib/server"
-
-# Java setup
-# OpenJDK setup
-RUN cd /home && \ 
+# Java setup with environment variables
+RUN cd /home && \
     wget https://cdn.azul.com/zulu/bin/zulu8.62.0.19-ca-jdk8.0.332-linux_x64.tar.gz && \
-    tar -xzf zulu8.62.0.19-ca-jdk8.0.332-linux_x64.tar.gz
-ENV JAVA_HOME "/home/zulu8.62.0.19-ca-jdk8.0.332-linux_x64"
-ENV LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/home/zulu8.62.0.19-ca-jdk8.0.332-linux_x64/jre/lib/amd64/server"
+    tar -xzf zulu8.62.0.19-ca-jdk8.0.332-linux_x64.tar.gz && \
+    rm zulu8.62.0.19-ca-jdk8.0.332-linux_x64.tar.gz
+ENV JAVA_HOME="/home/zulu8.62.0.19-ca-jdk8.0.332-linux_x64"
+ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/zulu8.62.0.19-ca-jdk8.0.332-linux_x64/jre/lib/amd64/server"
+ENV PATH="$JAVA_HOME/bin:$PATH"
 
-# Maven setup (for n5-spark utilities)
-RUN cd /home && \ 
+# Maven setup
+RUN cd /home && \
     wget "https://dlcdn.apache.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz" && \
-    tar -xzf "apache-maven-$MAVEN_VERSION-bin.tar.gz"
-ENV PATH "/home/apache-maven-$MAVEN_VERSION/bin:$PATH"
-ENV PATH "/home/zulu8.62.0.19-ca-jdk8.0.332-linux_x64/bin:$PATH"
+    tar -xzf "apache-maven-$MAVEN_VERSION-bin.tar.gz" && \
+    rm "apache-maven-$MAVEN_VERSION-bin.tar.gz"
+ENV PATH="/home/apache-maven-$MAVEN_VERSION/bin:$PATH"
 
+# MPI Configuration
 RUN echo "localhost slots=70" > /home/hostfile
 
-# Creating a new conda environment for argschema python bug
-RUN conda create -n smartspim_fusion python=3.8
+# Create Conda environment
+RUN conda create -n smartspim_fusion python=3.8 -y && \
+    conda clean -afy
 
-# Make RUN commands use the new environment:
+# Set Conda's default shell for subsequent commands
 SHELL ["conda", "run", "-n", "smartspim_fusion", "/bin/bash", "-c"]
 
+# Install Python dependencies
 RUN pip install -U --no-cache-dir \
     'tifffile < 2022.4.22' \
     xarray_multiscale==1.1.0 \
@@ -69,3 +74,6 @@ RUN pip install -U --no-cache-dir \
     psutil==5.9.5 \
     matplotlib==3.7.3 \
     imagecodecs[all]==2023.3.16
+
+# Default command
+CMD ["bash"]
