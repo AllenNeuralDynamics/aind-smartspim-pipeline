@@ -3,7 +3,7 @@ FROM continuumio/miniconda3:23.9.0-0
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Necessary for vtkplotter
-RUN apt-get update && apt-get install libgl1 -y
+RUN apt-get update && apt-get install libgl1 git -y
 RUN apt-get install libxrender1
 
 # vtkplotter works properly on python 3.9
@@ -18,7 +18,7 @@ RUN pip install -U --no-cache-dir \
     imlib==0.1.3 \
     git+https://github.com/AllenNeuralDynamics/aind-ng-link.git \
     tqdm==4.65.0 \
-    antspyx \
+    antspyx==0.5.4 \
     argschema==3.0.4 \
     ray==2.9.0 \
     pims==0.6.1 \
