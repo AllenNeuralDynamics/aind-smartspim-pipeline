@@ -10,3 +10,9 @@ Base code of the SmartSPIM pipeline in Code Ocean. This pipeline has the followi
 - [aind-smartspim-pipeline-dispatcher](https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher): This capsule copies the fused dataset to the destination bucket, creates the necessary metadata using the schemas defined here: [aind-data-schema](https://github.com/AllenNeuralDynamics/aind-data-schema) and creates the neuroglancer link to visualize the fused dataset.
 - [aind-smartspim-segmentation](https://github.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation): Capsule that performs chunked cell segmentation using [cellfinder](https://github.com/brainglobe/cellfinder). It generates a neuroglancer link that allows the its visualization.
 - [aind-smartspim-quantification](https://github.com/AllenNeuralDynamics/aind-smartspim-quantification): This capsule takes the identified cell locations and maps them into the space domain of the CCFv3 registered brain. It generates a neuroglancer link that allows the its visualization.
+
+# Deploying to a SLURM cluster
+
+To deploy the SmartSPIM pipeline to a slurm cluster, you must install Nextflow and have Singularity/Docker installed in your cluster. We provide a script that will create a conda environment where Nextflow will be installed.
+
+This conda environment must be activated before running the pipeline.

@@ -8,7 +8,6 @@ fi
 
 # Set the path for the conda environment
 ENV_PATH="$1"
-NEXTFLOW_VERSION="24.10.0.5928"
 
 # Create the conda environment at the specified path with Python
 conda create --prefix "$ENV_PATH" python=3.8 -y
@@ -17,6 +16,6 @@ conda create --prefix "$ENV_PATH" python=3.8 -y
 source activate "$ENV_PATH"
 
 # Install the specified version of Nextflow
-conda install -c bioconda nextflow="$NEXTFLOW_VERSION" -y
+conda install -c bioconda nextflow -y
 
-echo "Conda environment at '$ENV_PATH' created with Nextflow version $NEXTFLOW_VERSION installed."
+echo "Conda environment at '$ENV_PATH' created with Nextflow installed."
