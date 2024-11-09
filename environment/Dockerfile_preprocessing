@@ -1,7 +1,8 @@
-FROM continuumio/miniconda3:4.7.12
+FROM continuumio/miniconda3:23.9.0-0
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+RUN apt-get update
 RUN conda create -n destriper python=3.10 -y && conda clean -afy
 SHELL ["conda", "run", "-n", "destriper", "/bin/bash", "-c"]
 
