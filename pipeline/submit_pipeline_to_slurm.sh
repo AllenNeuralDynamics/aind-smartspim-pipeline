@@ -3,7 +3,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=4GB
 #SBATCH --time=2:00:00
-#SBATCH --partition=aind
+#SBATCH --partition=your_partition
 
 # Export the credentials for GHCR
 export SINGULARITY_DOCKER_USERNAME=your_github_username
