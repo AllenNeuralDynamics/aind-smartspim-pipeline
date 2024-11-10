@@ -42,7 +42,27 @@ else
 {
 	cloud = "false"
 }
-println "Using cloud: ${cloud}"
+
+// We need an output path
+if (!params_keys.contains('output_path') {
+	exit 1, "Error: Missing required parameter 'output_path'."
+}
+
+output_path = params.output_path
+
+// We need a template
+if (!params_keys.contains('template_path') {
+	exit 1, "Error: Missing SmartSPIM template"
+}
+template_path = params.template_path
+
+// We need a cell detection model
+if (!params_keys.contains('cell_detection_model') {
+	exit 1, "Error: Missing SmartSPIM cell detection model"
+}
+cell_detection_model = params.cell_detection_model
+
+println "Output path: ${output_path} - Cell detection model: ${cell_detection_model} - Using cloud: ${cloud}"
 
 // Channels from dataset to validation capsule -> PNG validation
 dataset_to_validation = channel.fromPath(params.lightsheet_dataset + "/", type: 'any')
@@ -343,7 +363,7 @@ process atlas_registration {
 	mkdir -p capsule/results
 	mkdir -p capsule/scratch
 
-	ln -s "/tmp/data/lightsheet_template_ccf_registration" "capsule/data/lightsheet_template_ccf_registration" # id: 9be4e3ac-adfb-4335-824c-bd99364a2c0f
+	ln -s "${template_path}" "capsule/data/lightsheet_template_ccf_registration"
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://github.com/AllenNeuralDynamics/aind-ccf-registration.git" capsule-repo
@@ -399,14 +419,14 @@ process dispatcher {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher.git" capsule-repo
+	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
 	echo "[${task.tag}] running capsule..."
 	cd capsule/code
 	chmod +x run
-	./run dispatch
+	./run dispatch ${cloud} ${output_path}
 
 	echo "[${task.tag}] completed!"
 	"""
@@ -483,7 +503,7 @@ process cell_classification {
 	mkdir -p capsule/results
 	mkdir -p capsule/scratch
 
-	ln -s "/tmp/data/smartspim_18_model" "capsule/data/smartspim_18_model" # id: 459560f0-c7bb-406a-8a67-73ba8450bbd0
+	ln -s "${cell_detection_model}" "capsule/data/smartspim_18_model"
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-classification.git" capsule-repo
@@ -529,7 +549,7 @@ process cell_quantification {
 	mkdir -p capsule/results
 	mkdir -p capsule/scratch
 
-	ln -s "/tmp/data/lightsheet_template_ccf_registration" "capsule/data/lightsheet_template_ccf_registration" # id: 9be4e3ac-adfb-4335-824c-bd99364a2c0f
+	ln -s "${template_path}" "capsule/data/lightsheet_template_ccf_registration"
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-quantification.git" capsule-repo
@@ -577,14 +597,14 @@ process clean_up {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher.git" capsule-repo
+	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
 	echo "[${task.tag}] running capsule..."
 	cd capsule/code
 	chmod +x run
-	./run clean
+	./run clean ${cloud} ${output_path}
 
 	echo "[${task.tag}] completed!"
 	"""
