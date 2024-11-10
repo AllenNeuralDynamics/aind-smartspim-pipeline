@@ -32,37 +32,33 @@ println "DATA_PATH: ${DATA_PATH}"
 println "RESULTS_PATH: ${RESULTS_PATH}"
 println "PARAMS: ${params}"
 
+// Retrieve keys from params
 params_keys = params.keySet()
 
-// set cloud copy
-if ("cloud" in params_keys) {
-	cloud = params.cloud
-}
-else
-{
-	cloud = "false"
-}
+// Set cloud copy, defaulting to "false" if not specified
+cloud = params_keys.contains("cloud") ? params.cloud : "false"
 
-// We need an output path
-if (!params_keys.contains('output_path') {
-	exit 1, "Error: Missing required parameter 'output_path'."
+// Ensure output_path is provided
+if (!params_keys.contains('output_path')) {
+    exit 1, "Error: Missing required parameter 'output_path'."
 }
-
 output_path = params.output_path
 
-// We need a template
-if (!params_keys.contains('template_path') {
-	exit 1, "Error: Missing SmartSPIM template"
+// Ensure template_path is provided
+if (!params_keys.contains('template_path')) {
+    exit 1, "Error: Missing SmartSPIM template"
 }
 template_path = params.template_path
 
-// We need a cell detection model
-if (!params_keys.contains('cell_detection_model') {
-	exit 1, "Error: Missing SmartSPIM cell detection model"
+// Ensure cell_detection_model is provided
+if (!params_keys.contains('cell_detection_model')) {
+    exit 1, "Error: Missing SmartSPIM cell detection model"
 }
 cell_detection_model = params.cell_detection_model
 
-println "Output path: ${output_path} - Cell detection model: ${cell_detection_model} - Using cloud: ${cloud}"
+println "Output path: ${output_path}"
+println "Cell detection model: ${cell_detection_model}"
+println "Using cloud: ${cloud}"
 
 // Channels from dataset to validation capsule -> PNG validation
 dataset_to_validation = channel.fromPath(params.lightsheet_dataset + "/", type: 'any')

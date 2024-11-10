@@ -23,6 +23,9 @@ TEMPLATE_PATH="your/path/to/lightsheet_to_template_to_ccf_registration"
 # Cell detection path
 CELL_DETECTION_PATH="/your/path/to/cell_detection_model"
 
+# Setting cloud parameter - Useful if you want to store the results in a bucket
+CLOUD="false"
+
 NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
   -C $PIPELINE_PATH/pipeline/nextflow_slurm.config \
   -log $RESULTS_PATH/nextflow/nextflow.log \
@@ -30,5 +33,6 @@ NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
   -work-dir $WORKDIR \
   --output_path $OUTPUT_PATH \
   --template_path $TEMPLATE_PATH \
-  --cell_detection_model $CELL_DETECTION_PATH
+  --cell_detection_model $CELL_DETECTION_PATH \
+  --cloud $CLOUD
   # additional parameters here
