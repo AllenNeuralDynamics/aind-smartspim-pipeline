@@ -35,7 +35,7 @@ The SmartSPIM pipeline input is a dataset that must have the following data conv
 
 ### Processing manifest
 Example of a processing manifest for pipeline execution.
-```
+```python
 {
     "pipeline_processing": {
         "stitching": {
@@ -103,8 +103,26 @@ All the .jsons are copied from the raw dataset except from `processing.json`.
 - image_cell_segmentation: Folder that contains the results for the identified cells. It also includes visualization links and XML with the cell locations.
 - image_tile_fusing: Folder that contains the stitched channels in OMEZarr format.
 
-# Deploying to a SLURM cluster
+# Deployments
+## SLURM
+To deploy on a SLURM cluster, you need to have access to a SLURM cluster and have the Nextflow and Singularity/Apptainer installed. To create the environment suitable to execute the pipeline, you can use the following bash script: `environment/create_slurm_env.sh`.
+```bash
+bash environment/create_slurm_env.sh /path/to/environment
+```
+After execution, the script will create the environment in the provided location.
 
-To deploy the SmartSPIM pipeline to a slurm cluster, you must install Nextflow and have Singularity/Docker installed in your cluster. We provide a script that will create a conda environment where Nextflow will be installed.
+Before submission, you need to configure the `nextflow_slurm.config` file to use your the partition you want in your SLURM to execute the pipeline.
 
-This conda environment must be activated before running the pipeline.
+For submission, you can use the `pipeline/submit_pipeline_to_slurm.sh` script as a template for your script. In this script you will need to provide:
+- PIPELINE_PATH: Path where the repository with the pipeline is located.
+- DATA_PATH: Path where your dataset is located.
+- RESULTS_PATH: Path where you want to store results by default.
+- WORKDIR: Working directory for each of the processes in the pipeline.
+- OUTPUT_PATH: Path where you want to save the processed dataset.
+- TEMPLATE_PATH: Path for the SmartSPIM template. This is necessary for CCF registration.
+- CELL_DETECTION_PATH: Path for the Cell Detection model. This is necessary to identify cells.
+- CLOUD: "true" if you want to store the results in a cloud bucket (only AWS supported at the moment), "false" if you want to store the results locally.
+
+In Nextflow, you can also use the `-resume` flag to restart a previous execution. Depending your SLURM configuration, you might also want to change the header of the SBATCH to use your partition since sometimes it might not be recognized from the `nextflow_slurm.config`.
+
+Finally, depending your SLURM configuration, the containers for the image processing steps won't be downloaded from the cloud. In this scenario, you will need to download them prior execution and change the `pipeline/main_slurm.nf` nextflow script to use the paths where the containers are stored.
