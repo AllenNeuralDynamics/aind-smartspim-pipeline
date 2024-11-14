@@ -123,6 +123,64 @@ For submission, you can use the `pipeline/submit_pipeline_to_slurm.sh` script as
 - CELL_DETECTION_PATH: Path for the Cell Detection model. This is necessary to identify cells.
 - CLOUD: "true" if you want to store the results in a cloud bucket (only AWS supported at the moment), "false" if you want to store the results locally.
 
-In Nextflow, you can also use the `-resume` flag to restart a previous execution. Depending your SLURM configuration, you might also want to change the header of the SBATCH to use your partition since sometimes it might not be recognized from the `nextflow_slurm.config`.
-
 Finally, depending your SLURM configuration, the containers for the image processing steps won't be downloaded from the cloud. In this scenario, you will need to download them prior execution and change the `pipeline/main_slurm.nf` nextflow script to use the paths where the containers are stored.
+
+Script example to execute pipeline:
+```bash
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --mem=4GB
+#SBATCH --time=2:00:00
+#SBATCH --partition=YOUR_PARTITION
+
+# Export the credentials for GHCR - Might be needed to download the containers
+export SINGULARITY_DOCKER_USERNAME=your_github_username
+export SINGULARITY_DOCKER_PASSWORD=your_personal_access_token
+
+PIPELINE_PATH="/your/path/to/aind-smartspim-pipeline"
+DATA_PATH="/your/path/to/smartspim_data"
+RESULTS_PATH="/your/path/to/results"
+WORKDIR="/your/path/to/workdir"
+
+# Change this output path to a S3 path if AWS cloud compatibility is needed
+OUTPUT_PATH="/your/path/to/processed/dataset"
+
+# Template path
+TEMPLATE_PATH="your/path/to/lightsheet_to_template_to_ccf_registration"
+
+# Cell detection path
+CELL_DETECTION_PATH="/your/path/to/cell_detection_model"
+
+# Setting cloud parameter - Useful if you want to store the results in a bucket
+CLOUD="false"
+
+NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
+  -C $PIPELINE_PATH/pipeline/nextflow_slurm.config \
+  -log $RESULTS_PATH/nextflow/nextflow.log \
+  run $PIPELINE_PATH/pipeline/main_slurm.nf \
+  -work-dir $WORKDIR \
+  --output_path $OUTPUT_PATH \
+  --template_path $TEMPLATE_PATH \
+  --cell_detection_model $CELL_DETECTION_PATH \
+  --cloud $CLOUD
+  # additional parameters here
+```
+
+> [!IMPORTANT]
+> You should change the `--partition` parameter to match the partition you want to use on your cluster. 
+> The same partition should be also indicated as the `queue` argument in the `pipeline/nextflow_slurm_custom.config` file!
+
+In Nextflow, you can also use the `-resume` flag to restart a previous execution:
+```bash
+NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
+  -C $PIPELINE_PATH/pipeline/nextflow_slurm.config \
+  -log $RESULTS_PATH/nextflow/nextflow.log \
+  run $PIPELINE_PATH/pipeline/main_slurm.nf \
+  -resume \
+  -work-dir $WORKDIR \
+  --output_path $OUTPUT_PATH \
+  --template_path $TEMPLATE_PATH \
+  --cell_detection_model $CELL_DETECTION_PATH \
+  --cloud $CLOUD
+```
