@@ -184,3 +184,17 @@ NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
   --cell_detection_model $CELL_DETECTION_PATH \
   --cloud $CLOUD
 ```
+> [!IMPORTANT]
+> If at some point, you are getting a 140 code error, most likely the dataset is large and you need to increase the time of that process.
+> After trying to resume a previous job that failed due to a 140 code error, you could get an error saying *"Unable to acquire lock on session"* which means that there is already a job running for that execution. In that case, you could:
+- Use the lsof command with the process path to get the PID of the running job and kill it.
+```batch
+lsof /path/to/process/workdir/db/LOCK
+```
+- If the lsof command does not show any job, you could delete the LOCK file in the working directory of that process and restart the job.
+```batch
+rm /path/to/process/workdir/db/LOCK
+```
+
+to use on your cluster. 
+> The same partition should be also indicated as the `queue` argument in the `pipeline/nextflow_slurm_custom.config` file!
