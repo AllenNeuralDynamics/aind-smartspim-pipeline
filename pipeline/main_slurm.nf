@@ -291,7 +291,7 @@ process fusion {
 
 	cpus 32
 	memory '256 GB'
-	time '12h'
+	time '18h'
 
 	input:
 	path 'capsule/data/' from dataset_to_fuse_manifest.collect()
@@ -478,7 +478,7 @@ process cell_classification {
 	memory '61 GB'
 	accelerator 1
 	label 'gpu'
-	time '12h'
+	time '24h'
 
 	input:
 	path 'capsule/data/' from cell_detect_to_classification
@@ -522,7 +522,7 @@ process cell_quantification {
 
 	cpus 16
 	memory '128 GB'
-	time '12h'
+	time '18h'
 
 	input:
 	path 'capsule/data/' from classification_to_quantification.collect()
@@ -568,7 +568,7 @@ process clean_up {
 
 	cpus 16
 	memory '128 GB'
-	time '12h'
+	time '24h'
 
 	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
 
