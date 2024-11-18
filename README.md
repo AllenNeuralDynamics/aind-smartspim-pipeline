@@ -204,3 +204,10 @@ to use on your cluster.
 
 > The following pipeline parameters are used for Nextflow: PIPELINE_PATH, DATA_PATH, RESULTS_PATH, WORKDIR. The rest of the parameters are used for each of the image processing steps in the pipeline.
 ---
+
+# Datasets for pipeline processing
+
+- [SmartSPIM template v1.0](https://open.quiltdata.com/b/aind-open-data/tree/SmartSPIM-template_2024-05-16_11-26-14/): Please, download this dataset.
+- [SmartSPIM cell detection model](https://open.quiltdata.com/b/aind-benchmark-data/tree/mesoscale-anatomy-cell-detection/models/trained_models_03212024/): Please, download one of the cell detection models suitable for your image processing task.
+
+Once the datasets are downloaded, you need to point the pipeline to them.
