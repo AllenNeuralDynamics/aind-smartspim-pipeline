@@ -198,3 +198,9 @@ rm /path/to/process/workdir/db/LOCK
 
 to use on your cluster. 
 > The same partition should be also indicated as the `queue` argument in the `pipeline/nextflow_slurm_custom.config` file!
+
+---
+**NOTE**
+
+> The following pipeline parameters are used for Nextflow: PIPELINE_PATH, DATA_PATH, RESULTS_PATH, WORKDIR. The rest of the parameters are used for each of the image processing steps in the pipeline.
+---
