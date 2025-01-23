@@ -201,6 +201,8 @@ rm /path/to/process/workdir/db/LOCK
 **NOTE**
 
 > The following pipeline parameters are used for Nextflow: PIPELINE_PATH, DATA_PATH, RESULTS_PATH, WORKDIR. The rest of the parameters are used for each of the image processing steps in the pipeline.
+
+This pipeline is currently using Nextflow DSL1. Currently, this version is not supported by Nextflow and we will be migrating the nextflow script to DSL2 in a future release. Please, follow this [issue](https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline/issues/7) for more information.
 ---
 
 # Datasets for pipeline processing
