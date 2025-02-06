@@ -2,35 +2,12 @@
 	"version": 1,
 	"processes": [
 		{
-			"name": "capsule_aind_smartspim_validation_1",
+			"name": "capsule_aind_destripe_shadow_correction_zarr_1",
 			"capsule": {
-				"id": "9aab765d-b4b5-4e11-84fa-27557bc3c043",
-				"name": "aind-smartspim-validation",
-				"slug": "7794579",
-				"version": 4
-			},
-			"resources": {
-				"cpus": 8,
-				"memory": 64
-			},
-			"inputs": [
-				{
-					"id": "xUasfdodp0Kv84ehiEsES",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/",
-					"collect": true
-				}
-			]
-		},
-		{
-			"name": "capsule_aind_destripe_shadow_correction_2",
-			"capsule": {
-				"id": "fcca3922-bc11-430e-9c63-faa7575af52d",
-				"name": "aind-destripe-shadow-correction",
-				"slug": "3325535",
-				"commit": "e3b30f1f86c289220b38424719345386cc7f7b80"
+				"id": "fcbf5175-1b27-47a6-aef5-8140db26c0c5",
+				"name": "aind-destripe-shadow-correction Zarr Optimization",
+				"slug": "0631026",
+				"commit": "abd7680ad8db47550720d0a164238d4c5a43e7b8"
 			},
 			"resources": {
 				"cpus": 32,
@@ -38,154 +15,44 @@
 			},
 			"inputs": [
 				{
-					"id": "dIocodaNGgYrKo6SPEuP8",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"id": "vyWRTOoeBNmDH9cq",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
 					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/SmartSPIM/Ex_*_Em_*"
-				},
-				{
-					"id": "I6-BGnI5sJD97xuUiaIoa",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/data_description.json",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/SPIM/derivatives",
 					"collect": true
 				},
 				{
-					"id": "1-N-64Q7L1qcPCajm5Uuv",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"id": "0GsKNuxeXC4sEvKX",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
 					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/derivatives/processing_manifest.json",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/acquisition.json",
 					"collect": true
 				},
 				{
-					"id": "dcIS2G0-YPojgTdq5nxoj",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"id": "1eLtcnr5OV9vtWjw",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
 					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/derivatives",
-					"collect": true
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/SPIM/Ex_*_Em_*"
 				},
 				{
-					"id": "ExPwSjIkhH5igyCzKydxw",
-					"source_id": "capsule_aind_smartspim_validation_1",
+					"id": "yiCYyIt6Ax8rx9oo",
+					"source_id": "capsule_aind_smartspim_flatfield_estimation_5",
 					"type": "capsule",
-					"name": "aind-smartspim-validation",
+					"name": "aind-smartspim-flatfield-estimation",
 					"collect": true
 				}
 			]
 		},
 		{
-			"name": "capsule_aind_smartspim_stitch_3",
+			"name": "capsule_zarr_pipeline_aind_smartspim_stitch_2",
 			"capsule": {
-				"id": "1c4065c1-93e6-4bfc-af9d-7c6f4eea7e63",
-				"name": "aind-smartspim-stitch",
-				"slug": "4153248",
-				"commit": "b7a2944938248e53653e81d47fa99657b71bfc02"
-			},
-			"resources": {
-				"cpus": 32,
-				"memory": 256
-			},
-			"inputs": [
-				{
-					"id": "r4f_HzPMkyCQmlFw_q7_3",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/derivatives/processing_manifest.json",
-					"collect": true
-				},
-				{
-					"id": "kVOBGkVOlferMoKdA7eN8",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/data_description.json",
-					"collect": true
-				},
-				{
-					"id": "r55n9w4UOYdC7vak",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/acquisition.json",
-					"collect": true
-				},
-				{
-					"id": "qjN8rgIRVmMvRoSkt_GBW",
-					"source_id": "capsule_aind_destripe_shadow_correction_2",
-					"type": "capsule",
-					"name": "aind-destripe-shadow-correction",
-					"source_path": "Ex_*_Em_*",
-					"collect": true
-				}
-			]
-		},
-		{
-			"name": "capsule_aind_smartspim_fuse_4",
-			"capsule": {
-				"id": "96191619-86f4-4f28-85c7-4f992fc4b30c",
-				"name": "aind-smartspim-fuse",
-				"slug": "2013512",
-				"commit": "52afeaa036a9a788f9e048e88d29742ae845bb4b"
-			},
-			"resources": {
-				"cpus": 32,
-				"memory": 256
-			},
-			"inputs": [
-				{
-					"id": "uMGv3h7HddWa9IX_PJdnV",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/derivatives/processing_manifest.json",
-					"collect": true
-				},
-				{
-					"id": "cugGcJOOoYsf1rmL0jO_1",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/data_description.json",
-					"collect": true
-				},
-				{
-					"id": "l7pccCimtZ3qMzTf",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/acquisition.json",
-					"collect": true
-				},
-				{
-					"id": "WadjW2UD4jNA2V-UD2oBj",
-					"source_id": "capsule_aind_destripe_shadow_correction_2",
-					"type": "capsule",
-					"name": "aind-destripe-shadow-correction",
-					"source_path": "Ex_*_Em_*",
-					"flatten": true
-				},
-				{
-					"id": "nVikkmo8L8BkyabI74lp4",
-					"source_id": "capsule_aind_smartspim_stitch_3",
-					"type": "capsule",
-					"name": "aind-smartspim-stitch",
-					"source_path": "volume_alignments.xml",
-					"collect": true
-				}
-			]
-		},
-		{
-			"name": "capsule_aind_smartspim_ccf_registration_5",
-			"capsule": {
-				"id": "30b4f986-4d55-452f-aae7-463e19dba67d",
-				"name": "aind-smartspim-ccf-registration",
-				"slug": "6045222",
-				"commit": "80d5bcc6de5703070a9fbf3ddd069bb4c68464c8"
+				"id": "98fa799f-6828-44cf-b61f-41717795fe2b",
+				"name": "Zarr Pipeline aind-smartspim-stitch",
+				"slug": "8459742",
+				"commit": "5897b5c380f8b0e6fbacd0b2c2d60f2b210f49a6"
 			},
 			"resources": {
 				"cpus": 16,
@@ -193,48 +60,126 @@
 			},
 			"inputs": [
 				{
-					"id": "jPFxoo0VHP5gkQ4W",
-					"source_id": "9be4e3ac-adfb-4335-824c-bd99364a2c0f",
+					"id": "7FbFhvG82ObUJQpe",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
 					"type": "dataset",
-					"name": "lightsheet_template_ccf_registration",
-					"source_path": "lightsheet_template_ccf_registration/",
-					"target_path": "lightsheet_template_ccf_registration",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/acquisition.json",
 					"collect": true
 				},
 				{
-					"id": "a7wcVPSkzFcLstsWnB_sL",
-					"source_id": "capsule_aind_smartspim_fuse_4",
+					"id": "UISa3GS2MizDD2Gn",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "o8lYtpbAjaL7YH32",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/SPIM/derivatives/processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "rbnjIAw6MDth3Mfm",
+					"source_id": "capsule_aind_destripe_shadow_correction_zarr_1",
 					"type": "capsule",
-					"name": "aind-smartspim-fuse",
-					"source_path": "fusion_*/OMEZarr/Ex_*_Em_*.zarr",
-					"target_path": "fused",
-					"collect": true
-				},
-				{
-					"id": "jACVSnsBCHX61G9nVh4o6",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/derivatives/processing_manifest.json",
-					"collect": true
-				},
-				{
-					"id": "QstZ8IWuX3cSukHoFcdaH",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/acquisition.json",
+					"name": "aind-destripe-shadow-correction Zarr",
+					"source_path": "destriped_data/Ex_*_Em_*",
+					"target_path": "preprocessed_data",
 					"collect": true
 				}
 			]
 		},
 		{
-			"name": "capsule_aind_smartspim_pipeline_dispatcher_6",
+			"name": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
 			"capsule": {
-				"id": "18f160f3-be42-49c7-87a3-0ed0938bfa28",
-				"name": "aind-smartspim-pipeline-dispatcher",
-				"slug": "2991712",
-				"commit": "87de7d3536b57a3999ca399cda304431a7688ac4",
+				"id": "7481bbe0-fcf7-4fad-a5ae-06f4d87ac9d2",
+				"name": "Zarr Pipeline - aind-smartspim-fuse",
+				"slug": "4746264",
+				"commit": "92a5c92597d00a5b95cf7af2871e6e79cab5c752"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 128,
+				"gpus": 1
+			},
+			"inputs": [
+				{
+					"id": "yR4NllxpsF1XePbs",
+					"source_id": "capsule_aind_destripe_shadow_correction_zarr_1",
+					"type": "capsule",
+					"name": "aind-destripe-shadow-correction Zarr",
+					"source_path": "destriped_data*",
+					"target_path": "preprocessed_data",
+					"flatten": true
+				},
+				{
+					"id": "ILVqWpPj61w6b35e",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/acquisition.json",
+					"collect": true
+				},
+				{
+					"id": "D5NSJkj147S5q4Bs",
+					"source_id": "capsule_zarr_pipeline_aind_smartspim_stitch_2",
+					"type": "capsule",
+					"name": "Zarr Pipeline aind-smartspim-stitch",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_flatfield_estimation_5",
+			"capsule": {
+				"id": "37c0404c-111e-4f43-8744-39616bae91f1",
+				"name": "aind-smartspim-flatfield-estimation",
+				"slug": "1467402",
+				"commit": "4c08daad69d74057c769bf0f43eb58e05de34763"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 128
+			},
+			"inputs": [
+				{
+					"id": "zy0ZbAfcTaHl4mIe",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/SPIM/derivatives/metadata.json",
+					"collect": true
+				},
+				{
+					"id": "xeBfrYXTf1EkCgq9",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/SPIM/Ex_*_Em_*",
+					"collect": true
+				},
+				{
+					"id": "iv8Khx5jYUAoIpo0",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/data_description.json",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"capsule": {
+				"id": "251a89cb-d614-4629-93d6-77929f18623b",
+				"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+				"slug": "0991347",
+				"commit": "13a6b06bdc5bce565cfbdae876975281c3102694",
 				"arguments": [
 					"dispatch"
 				]
@@ -245,113 +190,71 @@
 			},
 			"inputs": [
 				{
-					"id": "Dp8mgBZfHvC3fL0_K_mmn",
-					"source_id": "capsule_aind_destripe_shadow_correction_2",
-					"type": "capsule",
-					"name": "aind-destripe-shadow-correction",
-					"source_path": "image_destriping_*_processing.json",
+					"id": "LAHj05yScYERMwzK",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/*.json",
+					"target_path": "input_aind_metadata",
 					"collect": true
 				},
 				{
-					"id": "nTVuHzbc404cljJTmeU5L",
-					"source_id": "capsule_aind_destripe_shadow_correction_2",
-					"type": "capsule",
-					"name": "aind-destripe-shadow-correction",
-					"source_path": "flatfield_correction_*",
+					"id": "zi2Jmyb4Kd78KQ0J",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/SPIM/derivatives/processing_manifest.json",
 					"collect": true
 				},
 				{
-					"id": "k2_EB4GzBeUDCO1L0AKcg",
-					"source_id": "capsule_aind_smartspim_ccf_registration_5",
+					"id": "siRleHNdn3pTL2JI",
+					"source_id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+					"type": "capsule",
+					"name": "Zarr Pipeline - aind-smartspim-fuse",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "LDi5ufYVeqoa0PcW",
+					"source_id": "capsule_aind_smartspim_ccf_registration_8",
 					"type": "capsule",
 					"name": "aind-smartspim-ccf-registration",
 					"target_path": "ccf_registration_results",
 					"collect": true
 				},
 				{
-					"id": "f64yHd9_zkqZhEPKSgs1W",
-					"source_id": "capsule_aind_smartspim_fuse_4",
+					"id": "8YwgB8qw5T1D11Ap",
+					"source_id": "capsule_aind_destripe_shadow_correction_zarr_1",
 					"type": "capsule",
-					"name": "aind-smartspim-fuse",
-					"source_path": "fusion_*",
-					"target_path": "fused",
+					"name": "aind-destripe-shadow-correction Zarr",
+					"source_path": "image_destriping_*.json",
 					"collect": true
 				},
 				{
-					"id": "_nfVf8buT-8Seh0vxCXa_",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/*.json",
-					"target_path": "input_aind_metadata",
-					"collect": true
-				},
-				{
-					"id": "bPlpY8QdoozkrNLFGe6AF",
-					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
-					"type": "dataset",
-					"name": "smartspim_test_dataset",
-					"source_path": "smartspim_test_dataset/derivatives/processing_manifest.json",
-					"collect": true
-				},
-				{
-					"id": "yv2GttEoNkOQkvIp6Rtgk",
-					"source_id": "capsule_aind_smartspim_stitch_3",
+					"id": "4mHCCNinrzXrvBzg",
+					"source_id": "capsule_aind_smartspim_flatfield_estimation_5",
 					"type": "capsule",
-					"name": "aind-smartspim-stitch",
-					"source_path": "stitch_*",
+					"name": "aind-smartspim-flatfield-estimation",
+					"target_path": "flatfield_estimation",
+					"collect": true
+				},
+				{
+					"id": "gFhmr8RgwdBcxAMv",
+					"source_id": "capsule_zarr_pipeline_aind_smartspim_stitch_2",
+					"type": "capsule",
+					"name": "Zarr Pipeline aind-smartspim-stitch",
 					"target_path": "stitched",
 					"collect": true
 				}
 			]
 		},
 		{
-			"name": "capsule_aind_smartspim_cell_segmentation_7",
+			"name": "capsule_zarr_pipeline_aind_smartspim_cell_quantification_7",
 			"capsule": {
-				"id": "e2be5aab-618f-4a9e-9d50-b5b649e169b1",
-				"name": "aind-smartspim-cell-segmentation",
-				"slug": "9761832",
-				"commit": "9405f3febdeba71a38f4105c451f6d1a01f8d744"
-			},
-			"resources": {
-				"cpus": 16,
-				"memory": 256
-			},
-			"inputs": [
-				{
-					"id": "PY3cYlNVYnDQ94HWc0XQ6",
-					"source_id": "capsule_aind_smartspim_fuse_4",
-					"type": "capsule",
-					"name": "aind-smartspim-fuse",
-					"source_path": "fusion_*/OMEZarr/Ex_*_Em_*.zarr",
-					"target_path": "fused",
-					"collect": true
-				},
-				{
-					"id": "MotXPOvR-L4yMrK80n7jv",
-					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
-					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher",
-					"source_path": "segmentation_processing_manifest_*.json",
-					"flatten": true
-				},
-				{
-					"id": "vWDN6vXyc59V4PBZFFtf8",
-					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
-					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher",
-					"source_path": "output_aind_metadata/data_description.json",
-					"collect": true
-				}
-			]
-		},
-		{
-			"name": "capsule_aind_smartspim_cell_quantification_8",
-			"capsule": {
-				"id": "2486f4d2-79b2-4862-946b-e3a14e780f1d",
-				"name": "reprocess-aind-smartspim-cell-quantification",
-				"slug": "8884276",
-				"commit": "b3644385004fc4def505b8a0bb1d633361f0fdb1",
+				"id": "a240d629-4d4b-430d-a040-0ab11d48a2a0",
+				"name": "Zarr pipeline aind-smartspim-cell-quantification",
+				"slug": "2404927",
+				"commit": "d74844485967435320e485a0ad7f1b246a64409a",
 				"arguments": [
 					"detect"
 				]
@@ -362,7 +265,47 @@
 			},
 			"inputs": [
 				{
-					"id": "lflcPawMC9VKf8IJ",
+					"id": "CjIIP7C1OCYfZyVg",
+					"source_id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+					"type": "capsule",
+					"name": "Zarr Pipeline - aind-smartspim-fuse",
+					"source_path": "Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "lE1FNTAItpK5Gcsg",
+					"source_id": "capsule_aind_smartspim_classification_10",
+					"type": "capsule",
+					"name": "aind-smartspim-classification",
+					"collect": true
+				},
+				{
+					"id": "P0ahA61OfXS9JQ4E",
+					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"source_path": "segmentation_processing_manifest_*.json",
+					"flatten": true
+				},
+				{
+					"id": "mcSO9c74BWKomjkk",
+					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "W8sZJwRhDIlq2sCL",
+					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/acquisition.json",
+					"collect": true
+				},
+				{
+					"id": "WeqqGIlbj5tAb3uZ",
 					"source_id": "9be4e3ac-adfb-4335-824c-bd99364a2c0f",
 					"type": "dataset",
 					"name": "lightsheet_template_ccf_registration",
@@ -371,48 +314,8 @@
 					"collect": true
 				},
 				{
-					"id": "vFTeBwFUqdS4dfsxRF8DO",
-					"source_id": "capsule_aind_smartspim_cell_classification_gpu_10",
-					"type": "capsule",
-					"name": "aind-smartspim-cell-classification_GPU",
-					"collect": true
-				},
-				{
-					"id": "rnjhmohdGSvXvxb-BF6x0",
-					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
-					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher",
-					"source_path": "segmentation_processing_manifest_*.json",
-					"flatten": true
-				},
-				{
-					"id": "U5bWeqOrKb3vBNES4YEIp",
-					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
-					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher",
-					"source_path": "output_aind_metadata/data_description.json",
-					"collect": true
-				},
-				{
-					"id": "mN88-IWekj4Ajpb-V2oDz",
-					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
-					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher",
-					"source_path": "output_aind_metadata/acquisition.json",
-					"collect": true
-				},
-				{
-					"id": "aEn2-psOMxKoM5bCK7kvM",
-					"source_id": "capsule_aind_smartspim_fuse_4",
-					"type": "capsule",
-					"name": "aind-smartspim-fuse",
-					"source_path": "fusion_*/OMEZarr/Ex_*_Em_*.zarr",
-					"target_path": "fused",
-					"collect": true
-				},
-				{
-					"id": "uE6Az52OzSZHHUCbCYlaO",
-					"source_id": "capsule_aind_smartspim_ccf_registration_5",
+					"id": "gpCqbIBhMuT5Rp7v",
+					"source_id": "capsule_aind_smartspim_ccf_registration_8",
 					"type": "capsule",
 					"name": "aind-smartspim-ccf-registration",
 					"collect": true
@@ -420,15 +323,12 @@
 			]
 		},
 		{
-			"name": "capsule_aind_smartspim_pipeline_dispatcher_9",
+			"name": "capsule_aind_smartspim_ccf_registration_8",
 			"capsule": {
-				"id": "18f160f3-be42-49c7-87a3-0ed0938bfa28",
-				"name": "aind-smartspim-pipeline-dispatcher",
-				"slug": "2991712",
-				"commit": "87de7d3536b57a3999ca399cda304431a7688ac4",
-				"arguments": [
-					"clean"
-				]
+				"id": "30b4f986-4d55-452f-aae7-463e19dba67d",
+				"name": "aind-smartspim-ccf-registration",
+				"slug": "6045222",
+				"commit": "1e0b43cba01af143610cdac39d1dc2b80170680d"
 			},
 			"resources": {
 				"cpus": 16,
@@ -436,96 +336,188 @@
 			},
 			"inputs": [
 				{
-					"id": "gzcc6XsCO1nzWv-xZGjdy",
-					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
-					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher",
-					"source_path": "output_aind_metadata/processing.json",
-					"target_path": "output_aind_metadata",
+					"id": "RWIdP8XK1zQv82nH",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/SPIM/derivatives/processing_manifest.json",
 					"collect": true
 				},
 				{
-					"id": "4yPafqtqswmh9wHLmJlAX",
-					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
-					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher",
-					"source_path": "modified_processing_manifest.json",
+					"id": "e0XCzudJU69j42gY",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/acquisition.json",
 					"collect": true
 				},
 				{
-					"id": "74ZSlQONmDpPxqvzOREZr",
-					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"id": "ZhwdFNRxCkVGJEGn",
+					"source_id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
 					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher",
-					"source_path": "output_aind_metadata/data_description.json",
-					"target_path": "input_aind_metadata",
-					"collect": true
-				},
-				{
-					"id": "HXiSfWjLJbaayeumZg-Z6",
-					"source_id": "capsule_aind_smartspim_cell_classification_gpu_10",
-					"type": "capsule",
-					"name": "aind-smartspim-cell-classification_GPU",
-					"collect": true
-				},
-				{
-					"id": "hw8hu6qdb922JST5sN0U0",
-					"source_id": "capsule_aind_smartspim_cell_quantification_8",
-					"type": "capsule",
-					"name": "aind-smartspim-cell-quantification",
-					"collect": true
-				}
-			],
-			"results": {
-				"id": "b020c3b5-693e-418b-ad6a-f204a681ad89"
-			}
-		},
-		{
-			"name": "capsule_aind_smartspim_cell_classification_gpu_10",
-			"capsule": {
-				"id": "6fa72b6b-7b12-466e-94da-6cc5699b68f3",
-				"name": "aind-smartspim-cell-classification",
-				"slug": "0963828",
-				"commit": "338c64934a1e54758be4ed3acd03ff8422fcada8"
-			},
-			"resources": {
-				"cpus": 16,
-				"memory": 61,
-				"gpus": 1
-			},
-			"inputs": [
-				{
-					"id": "aooCbHYBqLvwlsgTZQkWG",
-					"source_id": "capsule_aind_smartspim_cell_segmentation_7",
-					"type": "capsule",
-					"name": "aind-smartspim-cell-segmentation"
-				},
-				{
-					"id": "X17mwWPlV8bYvLl8WizCV",
-					"source_id": "capsule_aind_smartspim_fuse_4",
-					"type": "capsule",
-					"name": "aind-smartspim-fuse",
-					"source_path": "fusion_*/OMEZarr/Ex_*_Em_*.zarr",
+					"name": "Zarr Pipeline - aind-smartspim-fuse",
+					"source_path": "Ex_*_Em_*.zarr",
 					"target_path": "fused",
 					"collect": true
 				},
 				{
-					"id": "cywy2dF2PfUChjNsiNji1",
-					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"id": "SLxbvDiYMCgfnlHY",
+					"source_id": "9be4e3ac-adfb-4335-824c-bd99364a2c0f",
+					"type": "dataset",
+					"name": "lightsheet_template_ccf_registration",
+					"source_path": "lightsheet_template_ccf_registration/",
+					"target_path": "lightsheet_template_ccf_registration",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_cell_segmentation_9",
+			"capsule": {
+				"id": "e2be5aab-618f-4a9e-9d50-b5b649e169b1",
+				"name": "aind-smartspim-cell-segmentation",
+				"slug": "9761832",
+				"commit": "973c88e62315d80fd509622ba2558d56cacefc1a"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 256
+			},
+			"inputs": [
+				{
+					"id": "OfPGd19C4Vc1wa7g",
+					"source_id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
 					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher",
+					"name": "Zarr Pipeline - aind-smartspim-fuse",
+					"source_path": "Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "AxWdPVMikkX86fF0",
+					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
 					"source_path": "output_aind_metadata/data_description.json",
 					"collect": true
 				},
 				{
-					"id": "OlhIlxZvd4dF9_cK900oJ",
+					"id": "N0X2Sl41iZM2i7H7",
+					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"source_path": "segmentation_processing_manifest_*.json",
+					"flatten": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_classification_10",
+			"capsule": {
+				"id": "4f3a6ae7-41fb-4776-bc88-952b8a90bb28",
+				"name": "aind-smartspim-classification",
+				"slug": "3583098",
+				"commit": "747d1c06d662cf4bb5023e329a21aba68c8bf7f1"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 128,
+				"gpus": 1
+			},
+			"inputs": [
+				{
+					"id": "sQGB4EL9uNLyBuMb",
+					"source_id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+					"type": "capsule",
+					"name": "Zarr Pipeline - aind-smartspim-fuse",
+					"source_path": "Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "dl8HafCr4DpcWqvP",
+					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "xsnWRdTnkzoQuHTk",
 					"source_id": "459560f0-c7bb-406a-8a67-73ba8450bbd0",
 					"type": "dataset",
 					"name": "smartspim_18_model",
 					"source_path": "smartspim_18_model/",
 					"collect": true
+				},
+				{
+					"id": "Z2WFYfWrINyk9a6S",
+					"source_id": "capsule_aind_smartspim_cell_segmentation_9",
+					"type": "capsule",
+					"name": "aind-smartspim-cell-segmentation"
 				}
 			]
+		},
+		{
+			"name": "capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11",
+			"capsule": {
+				"id": "251a89cb-d614-4629-93d6-77929f18623b",
+				"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+				"slug": "0991347",
+				"commit": "13a6b06bdc5bce565cfbdae876975281c3102694",
+				"arguments": [
+					"clean"
+				]
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 64
+			},
+			"inputs": [
+				{
+					"id": "fs6kkVE7ACsEva2y",
+					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/processing.json",
+					"target_path": "input_aind_metadata",
+					"collect": true
+				},
+				{
+					"id": "fkhPBgCl0Lgb7WU2",
+					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"source_path": "modified_processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "NhPmFI4or3ZpepCM",
+					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/data_description.json",
+					"target_path": "input_aind_metadata",
+					"collect": true
+				},
+				{
+					"id": "mDFEslbtTdkS8Fgo",
+					"source_id": "capsule_aind_smartspim_classification_10",
+					"type": "capsule",
+					"name": "aind-smartspim-classification",
+					"collect": true
+				},
+				{
+					"id": "CtXvAOAPg6E9DLSv",
+					"source_id": "capsule_zarr_pipeline_aind_smartspim_cell_quantification_7",
+					"type": "capsule",
+					"name": "Zarr pipeline aind-smartspim-cell-quantification",
+					"collect": true
+				}
+			],
+			"results": {
+				"id": "251a89cb-d614-4629-93d6-77929f18623b"
+			}
 		}
 	]
 }
