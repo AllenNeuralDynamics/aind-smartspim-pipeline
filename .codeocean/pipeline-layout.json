@@ -278,18 +278,6 @@
 		},
 		{
 			"data": {
-				"capsule_id": "9297b361-aefa-419f-8897-0466e6b2ba0e"
-			},
-			"id": "capsule_aind_destripe_shadow_correction_004_1",
-			"position": {
-				"x": -521.8294375849397,
-				"y": 405.0017199081467
-			},
-			"selected": true,
-			"type": "capsule"
-		},
-		{
-			"data": {
 				"capsule_id": "94d2cbcc-55b3-41fb-9686-9ccc1d3601b1"
 			},
 			"id": "capsule_aind_smartspim_flatfield_estimation_5",
@@ -323,7 +311,19 @@
 			},
 			"selected": true,
 			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "73319e3c-625e-4153-b5d1-29fd755d1bf8"
+			},
+			"id": "capsule_aind_destripe_shadow_correction_004_1",
+			"position": {
+				"x": -521.8294375849397,
+				"y": 405.0017199081467
+			},
+			"selected": true,
+			"type": "capsule"
 		}
 	],
-	"timestamp": 1738819087073
+	"timestamp": 1738819144122
 }

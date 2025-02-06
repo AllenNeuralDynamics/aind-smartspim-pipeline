@@ -4,9 +4,10 @@
 		{
 			"name": "capsule_aind_destripe_shadow_correction_004_1",
 			"capsule": {
-				"id": "9297b361-aefa-419f-8897-0466e6b2ba0e",
+				"id": "73319e3c-625e-4153-b5d1-29fd755d1bf8",
 				"name": "aind-destripe-shadow-correction-0.0.4",
-				"slug": "2729769"
+				"slug": "4725614",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 32,

@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:8ef868657bb2b50d097d0a3ad9d49cebb181435c369ee7eb69ff2a932700406f
+// hash:sha256:0914209cc0f8ec493ddde84825b3902529d835507b8957cb6019282d0e6e9fb9
 
 nextflow.enable.dsl = 1
 
@@ -49,8 +49,8 @@ capsule_zarr_pipeline_aind_smartspim_cell_quantification_7_to_capsule_zarr_pipel
 
 // capsule - aind-destripe-shadow-correction-0.0.4
 process capsule_aind_destripe_shadow_correction_004_1 {
-	tag 'capsule-2729769'
-	container "$REGISTRY_HOST/capsule/9297b361-aefa-419f-8897-0466e6b2ba0e"
+	tag 'capsule-4725614'
+	container "$REGISTRY_HOST/published/73319e3c-625e-4153-b5d1-29fd755d1bf8:v1"
 
 	cpus 32
 	memory '128 GB'
@@ -71,7 +71,7 @@ process capsule_aind_destripe_shadow_correction_004_1 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=9297b361-aefa-419f-8897-0466e6b2ba0e
+	export CO_CAPSULE_ID=73319e3c-625e-4153-b5d1-29fd755d1bf8
 	export CO_CPUS=32
 	export CO_MEMORY=137438953472
 
@@ -81,7 +81,7 @@ process capsule_aind_destripe_shadow_correction_004_1 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2729769.git" capsule-repo
+	git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-4725614.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
