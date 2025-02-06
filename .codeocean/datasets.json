@@ -2,16 +2,12 @@
 	"version": 1,
 	"attached_datasets": [
 		{
-			"id": "69579d3b-8d01-4520-8375-bcd074be4996",
-			"mount": "smartspim_dataset"
-		},
-		{
 			"id": "459560f0-c7bb-406a-8a67-73ba8450bbd0",
 			"mount": "smartspim_18_model"
 		},
 		{
-			"id": "5e5af37a-849a-49ab-a774-8692c40af097",
-			"mount": "smartspim_test_dataset"
+			"id": "69579d3b-8d01-4520-8375-bcd074be4996",
+			"mount": "smartspim_dataset"
 		},
 		{
 			"id": "9be4e3ac-adfb-4335-824c-bd99364a2c0f",

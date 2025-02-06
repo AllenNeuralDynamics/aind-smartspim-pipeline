@@ -1,50 +1,44 @@
 {
 	"edges": [
 		{
-			"id": "reactflow__edge-capsule_zarr_pipeline_aind_smartspim_stitch_2-capsule_zarr_pipeline_aind_smartspim_fuse_3",
-			"source": "capsule_zarr_pipeline_aind_smartspim_stitch_2",
-			"target": "capsule_zarr_pipeline_aind_smartspim_fuse_3"
+			"id": "reactflow__edge-capsule_aind_smartspim_stitch_125_2-capsule_aind_smartspim_fuse_002_3",
+			"source": "capsule_aind_smartspim_stitch_125_2",
+			"target": "capsule_aind_smartspim_fuse_002_3"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_destripe_shadow_correction_zarr_1-capsule_zarr_pipeline_aind_smartspim_stitch_2",
-			"selected": false,
-			"source": "capsule_aind_destripe_shadow_correction_zarr_1",
-			"target": "capsule_zarr_pipeline_aind_smartspim_stitch_2"
+			"id": "reactflow__edge-capsule_aind_destripe_shadow_correction_004_1-capsule_aind_smartspim_stitch_125_2",
+			"source": "capsule_aind_destripe_shadow_correction_004_1",
+			"target": "capsule_aind_smartspim_stitch_125_2"
 		},
 		{
-			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_destripe_shadow_correction_zarr_1",
-			"selected": false,
+			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_destripe_shadow_correction_004_1",
 			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
-			"target": "capsule_aind_destripe_shadow_correction_zarr_1"
+			"target": "capsule_aind_destripe_shadow_correction_004_1"
 		},
 		{
-			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_zarr_pipeline_aind_smartspim_stitch_2",
-			"selected": false,
+			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_stitch_125_2",
 			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
-			"target": "capsule_zarr_pipeline_aind_smartspim_stitch_2"
+			"target": "capsule_aind_smartspim_stitch_125_2"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_smartspim_flatfield_estimation_5-capsule_aind_destripe_shadow_correction_zarr_1",
-			"selected": false,
+			"id": "reactflow__edge-capsule_aind_smartspim_flatfield_estimation_5-capsule_aind_destripe_shadow_correction_004_1",
 			"source": "capsule_aind_smartspim_flatfield_estimation_5",
-			"target": "capsule_aind_destripe_shadow_correction_zarr_1"
+			"target": "capsule_aind_destripe_shadow_correction_004_1"
 		},
 		{
 			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_flatfield_estimation_5",
-			"selected": false,
 			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
 			"target": "capsule_aind_smartspim_flatfield_estimation_5"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_destripe_shadow_correction_zarr_1-capsule_zarr_pipeline_aind_smartspim_fuse_3",
-			"source": "capsule_aind_destripe_shadow_correction_zarr_1",
-			"target": "capsule_zarr_pipeline_aind_smartspim_fuse_3"
+			"id": "reactflow__edge-capsule_aind_destripe_shadow_correction_004_1-capsule_aind_smartspim_fuse_002_3",
+			"source": "capsule_aind_destripe_shadow_correction_004_1",
+			"target": "capsule_aind_smartspim_fuse_002_3"
 		},
 		{
-			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_zarr_pipeline_aind_smartspim_fuse_3",
-			"selected": false,
+			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_fuse_002_3",
 			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
-			"target": "capsule_zarr_pipeline_aind_smartspim_fuse_3"
+			"target": "capsule_aind_smartspim_fuse_002_3"
 		},
 		{
 			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
@@ -53,19 +47,17 @@
 			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_destripe_shadow_correction_zarr_1-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
-			"selected": false,
-			"source": "capsule_aind_destripe_shadow_correction_zarr_1",
+			"id": "reactflow__edge-capsule_aind_destripe_shadow_correction_004_1-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"source": "capsule_aind_destripe_shadow_correction_004_1",
 			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarr_pipeline_aind_smartspim_stitch_2-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
-			"source": "capsule_zarr_pipeline_aind_smartspim_stitch_2",
+			"id": "reactflow__edge-capsule_aind_smartspim_stitch_125_2-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"source": "capsule_aind_smartspim_stitch_125_2",
 			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
 		},
 		{
 			"id": "reactflow__edge-capsule_aind_smartspim_flatfield_estimation_5-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
-			"selected": false,
 			"source": "capsule_aind_smartspim_flatfield_estimation_5",
 			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
 		},
@@ -151,31 +143,28 @@
 			"target": "capsule_aind_smartspim_ccf_registration_8"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarr_pipeline_aind_smartspim_fuse_3-capsule_aind_smartspim_ccf_registration_8",
-			"selected": false,
-			"source": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+			"id": "reactflow__edge-capsule_aind_smartspim_fuse_002_3-capsule_aind_smartspim_ccf_registration_8",
+			"source": "capsule_aind_smartspim_fuse_002_3",
 			"target": "capsule_aind_smartspim_ccf_registration_8"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarr_pipeline_aind_smartspim_fuse_3-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
-			"selected": false,
-			"source": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+			"id": "reactflow__edge-capsule_aind_smartspim_fuse_002_3-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"source": "capsule_aind_smartspim_fuse_002_3",
 			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarr_pipeline_aind_smartspim_fuse_3-capsule_aind_smartspim_cell_segmentation_9",
-			"selected": false,
-			"source": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+			"id": "reactflow__edge-capsule_aind_smartspim_fuse_002_3-capsule_aind_smartspim_cell_segmentation_9",
+			"source": "capsule_aind_smartspim_fuse_002_3",
 			"target": "capsule_aind_smartspim_cell_segmentation_9"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarr_pipeline_aind_smartspim_fuse_3-capsule_aind_smartspim_classification_10",
-			"source": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+			"id": "reactflow__edge-capsule_aind_smartspim_fuse_002_3-capsule_aind_smartspim_classification_10",
+			"source": "capsule_aind_smartspim_fuse_002_3",
 			"target": "capsule_aind_smartspim_classification_10"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarr_pipeline_aind_smartspim_fuse_3-capsule_zarr_pipeline_aind_smartspim_cell_quantification_7",
-			"source": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+			"id": "reactflow__edge-capsule_aind_smartspim_fuse_002_3-capsule_zarr_pipeline_aind_smartspim_cell_quantification_7",
+			"source": "capsule_aind_smartspim_fuse_002_3",
 			"target": "capsule_zarr_pipeline_aind_smartspim_cell_quantification_7"
 		}
 	],
@@ -188,30 +177,6 @@
 			},
 			"selected": false,
 			"type": "results"
-		},
-		{
-			"data": {
-				"capsule_id": "fcbf5175-1b27-47a6-aef5-8140db26c0c5"
-			},
-			"id": "capsule_aind_destripe_shadow_correction_zarr_1",
-			"position": {
-				"x": -521.8294375849397,
-				"y": 405.0017199081467
-			},
-			"selected": false,
-			"type": "capsule"
-		},
-		{
-			"data": {
-				"capsule_id": "37c0404c-111e-4f43-8744-39616bae91f1"
-			},
-			"id": "capsule_aind_smartspim_flatfield_estimation_5",
-			"position": {
-				"x": -1046.582026040372,
-				"y": 236.34067875143364
-			},
-			"selected": false,
-			"type": "capsule"
 		},
 		{
 			"data": {
@@ -281,30 +246,6 @@
 		},
 		{
 			"data": {
-				"capsule_id": "98fa799f-6828-44cf-b61f-41717795fe2b"
-			},
-			"id": "capsule_zarr_pipeline_aind_smartspim_stitch_2",
-			"position": {
-				"x": 1134.4138475929321,
-				"y": 564.8157705024632
-			},
-			"selected": false,
-			"type": "capsule"
-		},
-		{
-			"data": {
-				"capsule_id": "7481bbe0-fcf7-4fad-a5ae-06f4d87ac9d2"
-			},
-			"id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
-			"position": {
-				"x": 37.82162228071684,
-				"y": 806.6583543642233
-			},
-			"selected": false,
-			"type": "capsule"
-		},
-		{
-			"data": {
 				"capsule_id": "a240d629-4d4b-430d-a040-0ab11d48a2a0"
 			},
 			"id": "capsule_zarr_pipeline_aind_smartspim_cell_quantification_7",
@@ -334,7 +275,55 @@
 			},
 			"selected": false,
 			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "9297b361-aefa-419f-8897-0466e6b2ba0e"
+			},
+			"id": "capsule_aind_destripe_shadow_correction_004_1",
+			"position": {
+				"x": -521.8294375849397,
+				"y": 405.0017199081467
+			},
+			"selected": true,
+			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "94d2cbcc-55b3-41fb-9686-9ccc1d3601b1"
+			},
+			"id": "capsule_aind_smartspim_flatfield_estimation_5",
+			"position": {
+				"x": -1046.582026040372,
+				"y": 236.34067875143364
+			},
+			"selected": true,
+			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "53ecb114-e201-48b5-8d5e-5277d26cbb2b"
+			},
+			"id": "capsule_aind_smartspim_stitch_125_2",
+			"position": {
+				"x": 1134.4138475929321,
+				"y": 564.8157705024632
+			},
+			"selected": true,
+			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "e28fec7f-8253-46ba-8502-10ac3711e3f2"
+			},
+			"id": "capsule_aind_smartspim_fuse_002_3",
+			"position": {
+				"x": 37.82162228071684,
+				"y": 806.6583543642233
+			},
+			"selected": true,
+			"type": "capsule"
 		}
 	],
-	"timestamp": 1736202803400
+	"timestamp": 1738819087073
 }

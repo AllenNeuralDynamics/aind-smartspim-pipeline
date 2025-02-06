@@ -2,12 +2,11 @@
 	"version": 1,
 	"processes": [
 		{
-			"name": "capsule_aind_destripe_shadow_correction_zarr_1",
+			"name": "capsule_aind_destripe_shadow_correction_004_1",
 			"capsule": {
-				"id": "fcbf5175-1b27-47a6-aef5-8140db26c0c5",
-				"name": "aind-destripe-shadow-correction Zarr Optimization",
-				"slug": "0631026",
-				"commit": "abd7680ad8db47550720d0a164238d4c5a43e7b8"
+				"id": "9297b361-aefa-419f-8897-0466e6b2ba0e",
+				"name": "aind-destripe-shadow-correction-0.0.4",
+				"slug": "2729769"
 			},
 			"resources": {
 				"cpus": 32,
@@ -47,12 +46,11 @@
 			]
 		},
 		{
-			"name": "capsule_zarr_pipeline_aind_smartspim_stitch_2",
+			"name": "capsule_aind_smartspim_stitch_125_2",
 			"capsule": {
-				"id": "98fa799f-6828-44cf-b61f-41717795fe2b",
-				"name": "Zarr Pipeline aind-smartspim-stitch",
-				"slug": "8459742",
-				"commit": "5897b5c380f8b0e6fbacd0b2c2d60f2b210f49a6"
+				"id": "53ecb114-e201-48b5-8d5e-5277d26cbb2b",
+				"name": "aind-smartspim-stitch-1.2.5",
+				"slug": "2825072"
 			},
 			"resources": {
 				"cpus": 16,
@@ -85,9 +83,9 @@
 				},
 				{
 					"id": "rbnjIAw6MDth3Mfm",
-					"source_id": "capsule_aind_destripe_shadow_correction_zarr_1",
+					"source_id": "capsule_aind_destripe_shadow_correction_004_1",
 					"type": "capsule",
-					"name": "aind-destripe-shadow-correction Zarr",
+					"name": "aind-destripe-shadow-correction-0.0.4",
 					"source_path": "destriped_data/Ex_*_Em_*",
 					"target_path": "preprocessed_data",
 					"collect": true
@@ -95,12 +93,11 @@
 			]
 		},
 		{
-			"name": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+			"name": "capsule_aind_smartspim_fuse_002_3",
 			"capsule": {
-				"id": "7481bbe0-fcf7-4fad-a5ae-06f4d87ac9d2",
-				"name": "Zarr Pipeline - aind-smartspim-fuse",
-				"slug": "4746264",
-				"commit": "92a5c92597d00a5b95cf7af2871e6e79cab5c752"
+				"id": "e28fec7f-8253-46ba-8502-10ac3711e3f2",
+				"name": "aind-smartspim-fuse-0.0.2",
+				"slug": "5768558"
 			},
 			"resources": {
 				"cpus": 16,
@@ -110,9 +107,9 @@
 			"inputs": [
 				{
 					"id": "yR4NllxpsF1XePbs",
-					"source_id": "capsule_aind_destripe_shadow_correction_zarr_1",
+					"source_id": "capsule_aind_destripe_shadow_correction_004_1",
 					"type": "capsule",
-					"name": "aind-destripe-shadow-correction Zarr",
+					"name": "aind-destripe-shadow-correction-0.0.4",
 					"source_path": "destriped_data*",
 					"target_path": "preprocessed_data",
 					"flatten": true
@@ -127,9 +124,9 @@
 				},
 				{
 					"id": "D5NSJkj147S5q4Bs",
-					"source_id": "capsule_zarr_pipeline_aind_smartspim_stitch_2",
+					"source_id": "capsule_aind_smartspim_stitch_125_2",
 					"type": "capsule",
-					"name": "Zarr Pipeline aind-smartspim-stitch",
+					"name": "aind-smartspim-stitch-1.2.5",
 					"collect": true
 				}
 			]
@@ -137,10 +134,10 @@
 		{
 			"name": "capsule_aind_smartspim_flatfield_estimation_5",
 			"capsule": {
-				"id": "37c0404c-111e-4f43-8744-39616bae91f1",
+				"id": "94d2cbcc-55b3-41fb-9686-9ccc1d3601b1",
 				"name": "aind-smartspim-flatfield-estimation",
-				"slug": "1467402",
-				"commit": "4c08daad69d74057c769bf0f43eb58e05de34763"
+				"slug": "2734547",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
@@ -208,9 +205,9 @@
 				},
 				{
 					"id": "siRleHNdn3pTL2JI",
-					"source_id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+					"source_id": "capsule_aind_smartspim_fuse_002_3",
 					"type": "capsule",
-					"name": "Zarr Pipeline - aind-smartspim-fuse",
+					"name": "aind-smartspim-fuse-0.0.2",
 					"target_path": "fused",
 					"collect": true
 				},
@@ -224,9 +221,9 @@
 				},
 				{
 					"id": "8YwgB8qw5T1D11Ap",
-					"source_id": "capsule_aind_destripe_shadow_correction_zarr_1",
+					"source_id": "capsule_aind_destripe_shadow_correction_004_1",
 					"type": "capsule",
-					"name": "aind-destripe-shadow-correction Zarr",
+					"name": "aind-destripe-shadow-correction-0.0.4",
 					"source_path": "image_destriping_*.json",
 					"collect": true
 				},
@@ -240,9 +237,9 @@
 				},
 				{
 					"id": "gFhmr8RgwdBcxAMv",
-					"source_id": "capsule_zarr_pipeline_aind_smartspim_stitch_2",
+					"source_id": "capsule_aind_smartspim_stitch_125_2",
 					"type": "capsule",
-					"name": "Zarr Pipeline aind-smartspim-stitch",
+					"name": "aind-smartspim-stitch-1.2.5",
 					"target_path": "stitched",
 					"collect": true
 				}
@@ -266,9 +263,9 @@
 			"inputs": [
 				{
 					"id": "CjIIP7C1OCYfZyVg",
-					"source_id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+					"source_id": "capsule_aind_smartspim_fuse_002_3",
 					"type": "capsule",
-					"name": "Zarr Pipeline - aind-smartspim-fuse",
+					"name": "aind-smartspim-fuse-0.0.2",
 					"source_path": "Ex_*_Em_*.zarr",
 					"target_path": "fused",
 					"collect": true
@@ -353,9 +350,9 @@
 				},
 				{
 					"id": "ZhwdFNRxCkVGJEGn",
-					"source_id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+					"source_id": "capsule_aind_smartspim_fuse_002_3",
 					"type": "capsule",
-					"name": "Zarr Pipeline - aind-smartspim-fuse",
+					"name": "aind-smartspim-fuse-0.0.2",
 					"source_path": "Ex_*_Em_*.zarr",
 					"target_path": "fused",
 					"collect": true
@@ -386,9 +383,9 @@
 			"inputs": [
 				{
 					"id": "OfPGd19C4Vc1wa7g",
-					"source_id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+					"source_id": "capsule_aind_smartspim_fuse_002_3",
 					"type": "capsule",
-					"name": "Zarr Pipeline - aind-smartspim-fuse",
+					"name": "aind-smartspim-fuse-0.0.2",
 					"source_path": "Ex_*_Em_*.zarr",
 					"target_path": "fused",
 					"collect": true
@@ -427,9 +424,9 @@
 			"inputs": [
 				{
 					"id": "sQGB4EL9uNLyBuMb",
-					"source_id": "capsule_zarr_pipeline_aind_smartspim_fuse_3",
+					"source_id": "capsule_aind_smartspim_fuse_002_3",
 					"type": "capsule",
-					"name": "Zarr Pipeline - aind-smartspim-fuse",
+					"name": "aind-smartspim-fuse-0.0.2",
 					"source_path": "Ex_*_Em_*.zarr",
 					"target_path": "fused",
 					"collect": true
