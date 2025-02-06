@@ -174,12 +174,12 @@
 			]
 		},
 		{
-			"name": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"name": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"capsule": {
-				"id": "251a89cb-d614-4629-93d6-77929f18623b",
-				"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
-				"slug": "0991347",
-				"commit": "13a6b06bdc5bce565cfbdae876975281c3102694",
+				"id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32",
+				"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
+				"slug": "9560554",
+				"version": 1,
 				"arguments": [
 					"dispatch"
 				]
@@ -282,25 +282,25 @@
 				},
 				{
 					"id": "P0ahA61OfXS9JQ4E",
-					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 					"source_path": "segmentation_processing_manifest_*.json",
 					"flatten": true
 				},
 				{
 					"id": "mcSO9c74BWKomjkk",
-					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 					"source_path": "output_aind_metadata/data_description.json",
 					"collect": true
 				},
 				{
 					"id": "W8sZJwRhDIlq2sCL",
-					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 					"source_path": "output_aind_metadata/acquisition.json",
 					"collect": true
 				},
@@ -395,17 +395,17 @@
 				},
 				{
 					"id": "AxWdPVMikkX86fF0",
-					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 					"source_path": "output_aind_metadata/data_description.json",
 					"collect": true
 				},
 				{
 					"id": "N0X2Sl41iZM2i7H7",
-					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 					"source_path": "segmentation_processing_manifest_*.json",
 					"flatten": true
 				}
@@ -436,9 +436,9 @@
 				},
 				{
 					"id": "dl8HafCr4DpcWqvP",
-					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 					"source_path": "output_aind_metadata/data_description.json",
 					"collect": true
 				},
@@ -459,12 +459,12 @@
 			]
 		},
 		{
-			"name": "capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11",
+			"name": "capsule_aind_smartspim_pipeline_dispatcher_100_11",
 			"capsule": {
-				"id": "251a89cb-d614-4629-93d6-77929f18623b",
-				"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
-				"slug": "0991347",
-				"commit": "13a6b06bdc5bce565cfbdae876975281c3102694",
+				"id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32",
+				"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
+				"slug": "9560554",
+				"version": 1,
 				"arguments": [
 					"clean"
 				]
@@ -476,26 +476,26 @@
 			"inputs": [
 				{
 					"id": "fs6kkVE7ACsEva2y",
-					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 					"source_path": "output_aind_metadata/processing.json",
 					"target_path": "input_aind_metadata",
 					"collect": true
 				},
 				{
 					"id": "fkhPBgCl0Lgb7WU2",
-					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 					"source_path": "modified_processing_manifest.json",
 					"collect": true
 				},
 				{
 					"id": "NhPmFI4or3ZpepCM",
-					"source_id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "zarr pipeline aind-smartspim-pipeline-dispatcher",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 					"source_path": "output_aind_metadata/data_description.json",
 					"target_path": "input_aind_metadata",
 					"collect": true
@@ -516,7 +516,7 @@
 				}
 			],
 			"results": {
-				"id": "251a89cb-d614-4629-93d6-77929f18623b"
+				"id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
 			}
 		}
 	]

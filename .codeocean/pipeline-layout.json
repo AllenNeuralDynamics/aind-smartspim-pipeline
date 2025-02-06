@@ -41,25 +41,24 @@
 			"target": "capsule_aind_smartspim_fuse_002_3"
 		},
 		{
-			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
-			"selected": false,
+			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
-			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
+			"target": "capsule_aind_smartspim_pipeline_dispatcher_100_6"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_destripe_shadow_correction_004_1-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"id": "reactflow__edge-capsule_aind_destripe_shadow_correction_004_1-capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"source": "capsule_aind_destripe_shadow_correction_004_1",
-			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
+			"target": "capsule_aind_smartspim_pipeline_dispatcher_100_6"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_smartspim_stitch_125_2-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"id": "reactflow__edge-capsule_aind_smartspim_stitch_125_2-capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"source": "capsule_aind_smartspim_stitch_125_2",
-			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
+			"target": "capsule_aind_smartspim_pipeline_dispatcher_100_6"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_smartspim_flatfield_estimation_5-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"id": "reactflow__edge-capsule_aind_smartspim_flatfield_estimation_5-capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"source": "capsule_aind_smartspim_flatfield_estimation_5",
-			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
+			"target": "capsule_aind_smartspim_pipeline_dispatcher_100_6"
 		},
 		{
 			"id": "reactflow__edge-9be4e3ac-adfb-4335-824c-bd99364a2c0f-capsule_aind_smartspim_ccf_registration_8",
@@ -77,14 +76,14 @@
 			"target": "capsule_aind_smartspim_cell_quantification_151_7"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6-capsule_aind_smartspim_cell_segmentation_007_9",
-			"source": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"id": "reactflow__edge-capsule_aind_smartspim_pipeline_dispatcher_100_6-capsule_aind_smartspim_cell_segmentation_007_9",
+			"source": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"target": "capsule_aind_smartspim_cell_segmentation_007_9"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_smartspim_ccf_registration_8-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"id": "reactflow__edge-capsule_aind_smartspim_ccf_registration_8-capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"source": "capsule_aind_smartspim_ccf_registration_8",
-			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
+			"target": "capsule_aind_smartspim_pipeline_dispatcher_100_6"
 		},
 		{
 			"id": "reactflow__edge-capsule_aind_smartspim_cell_segmentation_007_9-capsule_aind_smartspim_classification_003_10",
@@ -97,8 +96,8 @@
 			"target": "capsule_aind_smartspim_classification_003_10"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6-capsule_aind_smartspim_classification_003_10",
-			"source": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"id": "reactflow__edge-capsule_aind_smartspim_pipeline_dispatcher_100_6-capsule_aind_smartspim_classification_003_10",
+			"source": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"target": "capsule_aind_smartspim_classification_003_10"
 		},
 		{
@@ -107,30 +106,28 @@
 			"target": "capsule_aind_smartspim_cell_quantification_151_7"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_smartspim_cell_quantification_151_7-capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11",
+			"id": "reactflow__edge-capsule_aind_smartspim_cell_quantification_151_7-capsule_aind_smartspim_pipeline_dispatcher_100_11",
 			"source": "capsule_aind_smartspim_cell_quantification_151_7",
-			"target": "capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11"
+			"target": "capsule_aind_smartspim_pipeline_dispatcher_100_11"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6-capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11",
-			"selected": false,
-			"source": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
-			"target": "capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11"
+			"id": "reactflow__edge-capsule_aind_smartspim_pipeline_dispatcher_100_6-capsule_aind_smartspim_pipeline_dispatcher_100_11",
+			"source": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
+			"target": "capsule_aind_smartspim_pipeline_dispatcher_100_11"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_smartspim_classification_003_10-capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11",
+			"id": "reactflow__edge-capsule_aind_smartspim_classification_003_10-capsule_aind_smartspim_pipeline_dispatcher_100_11",
 			"source": "capsule_aind_smartspim_classification_003_10",
-			"target": "capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11"
+			"target": "capsule_aind_smartspim_pipeline_dispatcher_100_11"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11-results",
-			"selected": false,
-			"source": "capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11",
+			"id": "reactflow__edge-capsule_aind_smartspim_pipeline_dispatcher_100_11-results",
+			"source": "capsule_aind_smartspim_pipeline_dispatcher_100_11",
 			"target": "results"
 		},
 		{
-			"id": "reactflow__edge-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6-capsule_aind_smartspim_cell_quantification_151_7",
-			"source": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"id": "reactflow__edge-capsule_aind_smartspim_pipeline_dispatcher_100_6-capsule_aind_smartspim_cell_quantification_151_7",
+			"source": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"target": "capsule_aind_smartspim_cell_quantification_151_7"
 		},
 		{
@@ -144,9 +141,9 @@
 			"target": "capsule_aind_smartspim_ccf_registration_8"
 		},
 		{
-			"id": "reactflow__edge-capsule_aind_smartspim_fuse_002_3-capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
+			"id": "reactflow__edge-capsule_aind_smartspim_fuse_002_3-capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"source": "capsule_aind_smartspim_fuse_002_3",
-			"target": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6"
+			"target": "capsule_aind_smartspim_pipeline_dispatcher_100_6"
 		},
 		{
 			"id": "reactflow__edge-capsule_aind_smartspim_fuse_002_3-capsule_aind_smartspim_cell_segmentation_007_9",
@@ -175,18 +172,6 @@
 			"type": "results"
 		},
 		{
-			"data": {
-				"capsule_id": "251a89cb-d614-4629-93d6-77929f18623b"
-			},
-			"id": "capsule_zarrpipelineaind_smartspim_pipeline_dispatcher_6",
-			"position": {
-				"x": -496.5285876697412,
-				"y": 1309.183953718986
-			},
-			"selected": false,
-			"type": "capsule"
-		},
-		{
 			"id": "9be4e3ac-adfb-4335-824c-bd99364a2c0f",
 			"position": {
 				"x": -1418.6384674485764,
@@ -203,18 +188,6 @@
 			},
 			"selected": false,
 			"type": "dataset"
-		},
-		{
-			"data": {
-				"capsule_id": "251a89cb-d614-4629-93d6-77929f18623b"
-			},
-			"id": "capsule_zarr_pipeline_aind_smartspim_pipeline_dispatcher_11",
-			"position": {
-				"x": -382.9598223517013,
-				"y": 2293.1554079292227
-			},
-			"selected": false,
-			"type": "capsule"
 		},
 		{
 			"id": "69579d3b-8d01-4520-8375-bcd074be4996",
@@ -319,7 +292,31 @@
 			},
 			"selected": true,
 			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
+			},
+			"id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
+			"position": {
+				"x": -496.5285876697412,
+				"y": 1309.183953718986
+			},
+			"selected": true,
+			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
+			},
+			"id": "capsule_aind_smartspim_pipeline_dispatcher_100_11",
+			"position": {
+				"x": -382.9598223517013,
+				"y": 2293.1554079292227
+			},
+			"selected": true,
+			"type": "capsule"
 		}
 	],
-	"timestamp": 1738820971260
+	"timestamp": 1738825044349
 }
