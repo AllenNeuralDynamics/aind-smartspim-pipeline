@@ -49,9 +49,10 @@
 		{
 			"name": "capsule_aind_smartspim_stitch_125_2",
 			"capsule": {
-				"id": "53ecb114-e201-48b5-8d5e-5277d26cbb2b",
+				"id": "4c04ae91-ff3e-453b-b95f-e26970fc1350",
 				"name": "aind-smartspim-stitch-1.2.5",
-				"slug": "2825072"
+				"slug": "2124819",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
@@ -96,9 +97,10 @@
 		{
 			"name": "capsule_aind_smartspim_fuse_002_3",
 			"capsule": {
-				"id": "e28fec7f-8253-46ba-8502-10ac3711e3f2",
+				"id": "10d08e17-f8a0-4c33-8610-40f8eeaef236",
 				"name": "aind-smartspim-fuse-0.0.2",
-				"slug": "5768558"
+				"slug": "0248143",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
@@ -247,12 +249,12 @@
 			]
 		},
 		{
-			"name": "capsule_zarr_pipeline_aind_smartspim_cell_quantification_7",
+			"name": "capsule_aind_smartspim_cell_quantification_151_7",
 			"capsule": {
-				"id": "a240d629-4d4b-430d-a040-0ab11d48a2a0",
-				"name": "Zarr pipeline aind-smartspim-cell-quantification",
-				"slug": "2404927",
-				"commit": "d74844485967435320e485a0ad7f1b246a64409a",
+				"id": "b895947f-db4f-4025-adb4-a1a04b7f1587",
+				"name": "aind-smartspim-cell-quantification-1.5.1",
+				"slug": "2107437",
+				"version": 1,
 				"arguments": [
 					"detect"
 				]
@@ -273,9 +275,9 @@
 				},
 				{
 					"id": "lE1FNTAItpK5Gcsg",
-					"source_id": "capsule_aind_smartspim_classification_10",
+					"source_id": "capsule_aind_smartspim_classification_003_10",
 					"type": "capsule",
-					"name": "aind-smartspim-classification",
+					"name": "aind-smartspim-classification-0.0.3",
 					"collect": true
 				},
 				{
@@ -323,10 +325,10 @@
 		{
 			"name": "capsule_aind_smartspim_ccf_registration_8",
 			"capsule": {
-				"id": "30b4f986-4d55-452f-aae7-463e19dba67d",
+				"id": "d61333f3-fd41-464e-9dac-dbdad02aec54",
 				"name": "aind-smartspim-ccf-registration",
-				"slug": "6045222",
-				"commit": "1e0b43cba01af143610cdac39d1dc2b80170680d"
+				"slug": "8584302",
+				"version": 4
 			},
 			"resources": {
 				"cpus": 16,
@@ -370,12 +372,12 @@
 			]
 		},
 		{
-			"name": "capsule_aind_smartspim_cell_segmentation_9",
+			"name": "capsule_aind_smartspim_cell_segmentation_007_9",
 			"capsule": {
-				"id": "e2be5aab-618f-4a9e-9d50-b5b649e169b1",
-				"name": "aind-smartspim-cell-segmentation",
-				"slug": "9761832",
-				"commit": "973c88e62315d80fd509622ba2558d56cacefc1a"
+				"id": "0d01bdb8-e530-40b8-8311-883814bde142",
+				"name": "aind-smartspim-cell-segmentation-0.0.7",
+				"slug": "5009831",
+				"version": 3
 			},
 			"resources": {
 				"cpus": 16,
@@ -410,12 +412,12 @@
 			]
 		},
 		{
-			"name": "capsule_aind_smartspim_classification_10",
+			"name": "capsule_aind_smartspim_classification_003_10",
 			"capsule": {
-				"id": "4f3a6ae7-41fb-4776-bc88-952b8a90bb28",
-				"name": "aind-smartspim-classification",
-				"slug": "3583098",
-				"commit": "747d1c06d662cf4bb5023e329a21aba68c8bf7f1"
+				"id": "eab3673c-2c7f-488b-82b9-75dbfdddcb53",
+				"name": "aind-smartspim-classification-0.0.3",
+				"slug": "4355840",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
@@ -450,9 +452,9 @@
 				},
 				{
 					"id": "Z2WFYfWrINyk9a6S",
-					"source_id": "capsule_aind_smartspim_cell_segmentation_9",
+					"source_id": "capsule_aind_smartspim_cell_segmentation_007_9",
 					"type": "capsule",
-					"name": "aind-smartspim-cell-segmentation"
+					"name": "aind-smartspim-cell-segmentation-0.0.7"
 				}
 			]
 		},
@@ -500,16 +502,16 @@
 				},
 				{
 					"id": "mDFEslbtTdkS8Fgo",
-					"source_id": "capsule_aind_smartspim_classification_10",
+					"source_id": "capsule_aind_smartspim_classification_003_10",
 					"type": "capsule",
-					"name": "aind-smartspim-classification",
+					"name": "aind-smartspim-classification-0.0.3",
 					"collect": true
 				},
 				{
 					"id": "CtXvAOAPg6E9DLSv",
-					"source_id": "capsule_zarr_pipeline_aind_smartspim_cell_quantification_7",
+					"source_id": "capsule_aind_smartspim_cell_quantification_151_7",
 					"type": "capsule",
-					"name": "Zarr pipeline aind-smartspim-cell-quantification",
+					"name": "aind-smartspim-cell-quantification-1.5.1",
 					"collect": true
 				}
 			],
