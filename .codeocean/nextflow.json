@@ -1,0 +1,531 @@
+{
+	"version": 1,
+	"processes": [
+		{
+			"name": "capsule_aind_smartspim_validation_1",
+			"capsule": {
+				"id": "9aab765d-b4b5-4e11-84fa-27557bc3c043",
+				"name": "aind-smartspim-validation",
+				"slug": "7794579",
+				"version": 4
+			},
+			"resources": {
+				"cpus": 8,
+				"memory": 64
+			},
+			"inputs": [
+				{
+					"id": "xUasfdodp0Kv84ehiEsES",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_destripe_shadow_correction_2",
+			"capsule": {
+				"id": "fcca3922-bc11-430e-9c63-faa7575af52d",
+				"name": "aind-destripe-shadow-correction",
+				"slug": "3325535",
+				"commit": "e3b30f1f86c289220b38424719345386cc7f7b80"
+			},
+			"resources": {
+				"cpus": 32,
+				"memory": 128
+			},
+			"inputs": [
+				{
+					"id": "dIocodaNGgYrKo6SPEuP8",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/SmartSPIM/Ex_*_Em_*"
+				},
+				{
+					"id": "I6-BGnI5sJD97xuUiaIoa",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "1-N-64Q7L1qcPCajm5Uuv",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/derivatives/processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "dcIS2G0-YPojgTdq5nxoj",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/derivatives",
+					"collect": true
+				},
+				{
+					"id": "ExPwSjIkhH5igyCzKydxw",
+					"source_id": "capsule_aind_smartspim_validation_1",
+					"type": "capsule",
+					"name": "aind-smartspim-validation",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_stitch_3",
+			"capsule": {
+				"id": "1c4065c1-93e6-4bfc-af9d-7c6f4eea7e63",
+				"name": "aind-smartspim-stitch",
+				"slug": "4153248",
+				"commit": "b7a2944938248e53653e81d47fa99657b71bfc02"
+			},
+			"resources": {
+				"cpus": 32,
+				"memory": 256
+			},
+			"inputs": [
+				{
+					"id": "r4f_HzPMkyCQmlFw_q7_3",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/derivatives/processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "kVOBGkVOlferMoKdA7eN8",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "r55n9w4UOYdC7vak",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/acquisition.json",
+					"collect": true
+				},
+				{
+					"id": "qjN8rgIRVmMvRoSkt_GBW",
+					"source_id": "capsule_aind_destripe_shadow_correction_2",
+					"type": "capsule",
+					"name": "aind-destripe-shadow-correction",
+					"source_path": "Ex_*_Em_*",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_fuse_4",
+			"capsule": {
+				"id": "96191619-86f4-4f28-85c7-4f992fc4b30c",
+				"name": "aind-smartspim-fuse",
+				"slug": "2013512",
+				"commit": "52afeaa036a9a788f9e048e88d29742ae845bb4b"
+			},
+			"resources": {
+				"cpus": 32,
+				"memory": 256
+			},
+			"inputs": [
+				{
+					"id": "uMGv3h7HddWa9IX_PJdnV",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/derivatives/processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "cugGcJOOoYsf1rmL0jO_1",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "l7pccCimtZ3qMzTf",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/acquisition.json",
+					"collect": true
+				},
+				{
+					"id": "WadjW2UD4jNA2V-UD2oBj",
+					"source_id": "capsule_aind_destripe_shadow_correction_2",
+					"type": "capsule",
+					"name": "aind-destripe-shadow-correction",
+					"source_path": "Ex_*_Em_*",
+					"flatten": true
+				},
+				{
+					"id": "nVikkmo8L8BkyabI74lp4",
+					"source_id": "capsule_aind_smartspim_stitch_3",
+					"type": "capsule",
+					"name": "aind-smartspim-stitch",
+					"source_path": "volume_alignments.xml",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_ccf_registration_5",
+			"capsule": {
+				"id": "30b4f986-4d55-452f-aae7-463e19dba67d",
+				"name": "aind-smartspim-ccf-registration",
+				"slug": "6045222",
+				"commit": "80d5bcc6de5703070a9fbf3ddd069bb4c68464c8"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 128
+			},
+			"inputs": [
+				{
+					"id": "jPFxoo0VHP5gkQ4W",
+					"source_id": "9be4e3ac-adfb-4335-824c-bd99364a2c0f",
+					"type": "dataset",
+					"name": "lightsheet_template_ccf_registration",
+					"source_path": "lightsheet_template_ccf_registration/",
+					"target_path": "lightsheet_template_ccf_registration",
+					"collect": true
+				},
+				{
+					"id": "a7wcVPSkzFcLstsWnB_sL",
+					"source_id": "capsule_aind_smartspim_fuse_4",
+					"type": "capsule",
+					"name": "aind-smartspim-fuse",
+					"source_path": "fusion_*/OMEZarr/Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "jACVSnsBCHX61G9nVh4o6",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/derivatives/processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "QstZ8IWuX3cSukHoFcdaH",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/acquisition.json",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_pipeline_dispatcher_6",
+			"capsule": {
+				"id": "18f160f3-be42-49c7-87a3-0ed0938bfa28",
+				"name": "aind-smartspim-pipeline-dispatcher",
+				"slug": "2991712",
+				"commit": "87de7d3536b57a3999ca399cda304431a7688ac4",
+				"arguments": [
+					"dispatch"
+				]
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 128
+			},
+			"inputs": [
+				{
+					"id": "Dp8mgBZfHvC3fL0_K_mmn",
+					"source_id": "capsule_aind_destripe_shadow_correction_2",
+					"type": "capsule",
+					"name": "aind-destripe-shadow-correction",
+					"source_path": "image_destriping_*_processing.json",
+					"collect": true
+				},
+				{
+					"id": "nTVuHzbc404cljJTmeU5L",
+					"source_id": "capsule_aind_destripe_shadow_correction_2",
+					"type": "capsule",
+					"name": "aind-destripe-shadow-correction",
+					"source_path": "flatfield_correction_*",
+					"collect": true
+				},
+				{
+					"id": "k2_EB4GzBeUDCO1L0AKcg",
+					"source_id": "capsule_aind_smartspim_ccf_registration_5",
+					"type": "capsule",
+					"name": "aind-smartspim-ccf-registration",
+					"target_path": "ccf_registration_results",
+					"collect": true
+				},
+				{
+					"id": "f64yHd9_zkqZhEPKSgs1W",
+					"source_id": "capsule_aind_smartspim_fuse_4",
+					"type": "capsule",
+					"name": "aind-smartspim-fuse",
+					"source_path": "fusion_*",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "_nfVf8buT-8Seh0vxCXa_",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/*.json",
+					"target_path": "input_aind_metadata",
+					"collect": true
+				},
+				{
+					"id": "bPlpY8QdoozkrNLFGe6AF",
+					"source_id": "5e5af37a-849a-49ab-a774-8692c40af097",
+					"type": "dataset",
+					"name": "smartspim_test_dataset",
+					"source_path": "smartspim_test_dataset/derivatives/processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "yv2GttEoNkOQkvIp6Rtgk",
+					"source_id": "capsule_aind_smartspim_stitch_3",
+					"type": "capsule",
+					"name": "aind-smartspim-stitch",
+					"source_path": "stitch_*",
+					"target_path": "stitched",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_cell_segmentation_7",
+			"capsule": {
+				"id": "e2be5aab-618f-4a9e-9d50-b5b649e169b1",
+				"name": "aind-smartspim-cell-segmentation",
+				"slug": "9761832",
+				"commit": "9405f3febdeba71a38f4105c451f6d1a01f8d744"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 256
+			},
+			"inputs": [
+				{
+					"id": "PY3cYlNVYnDQ94HWc0XQ6",
+					"source_id": "capsule_aind_smartspim_fuse_4",
+					"type": "capsule",
+					"name": "aind-smartspim-fuse",
+					"source_path": "fusion_*/OMEZarr/Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "MotXPOvR-L4yMrK80n7jv",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher",
+					"source_path": "segmentation_processing_manifest_*.json",
+					"flatten": true
+				},
+				{
+					"id": "vWDN6vXyc59V4PBZFFtf8",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/data_description.json",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_cell_quantification_8",
+			"capsule": {
+				"id": "2486f4d2-79b2-4862-946b-e3a14e780f1d",
+				"name": "reprocess-aind-smartspim-cell-quantification",
+				"slug": "8884276",
+				"commit": "b3644385004fc4def505b8a0bb1d633361f0fdb1",
+				"arguments": [
+					"detect"
+				]
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 128
+			},
+			"inputs": [
+				{
+					"id": "lflcPawMC9VKf8IJ",
+					"source_id": "9be4e3ac-adfb-4335-824c-bd99364a2c0f",
+					"type": "dataset",
+					"name": "lightsheet_template_ccf_registration",
+					"source_path": "lightsheet_template_ccf_registration/",
+					"target_path": "lightsheet_template_ccf_registration",
+					"collect": true
+				},
+				{
+					"id": "vFTeBwFUqdS4dfsxRF8DO",
+					"source_id": "capsule_aind_smartspim_cell_classification_gpu_10",
+					"type": "capsule",
+					"name": "aind-smartspim-cell-classification_GPU",
+					"collect": true
+				},
+				{
+					"id": "rnjhmohdGSvXvxb-BF6x0",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher",
+					"source_path": "segmentation_processing_manifest_*.json",
+					"flatten": true
+				},
+				{
+					"id": "U5bWeqOrKb3vBNES4YEIp",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "mN88-IWekj4Ajpb-V2oDz",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/acquisition.json",
+					"collect": true
+				},
+				{
+					"id": "aEn2-psOMxKoM5bCK7kvM",
+					"source_id": "capsule_aind_smartspim_fuse_4",
+					"type": "capsule",
+					"name": "aind-smartspim-fuse",
+					"source_path": "fusion_*/OMEZarr/Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "uE6Az52OzSZHHUCbCYlaO",
+					"source_id": "capsule_aind_smartspim_ccf_registration_5",
+					"type": "capsule",
+					"name": "aind-smartspim-ccf-registration",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_pipeline_dispatcher_9",
+			"capsule": {
+				"id": "18f160f3-be42-49c7-87a3-0ed0938bfa28",
+				"name": "aind-smartspim-pipeline-dispatcher",
+				"slug": "2991712",
+				"commit": "87de7d3536b57a3999ca399cda304431a7688ac4",
+				"arguments": [
+					"clean"
+				]
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 128
+			},
+			"inputs": [
+				{
+					"id": "gzcc6XsCO1nzWv-xZGjdy",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/processing.json",
+					"target_path": "output_aind_metadata",
+					"collect": true
+				},
+				{
+					"id": "4yPafqtqswmh9wHLmJlAX",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher",
+					"source_path": "modified_processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "74ZSlQONmDpPxqvzOREZr",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/data_description.json",
+					"target_path": "input_aind_metadata",
+					"collect": true
+				},
+				{
+					"id": "HXiSfWjLJbaayeumZg-Z6",
+					"source_id": "capsule_aind_smartspim_cell_classification_gpu_10",
+					"type": "capsule",
+					"name": "aind-smartspim-cell-classification_GPU",
+					"collect": true
+				},
+				{
+					"id": "hw8hu6qdb922JST5sN0U0",
+					"source_id": "capsule_aind_smartspim_cell_quantification_8",
+					"type": "capsule",
+					"name": "aind-smartspim-cell-quantification",
+					"collect": true
+				}
+			],
+			"results": {
+				"id": "b020c3b5-693e-418b-ad6a-f204a681ad89"
+			}
+		},
+		{
+			"name": "capsule_aind_smartspim_cell_classification_gpu_10",
+			"capsule": {
+				"id": "6fa72b6b-7b12-466e-94da-6cc5699b68f3",
+				"name": "aind-smartspim-cell-classification",
+				"slug": "0963828",
+				"commit": "338c64934a1e54758be4ed3acd03ff8422fcada8"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 61,
+				"gpus": 1
+			},
+			"inputs": [
+				{
+					"id": "aooCbHYBqLvwlsgTZQkWG",
+					"source_id": "capsule_aind_smartspim_cell_segmentation_7",
+					"type": "capsule",
+					"name": "aind-smartspim-cell-segmentation"
+				},
+				{
+					"id": "X17mwWPlV8bYvLl8WizCV",
+					"source_id": "capsule_aind_smartspim_fuse_4",
+					"type": "capsule",
+					"name": "aind-smartspim-fuse",
+					"source_path": "fusion_*/OMEZarr/Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "cywy2dF2PfUChjNsiNji1",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_6",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher",
+					"source_path": "output_aind_metadata/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "OlhIlxZvd4dF9_cK900oJ",
+					"source_id": "459560f0-c7bb-406a-8a67-73ba8450bbd0",
+					"type": "dataset",
+					"name": "smartspim_18_model",
+					"source_path": "smartspim_18_model/",
+					"collect": true
+				}
+			]
+		}
+	]
+}
