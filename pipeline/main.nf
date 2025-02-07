@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:354db652089b05e7a541959dd28b53bbf051d4d6af0e7e3dc736e01fca6cafb4
+// hash:sha256:3a4be716dfc5b462e85317d93585623c5d0dcca4cb79794cef90772ad78aadb3
 
 nextflow.enable.dsl = 1
 
@@ -238,7 +238,7 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 // capsule - aind-smartspim-pipeline-dispatcher-1.0.0
 process capsule_aind_smartspim_pipeline_dispatcher_100_6 {
 	tag 'capsule-3294345'
-	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0"
+	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0:265aa97d9e26fc8f2181fe2a6344a4cc"
 
 	cpus 16
 	memory '128 GB'
@@ -279,6 +279,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_6 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-3294345.git" capsule-repo
+	git -C capsule-repo checkout 0ceac22b37c9cb8c3c4859ed99b34e0d5f1d32ad --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -483,7 +484,7 @@ process capsule_aind_smartspim_classification_003_10 {
 // capsule - aind-smartspim-pipeline-dispatcher-1.0.0
 process capsule_aind_smartspim_pipeline_dispatcher_100_11 {
 	tag 'capsule-3294345'
-	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0"
+	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0:265aa97d9e26fc8f2181fe2a6344a4cc"
 
 	cpus 16
 	memory '64 GB'
@@ -516,6 +517,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_11 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-3294345.git" capsule-repo
+	git -C capsule-repo checkout 0ceac22b37c9cb8c3c4859ed99b34e0d5f1d32ad --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
