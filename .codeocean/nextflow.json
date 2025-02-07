@@ -176,10 +176,9 @@
 		{
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"capsule": {
-				"id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32",
+				"id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
-				"slug": "9560554",
-				"version": 1,
+				"slug": "3294345",
 				"arguments": [
 					"dispatch"
 				]
@@ -461,10 +460,9 @@
 		{
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_100_11",
 			"capsule": {
-				"id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32",
+				"id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
-				"slug": "9560554",
-				"version": 1,
+				"slug": "3294345",
 				"arguments": [
 					"clean"
 				]

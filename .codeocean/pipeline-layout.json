@@ -184,7 +184,7 @@
 			"id": "459560f0-c7bb-406a-8a67-73ba8450bbd0",
 			"position": {
 				"x": 669.7104416009659,
-				"y": 1742.06128691691
+				"y": 1738.7279535835767
 			},
 			"selected": false,
 			"type": "dataset"
@@ -206,7 +206,7 @@
 				"x": -1046.582026040372,
 				"y": 236.34067875143364
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -218,7 +218,7 @@
 				"x": -521.8294375849397,
 				"y": 405.0017199081467
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -230,7 +230,7 @@
 				"x": 37.82162228071684,
 				"y": 806.6583543642233
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -242,7 +242,7 @@
 				"x": -1064.968035369693,
 				"y": 1162.223655468595
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -254,7 +254,7 @@
 				"x": 1134.4138475929321,
 				"y": 564.8157705024632
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -266,7 +266,7 @@
 				"x": 395.3965325826414,
 				"y": 1542.6485703633095
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -278,7 +278,7 @@
 				"x": -113.99949283696117,
 				"y": 1826.3930332187706
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -290,12 +290,12 @@
 				"x": -1034.374452229009,
 				"y": 2126.0306237077148
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
 			"data": {
-				"capsule_id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
+				"capsule_id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"position": {
@@ -307,16 +307,21 @@
 		},
 		{
 			"data": {
-				"capsule_id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
+				"capsule_id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_100_11",
 			"position": {
 				"x": -382.9598223517013,
 				"y": 2293.1554079292227
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1738825044349
+	"timestamp": 1738948066004,
+	"viewport": {
+		"x": 464.93508380854627,
+		"y": -260.3669841878511,
+		"zoom": 0.3
+	}
 }

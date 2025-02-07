@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:5d98cd911ab9087c3e367c0b56e565abfab3c69fd9f5c62955e1d3657e542159
+// hash:sha256:354db652089b05e7a541959dd28b53bbf051d4d6af0e7e3dc736e01fca6cafb4
 
 nextflow.enable.dsl = 1
 
@@ -237,8 +237,8 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 
 // capsule - aind-smartspim-pipeline-dispatcher-1.0.0
 process capsule_aind_smartspim_pipeline_dispatcher_100_6 {
-	tag 'capsule-9560554'
-	container "$REGISTRY_HOST/published/aaf91c8f-c0a2-413d-8e1e-f9e263df1b32:v1"
+	tag 'capsule-3294345'
+	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0"
 
 	cpus 16
 	memory '128 GB'
@@ -268,7 +268,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_6 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=aaf91c8f-c0a2-413d-8e1e-f9e263df1b32
+	export CO_CAPSULE_ID=7adb694b-b8cd-42ef-ba37-4639508b7ee0
 	export CO_CPUS=16
 	export CO_MEMORY=137438953472
 
@@ -278,7 +278,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_6 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-9560554.git" capsule-repo
+	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-3294345.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -482,8 +482,8 @@ process capsule_aind_smartspim_classification_003_10 {
 
 // capsule - aind-smartspim-pipeline-dispatcher-1.0.0
 process capsule_aind_smartspim_pipeline_dispatcher_100_11 {
-	tag 'capsule-9560554'
-	container "$REGISTRY_HOST/published/aaf91c8f-c0a2-413d-8e1e-f9e263df1b32:v1"
+	tag 'capsule-3294345'
+	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0"
 
 	cpus 16
 	memory '64 GB'
@@ -505,7 +505,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_11 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=aaf91c8f-c0a2-413d-8e1e-f9e263df1b32
+	export CO_CAPSULE_ID=7adb694b-b8cd-42ef-ba37-4639508b7ee0
 	export CO_CPUS=16
 	export CO_MEMORY=68719476736
 
@@ -515,7 +515,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_11 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-9560554.git" capsule-repo
+	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-3294345.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
