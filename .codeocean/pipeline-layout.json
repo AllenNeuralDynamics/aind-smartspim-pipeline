@@ -295,7 +295,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0"
+				"capsule_id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"position": {
@@ -307,7 +307,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0"
+				"capsule_id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_100_11",
 			"position": {
@@ -318,10 +318,10 @@
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1738948066004,
+	"timestamp": 1738993860738,
 	"viewport": {
-		"x": 464.93508380854627,
-		"y": -260.3669841878511,
+		"x": 731.9350838085463,
+		"y": -275.36698418785124,
 		"zoom": 0.3
 	}
 }
