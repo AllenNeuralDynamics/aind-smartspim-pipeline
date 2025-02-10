@@ -1,6 +1,7 @@
 metadata_version: 1
-name: aind-smartspim-pipeline
-description: A pipeline to process teravoxel-sized microscopy images using cloud computing resources.
+name: aind-smartspim-pipeline-v3.0
+description: A pipeline to process teravoxel-sized microscopy images using cloud computing
+  resources.
 tags:
 - SmartSPIM
 authors:
