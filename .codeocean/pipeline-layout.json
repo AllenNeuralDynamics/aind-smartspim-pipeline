@@ -295,33 +295,33 @@
 		},
 		{
 			"data": {
-				"capsule_id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
+				"capsule_id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"position": {
 				"x": -496.5285876697412,
 				"y": 1309.183953718986
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
 			"data": {
-				"capsule_id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
+				"capsule_id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_100_11",
 			"position": {
 				"x": -382.9598223517013,
 				"y": 2293.1554079292227
 			},
-			"selected": false,
+			"selected": true,
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1738993860738,
+	"timestamp": 1739301487383,
 	"viewport": {
-		"x": 731.9350838085463,
-		"y": -275.36698418785124,
+		"x": 752.9350838085463,
+		"y": -506.36698418785124,
 		"zoom": 0.3
 	}
 }
