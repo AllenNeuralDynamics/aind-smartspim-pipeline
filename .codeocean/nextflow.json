@@ -50,9 +50,9 @@
 			"name": "capsule_aind_smartspim_stitch_125_2",
 			"capsule": {
 				"id": "4c04ae91-ff3e-453b-b95f-e26970fc1350",
-				"name": "aind-smartspim-stitch-1.2.5",
+				"name": "aind-smartspim-stitch-1.2.6",
 				"slug": "2124819",
-				"version": 1
+				"version": 2
 			},
 			"resources": {
 				"cpus": 16,
@@ -180,7 +180,6 @@
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 				"slug": "3294345",
 				"commit": "25ea808cdbb60b2cbd4d83cb7715174d7136f754",
-				"image_tag": "265aa97d9e26fc8f2181fe2a6344a4cc",
 				"arguments": [
 					"dispatch"
 				]
@@ -416,9 +415,9 @@
 			"name": "capsule_aind_smartspim_classification_003_10",
 			"capsule": {
 				"id": "eab3673c-2c7f-488b-82b9-75dbfdddcb53",
-				"name": "aind-smartspim-classification-0.0.3",
+				"name": "aind-smartspim-classification-0.0.5",
 				"slug": "4355840",
-				"version": 2
+				"version": 3
 			},
 			"resources": {
 				"cpus": 16,
@@ -426,6 +425,15 @@
 				"gpus": 1
 			},
 			"inputs": [
+				{
+					"id": "cMOljMralRBqFXrb",
+					"source_id": "5b27ac5e-d18a-44bd-a219-2d237e99d7a5",
+					"type": "dataset",
+					"name": "smartspim_production_models",
+					"source_path": "smartspim_production_models/",
+					"target_path": "smartspim_production_models",
+					"collect": true
+				},
 				{
 					"id": "sQGB4EL9uNLyBuMb",
 					"source_id": "capsule_aind_smartspim_fuse_002_3",
@@ -444,14 +452,6 @@
 					"collect": true
 				},
 				{
-					"id": "xsnWRdTnkzoQuHTk",
-					"source_id": "459560f0-c7bb-406a-8a67-73ba8450bbd0",
-					"type": "dataset",
-					"name": "smartspim_18_model",
-					"source_path": "smartspim_18_model/",
-					"collect": true
-				},
-				{
 					"id": "Z2WFYfWrINyk9a6S",
 					"source_id": "capsule_aind_smartspim_cell_segmentation_007_9",
 					"type": "capsule",
@@ -466,7 +466,6 @@
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
 				"slug": "3294345",
 				"commit": "25ea808cdbb60b2cbd4d83cb7715174d7136f754",
-				"image_tag": "265aa97d9e26fc8f2181fe2a6344a4cc",
 				"arguments": [
 					"clean"
 				]

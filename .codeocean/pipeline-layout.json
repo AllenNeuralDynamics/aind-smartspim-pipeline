@@ -91,11 +91,6 @@
 			"target": "capsule_aind_smartspim_classification_003_10"
 		},
 		{
-			"id": "reactflow__edge-459560f0-c7bb-406a-8a67-73ba8450bbd0-capsule_aind_smartspim_classification_003_10",
-			"source": "459560f0-c7bb-406a-8a67-73ba8450bbd0",
-			"target": "capsule_aind_smartspim_classification_003_10"
-		},
-		{
 			"id": "reactflow__edge-capsule_aind_smartspim_pipeline_dispatcher_100_6-capsule_aind_smartspim_classification_003_10",
 			"source": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"target": "capsule_aind_smartspim_classification_003_10"
@@ -159,6 +154,11 @@
 			"id": "reactflow__edge-capsule_aind_smartspim_fuse_002_3-capsule_aind_smartspim_cell_quantification_151_7",
 			"source": "capsule_aind_smartspim_fuse_002_3",
 			"target": "capsule_aind_smartspim_cell_quantification_151_7"
+		},
+		{
+			"id": "xy-edge__5b27ac5e-d18a-44bd-a219-2d237e99d7a5-capsule_aind_smartspim_classification_003_10",
+			"source": "5b27ac5e-d18a-44bd-a219-2d237e99d7a5",
+			"target": "capsule_aind_smartspim_classification_003_10"
 		}
 	],
 	"nodes": [
@@ -176,15 +176,6 @@
 			"position": {
 				"x": -1418.6384674485764,
 				"y": 775.1129139372198
-			},
-			"selected": false,
-			"type": "dataset"
-		},
-		{
-			"id": "459560f0-c7bb-406a-8a67-73ba8450bbd0",
-			"position": {
-				"x": 669.7104416009659,
-				"y": 1738.7279535835767
 			},
 			"selected": false,
 			"type": "dataset"
@@ -254,7 +245,7 @@
 				"x": 1134.4138475929321,
 				"y": 564.8157705024632
 			},
-			"selected": false,
+			"selected": true,
 			"type": "capsule"
 		},
 		{
@@ -314,14 +305,23 @@
 				"x": -382.9598223517013,
 				"y": 2293.1554079292227
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
+		},
+		{
+			"id": "5b27ac5e-d18a-44bd-a219-2d237e99d7a5",
+			"position": {
+				"x": 556.6666666666665,
+				"y": 1763.333333333333
+			},
+			"selected": false,
+			"type": "dataset"
 		}
 	],
-	"timestamp": 1739301487383,
+	"timestamp": 1742579525282,
 	"viewport": {
-		"x": 752.9350838085463,
-		"y": -506.36698418785124,
+		"x": 316.93508380854627,
+		"y": 107.6330158121487,
 		"zoom": 0.3
 	}
 }
