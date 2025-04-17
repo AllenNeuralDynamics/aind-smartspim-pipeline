@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:c55373ff893d488cf098d1b075bec38445ea9c6a6484fee6eb876f7780ddd986
+// hash:sha256:d776655a3c963248d4d3797b73582c1a3d75a2765356c39c7eed267d021395ed
 
 nextflow.enable.dsl = 1
 
@@ -33,8 +33,8 @@ capsule_aind_smartspim_pipeline_dispatcher_100_6_to_capsule_aind_smartspim_cell_
 capsule_aind_smartspim_pipeline_dispatcher_100_6_to_capsule_aind_smartspim_cell_quantification_151_7_25 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_100_6_to_capsule_aind_smartspim_cell_quantification_151_7_26 = channel.create()
 capsule_aind_smartspim_ccf_registration_8_to_capsule_aind_smartspim_cell_quantification_151_7_27 = channel.create()
-smartspim_dataset_to_aind_smartspim_ccf_registration_28 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
-smartspim_dataset_to_aind_smartspim_ccf_registration_29 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_30_28 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_30_29 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
 capsule_aind_smartspim_fuse_002_3_to_capsule_aind_smartspim_ccf_registration_8_30 = channel.create()
 capsule_aind_smartspim_fuse_002_3_to_capsule_aind_smartspim_cell_segmentation_007_9_31 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_100_6_to_capsule_aind_smartspim_cell_segmentation_007_9_32 = channel.create()
@@ -344,17 +344,17 @@ process capsule_aind_smartspim_cell_quantification_151_7 {
 	"""
 }
 
-// capsule - aind-smartspim-ccf-registration
+// capsule - aind-smartspim-ccf-registration-0.0.30
 process capsule_aind_smartspim_ccf_registration_8 {
 	tag 'capsule-8584302'
-	container "$REGISTRY_HOST/published/d61333f3-fd41-464e-9dac-dbdad02aec54:v4"
+	container "$REGISTRY_HOST/published/d61333f3-fd41-464e-9dac-dbdad02aec54:v6"
 
 	cpus 16
 	memory '128 GB'
 
 	input:
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_28.collect()
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_29.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_30_28.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_30_29.collect()
 	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_002_3_to_capsule_aind_smartspim_ccf_registration_8_30.collect()
 
 	output:
@@ -378,7 +378,7 @@ process capsule_aind_smartspim_ccf_registration_8 {
 	ln -s "/tmp/data/lightsheet_template_ccf_registration" "capsule/data/lightsheet_template_ccf_registration" # id: 9be4e3ac-adfb-4335-824c-bd99364a2c0f
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v4.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8584302.git" capsule-repo
+	git clone --branch v6.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8584302.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
