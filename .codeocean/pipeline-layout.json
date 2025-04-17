@@ -245,7 +245,7 @@
 				"x": 1134.4138475929321,
 				"y": 564.8157705024632
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -286,7 +286,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0"
+				"capsule_id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"position": {
@@ -298,14 +298,14 @@
 		},
 		{
 			"data": {
-				"capsule_id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0"
+				"capsule_id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_100_11",
 			"position": {
 				"x": -382.9598223517013,
 				"y": 2293.1554079292227
 			},
-			"selected": false,
+			"selected": true,
 			"type": "capsule"
 		},
 		{
@@ -318,10 +318,10 @@
 			"type": "dataset"
 		}
 	],
-	"timestamp": 1742579525282,
+	"timestamp": 1744922614986,
 	"viewport": {
-		"x": 316.93508380854627,
-		"y": 107.6330158121487,
+		"x": 553.9350838085463,
+		"y": -150.3669841878513,
 		"zoom": 0.3
 	}
 }
