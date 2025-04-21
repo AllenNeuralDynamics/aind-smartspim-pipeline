@@ -98,14 +98,13 @@
 			"name": "capsule_aind_smartspim_fuse_002_3",
 			"capsule": {
 				"id": "10d08e17-f8a0-4c33-8610-40f8eeaef236",
-				"name": "aind-smartspim-fuse-0.0.2",
+				"name": "aind-smartspim-fuse-0.0.4-bigstitcher",
 				"slug": "0248143",
-				"version": 1
+				"version": 2
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 128,
-				"gpus": 1
+				"memory": 128
 			},
 			"inputs": [
 				{
@@ -375,9 +374,9 @@
 			"name": "capsule_aind_smartspim_cell_segmentation_007_9",
 			"capsule": {
 				"id": "0d01bdb8-e530-40b8-8311-883814bde142",
-				"name": "aind-smartspim-cell-segmentation-0.0.7",
+				"name": "aind-smartspim-cell-segmentation-0.0.9",
 				"slug": "5009831",
-				"version": 4
+				"version": 5
 			},
 			"resources": {
 				"cpus": 16,
