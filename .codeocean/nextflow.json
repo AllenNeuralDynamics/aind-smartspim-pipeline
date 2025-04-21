@@ -98,13 +98,14 @@
 			"name": "capsule_aind_smartspim_fuse_002_3",
 			"capsule": {
 				"id": "10d08e17-f8a0-4c33-8610-40f8eeaef236",
-				"name": "aind-smartspim-fuse-0.0.4-bigstitcher",
+				"name": "aind-smartspim-fuse-0.0.2",
 				"slug": "0248143",
-				"version": 2
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 128
+				"memory": 128,
+				"gpus": 1
 			},
 			"inputs": [
 				{
