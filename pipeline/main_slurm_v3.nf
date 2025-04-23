@@ -24,7 +24,7 @@ PARAMS : dict
     Configuration parameters for the SmartSPIM pipeline.
 
 Author: Camilo Laiton
-Date: Nov 1st, 2024.
+Date: Apr 23rd, 2022.
 """
 
 nextflow.enable.dsl = 1
@@ -169,13 +169,56 @@ ch_segmentation_to_classification = channel.create()
 // Quantification → Final Dispatcher
 ch_quantification_to_final = channel.create()
 
-// Process 1: Destripe and Shadow Correction (v0.0.4)
+// Retrospective flatfield correction
+process flatfield_estimation {
+    tag 'flatfield-estimation'
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-flatfield-estimation:si-0.0.1"
+
+    cpus 16
+    memory '128 GB'
+	time '8h'
+
+    input:
+    path 'capsule/data/' from ch_dataset_to_flatfield_metadata.collect()
+    path 'capsule/data/' from ch_dataset_to_flatfield_images.collect()
+    path 'capsule/data/' from ch_dataset_to_flatfield_data_description.collect()
+
+    output:
+    path 'capsule/results/*' into ch_flatfield_to_destripe
+    path 'capsule/results/*' into ch_flatfield_to_dispatcher
+
+    script:
+    """
+    #!/usr/bin/env bash
+	set -e
+
+	mkdir -p capsule
+	mkdir -p capsule/data
+	mkdir -p capsule/results
+	mkdir -p capsule/scratch
+
+    echo "[${task.tag}] cloning git repo..."
+    git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-flatfield-estimation.git" capsule-repo
+    mv capsule-repo/code capsule/code
+    rm -rf capsule-repo
+
+    echo "[${task.tag}] running capsule..."
+    cd capsule/code
+    chmod +x run
+    ./run
+
+    echo "[${task.tag}] completed!"
+    """
+}
+
+// Applying flats and correcting stripes
 process preprocessing {
-    tag 'capsule-4725614'
+    tag 'preprocessing'
     container "ghcr.io/allenneuraldynamics/aind-smartspim-preprocessing:si-0.0.4"
 
     cpus 32
     memory '128 GB'
+	time '12h'
 
     input:
     path 'capsule/data/' from ch_dataset_to_destripe_derivatives.collect()
@@ -212,13 +255,14 @@ process preprocessing {
     """
 }
 
-// Process 2: Image Stitching (v1.2.6)
+// Image Stitching
 process stitching {
-    tag 'capsule-2124819'
-    container "$REGISTRY_HOST/published/4c04ae91-ff3e-453b-b95f-e26970fc1350:v2"
+    tag 'stitching'
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.6"
 
     cpus 16
     memory '128 GB'
+	time '6h'
 
     input:
     path 'capsule/data/' from ch_dataset_to_stitch_acquisition.collect()
@@ -233,21 +277,18 @@ process stitching {
     script:
     """
     #!/usr/bin/env bash
-    set -e
+	set -e
 
-    export CO_CAPSULE_ID=4c04ae91-ff3e-453b-b95f-e26970fc1350
-    export CO_CPUS=16
-    export CO_MEMORY=137438953472
+	mkdir -p capsule
+	mkdir -p capsule/data
+	mkdir -p capsule/results
+	mkdir -p capsule/scratch
 
-    mkdir -p capsule
-    mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-    mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-    mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
+	echo "[${task.tag}] cloning git repo..."
+	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-stitch.git" capsule-repo
+	mv capsule-repo/code capsule/code
+	rm -rf capsule-repo
 
-    echo "[${task.tag}] cloning git repo..."
-    git clone --branch v2.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2124819.git" capsule-repo
-    mv capsule-repo/code capsule/code
-    rm -rf capsule-repo
 
     echo "[${task.tag}] running capsule..."
     cd capsule/code
@@ -258,15 +299,16 @@ process stitching {
     """
 }
 
-// Process 3: Image Fusion (v0.0.2)
-process process_fuse_v002 {
-    tag 'capsule-0248143'
-    container "$REGISTRY_HOST/published/10d08e17-f8a0-4c33-8610-40f8eeaef236:v1"
+// Image Fusion
+process fusion {
+    tag 'fusion'
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-fuse:si-0.0.4"
 
     cpus 16
     memory '128 GB'
     accelerator 1
     label 'gpu'
+	time '18h'
 
     input:
     path 'capsule/data/preprocessed_data' from ch_destripe_to_fuse.flatten()
@@ -283,21 +325,17 @@ process process_fuse_v002 {
     script:
     """
     #!/usr/bin/env bash
-    set -e
+	set -e
 
-    export CO_CAPSULE_ID=10d08e17-f8a0-4c33-8610-40f8eeaef236
-    export CO_CPUS=16
-    export CO_MEMORY=137438953472
+	mkdir -p capsule
+	mkdir -p capsule/data
+	mkdir -p capsule/results
+	mkdir -p capsule/scratch
 
-    mkdir -p capsule
-    mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-    mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-    mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
-
-    echo "[${task.tag}] cloning git repo..."
-    git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-0248143.git" capsule-repo
-    mv capsule-repo/code capsule/code
-    rm -rf capsule-repo
+	echo "[${task.tag}] cloning git repo..."
+	git clone -b terastitcher-pipeline-v2.0 "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
+	mv capsule-repo/code capsule/code
+	rm -rf capsule-repo
 
     echo "[${task.tag}] running capsule..."
     cd capsule/code
@@ -308,41 +346,40 @@ process process_fuse_v002 {
     """
 }
 
-// Process 4: Flatfield Estimation
-process process_flatfield {
-    tag 'capsule-2734547'
-    container "$REGISTRY_HOST/published/94d2cbcc-55b3-41fb-9686-9ccc1d3601b1:v1"
+// Atlas CCF Registration
+process atlas_registration {
+    tag 'atlas-registration'
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.31"
 
     cpus 16
     memory '128 GB'
+    time '3h'
 
     input:
-    path 'capsule/data/' from ch_dataset_to_flatfield_metadata.collect()
-    path 'capsule/data/' from ch_dataset_to_flatfield_images.collect()
-    path 'capsule/data/' from ch_dataset_to_flatfield_data_description.collect()
+    path 'capsule/data/' from ch_dataset_to_registration_manifest.collect()
+    path 'capsule/data/' from ch_dataset_to_registration_acquisition.collect()
+    path 'capsule/data/fused/' from ch_fuse_to_registration.collect()
 
     output:
-    path 'capsule/results/*' into ch_flatfield_to_destripe
-    path 'capsule/results/*' into ch_flatfield_to_dispatcher
+    path 'capsule/results/*' into ch_registration_to_dispatcher
+    path 'capsule/results/*' into ch_registration_to_quantification
 
     script:
     """
     #!/usr/bin/env bash
-    set -e
+	set -e
 
-    export CO_CAPSULE_ID=94d2cbcc-55b3-41fb-9686-9ccc1d3601b1
-    export CO_CPUS=16
-    export CO_MEMORY=137438953472
+	mkdir -p capsule
+	mkdir -p capsule/data
+	mkdir -p capsule/results
+	mkdir -p capsule/scratch
 
-    mkdir -p capsule
-    mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-    mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-    mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
+	ln -s "${template_path}" "capsule/data/lightsheet_template_ccf_registration"
 
-    echo "[${task.tag}] cloning git repo..."
-    git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2734547.git" capsule-repo
-    mv capsule-repo/code capsule/code
-    rm -rf capsule-repo
+	echo "[${task.tag}] cloning git repo..."
+	git clone "https://github.com/AllenNeuralDynamics/aind-ccf-registration.git" capsule-repo
+	mv capsule-repo/code capsule/code
+	rm -rf capsule-repo
 
     echo "[${task.tag}] running capsule..."
     cd capsule/code
@@ -353,13 +390,14 @@ process process_flatfield {
     """
 }
 
-// Process 5: Pipeline Dispatcher (v1.0.1)
-process process_dispatcher_v101 {
-    tag 'capsule-9560554'
-    container "$REGISTRY_HOST/published/aaf91c8f-c0a2-413d-8e1e-f9e263df1b32:v3"
+// Pipeline Dispatcher
+process dispatcher {
+    tag 'dispatcher'
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:si-0.0.2"
 
     cpus 16
     memory '128 GB'
+	time '12h'
 
     input:
     path 'capsule/data/input_aind_metadata/' from ch_dataset_to_dispatcher_metadata.collect()
@@ -385,134 +423,35 @@ process process_dispatcher_v101 {
     script:
     """
     #!/usr/bin/env bash
-    set -e
+	set -e
 
-    export CO_CAPSULE_ID=aaf91c8f-c0a2-413d-8e1e-f9e263df1b32
-    export CO_CPUS=16
-    export CO_MEMORY=137438953472
+	mkdir -p capsule
+	mkdir -p capsule/data
+	mkdir -p capsule/results
+	mkdir -p capsule/scratch
 
-    mkdir -p capsule
-    mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-    mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-    mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
-
-    echo "[${task.tag}] cloning git repo..."
-    git clone --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-9560554.git" capsule-repo
-    mv capsule-repo/code capsule/code
-    rm -rf capsule-repo
+	echo "[${task.tag}] cloning git repo..."
+	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher.git" capsule-repo
+	mv capsule-repo/code capsule/code
+	rm -rf capsule-repo
 
     echo "[${task.tag}] running capsule..."
     cd capsule/code
     chmod +x run
-    ./run dispatch
+    ./run dispatch ${cloud} ${output_path}
 
     echo "[${task.tag}] completed!"
     """
 }
 
-// Process 6: Cell Quantification (v1.6.1)
-process process_cell_quantification_v161 {
-    tag 'capsule-2107437'
-    container "$REGISTRY_HOST/published/b895947f-db4f-4025-adb4-a1a04b7f1587:v3"
-
-    cpus 16
-    memory '128 GB'
-
-    input:
-    path 'capsule/data/fused/' from ch_fuse_to_quantification.collect()
-    path 'capsule/data/' from ch_classification_to_quantification.collect()
-    path 'capsule/data/' from ch_dispatcher_to_quantification_manifest.flatten()
-    path 'capsule/data/' from ch_dispatcher_to_quantification_description.collect()
-    path 'capsule/data/' from ch_dispatcher_to_quantification_acquisition.collect()
-    path 'capsule/data/' from ch_registration_to_quantification.collect()
-
-    output:
-    path 'capsule/results/*' into ch_quantification_to_final
-
-    script:
-    """
-    #!/usr/bin/env bash
-    set -e
-
-    export CO_CAPSULE_ID=b895947f-db4f-4025-adb4-a1a04b7f1587
-    export CO_CPUS=16
-    export CO_MEMORY=137438953472
-
-    mkdir -p capsule
-    mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-    mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-    mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
-
-    ln -s "/tmp/data/lightsheet_template_ccf_registration" "capsule/data/lightsheet_template_ccf_registration" # id: 9be4e3ac-adfb-4335-824c-bd99364a2c0f
-
-    echo "[${task.tag}] cloning git repo..."
-    git clone --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2107437.git" capsule-repo
-    mv capsule-repo/code capsule/code
-    rm -rf capsule-repo
-
-    echo "[${task.tag}] running capsule..."
-    cd capsule/code
-    chmod +x run
-    ./run detect
-
-    echo "[${task.tag}] completed!"
-    """
-}
-
-// Process 7: CCF Registration (v0.0.30)
-process process_ccf_registration_v030 {
-    tag 'capsule-8584302'
-    container "$REGISTRY_HOST/published/d61333f3-fd41-464e-9dac-dbdad02aec54:v6"
-
-    cpus 16
-    memory '128 GB'
-
-    input:
-    path 'capsule/data/' from ch_dataset_to_registration_manifest.collect()
-    path 'capsule/data/' from ch_dataset_to_registration_acquisition.collect()
-    path 'capsule/data/fused/' from ch_fuse_to_registration.collect()
-
-    output:
-    path 'capsule/results/*' into ch_registration_to_dispatcher
-    path 'capsule/results/*' into ch_registration_to_quantification
-
-    script:
-    """
-    #!/usr/bin/env bash
-    set -e
-
-    export CO_CAPSULE_ID=d61333f3-fd41-464e-9dac-dbdad02aec54
-    export CO_CPUS=16
-    export CO_MEMORY=137438953472
-
-    mkdir -p capsule
-    mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-    mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-    mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
-
-    ln -s "/tmp/data/lightsheet_template_ccf_registration" "capsule/data/lightsheet_template_ccf_registration" # id: 9be4e3ac-adfb-4335-824c-bd99364a2c0f
-
-    echo "[${task.tag}] cloning git repo..."
-    git clone --branch v6.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8584302.git" capsule-repo
-    mv capsule-repo/code capsule/code
-    rm -rf capsule-repo
-
-    echo "[${task.tag}] running capsule..."
-    cd capsule/code
-    chmod +x run
-    ./run
-
-    echo "[${task.tag}] completed!"
-    """
-}
-
-// Process 8: Cell Segmentation (v0.0.9)
-process process_cell_segmentation_v009 {
-    tag 'capsule-5009831'
-    container "$REGISTRY_HOST/published/0d01bdb8-e530-40b8-8311-883814bde142:v5"
+// Cell proposal generation
+process cell_proposals {
+    tag 'cell-proposals'
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:si-0.0.9"
 
     cpus 16
     memory '256 GB'
+	time '12h'
 
     input:
     path 'capsule/data/fused/' from ch_fuse_to_segmentation.collect()
@@ -525,21 +464,17 @@ process process_cell_segmentation_v009 {
     script:
     """
     #!/usr/bin/env bash
-    set -e
+	set -e
 
-    export CO_CAPSULE_ID=0d01bdb8-e530-40b8-8311-883814bde142
-    export CO_CPUS=16
-    export CO_MEMORY=274877906944
+	mkdir -p capsule
+	mkdir -p capsule/data
+	mkdir -p capsule/results
+	mkdir -p capsule/scratch
 
-    mkdir -p capsule
-    mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-    mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-    mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
-
-    echo "[${task.tag}] cloning git repo..."
-    git clone --branch v5.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5009831.git" capsule-repo
-    mv capsule-repo/code capsule/code
-    rm -rf capsule-repo
+	echo "[${task.tag}] cloning git repo..."
+	git clone "https://github.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation.git" capsule-repo
+	mv capsule-repo/code capsule/code
+	rm -rf capsule-repo
 
     echo "[${task.tag}] running capsule..."
     cd capsule/code
@@ -550,15 +485,16 @@ process process_cell_segmentation_v009 {
     """
 }
 
-// Process 9: Cell Classification (v0.0.6)
-process process_classification_v006 {
-    tag 'capsule-4355840'
-    container "$REGISTRY_HOST/published/eab3673c-2c7f-488b-82b9-75dbfdddcb53:v4"
+// Cell classification from proposals
+process cell_classification {
+    tag 'cell-classification'
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-cell-classification:si-0.0.6"
 
     cpus 16
     memory '128 GB'
     accelerator 1
     label 'gpu'
+	time '24h'
 
     input:
     path 'capsule/data/' from ch_dispatcher_to_classification_description.collect()
@@ -574,38 +510,83 @@ process process_classification_v006 {
     script:
     """
     #!/usr/bin/env bash
-    set -e
+	set -e
 
-    export CO_CAPSULE_ID=eab3673c-2c7f-488b-82b9-75dbfdddcb53
-    export CO_CPUS=16
-    export CO_MEMORY=137438953472
+	mkdir -p capsule
+	mkdir -p capsule/data
+	mkdir -p capsule/results
+	mkdir -p capsule/scratch
 
-    mkdir -p capsule
-    mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-    mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-    mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
+	ln -s "${cell_detection_model}" "capsule/data/smartspim_18_model"
 
-    echo "[${task.tag}] cloning git repo..."
-    git clone --branch v4.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-4355840.git" capsule-repo
-    mv capsule-repo/code capsule/code
-    rm -rf capsule-repo
+	echo "[${task.tag}] cloning git repo..."
+	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-classification.git" capsule-repo
+	mv capsule-repo/code capsule/code
+	rm -rf capsule-repo
 
-    echo "[${task.tag}] running capsule..."
-    cd capsule/code
-    chmod +x run
-    ./run
+	echo "[${task.tag}] running capsule..."
+	cd capsule/code
+	chmod +x run
+	./run
 
-    echo "[${task.tag}] completed!"
+	echo "[${task.tag}] completed!"
     """
 }
 
-// Process 10: Final Pipeline Dispatcher (v1.0.1)
-process process_final_dispatcher_v101 {
-    tag 'capsule-9560554'
-    container "$REGISTRY_HOST/published/aaf91c8f-c0a2-413d-8e1e-f9e263df1b32:v3"
+// Cell quantification -> mapping cells to CCF
+process cell_quantification {
+    tag 'cell-quantification'
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-cell-classification:si-1.6.1"
+
+    cpus 16
+    memory '128 GB'
+	time '18h'
+
+    input:
+    path 'capsule/data/fused/' from ch_fuse_to_quantification.collect()
+    path 'capsule/data/' from ch_classification_to_quantification.collect()
+    path 'capsule/data/' from ch_dispatcher_to_quantification_manifest.flatten()
+    path 'capsule/data/' from ch_dispatcher_to_quantification_description.collect()
+    path 'capsule/data/' from ch_dispatcher_to_quantification_acquisition.collect()
+    path 'capsule/data/' from ch_registration_to_quantification.collect()
+
+    output:
+    path 'capsule/results/*' into ch_quantification_to_final
+
+    script:
+    """
+    #!/usr/bin/env bash
+	set -e
+
+	mkdir -p capsule
+	mkdir -p capsule/data
+	mkdir -p capsule/results
+	mkdir -p capsule/scratch
+
+	ln -s "${template_path}" "capsule/data/lightsheet_template_ccf_registration"
+
+	echo "[${task.tag}] cloning git repo..."
+	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-quantification.git" capsule-repo
+	mv capsule-repo/code capsule/code
+	rm -rf capsule-repo
+
+	echo "[${task.tag}] running capsule..."
+	cd capsule/code
+	chmod +x run
+	./run detect
+
+	echo "[${task.tag}] completed!"
+    """
+}
+
+// Cleaning up
+process clean_up {
+    tag 'clean-up'
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:si-0.0.2"
 
     cpus 16
     memory '64 GB'
+	time '24h'
 
     publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
 
@@ -622,27 +603,23 @@ process process_final_dispatcher_v101 {
     script:
     """
     #!/usr/bin/env bash
-    set -e
+	set -e
 
-    export CO_CAPSULE_ID=aaf91c8f-c0a2-413d-8e1e-f9e263df1b32
-    export CO_CPUS=16
-    export CO_MEMORY=68719476736
+	mkdir -p capsule
+	mkdir -p capsule/data
+	mkdir -p capsule/results
+	mkdir -p capsule/scratch
 
-    mkdir -p capsule
-    mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-    mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-    mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
+	echo "[${task.tag}] cloning git repo..."
+	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher.git" capsule-repo
+	mv capsule-repo/code capsule/code
+	rm -rf capsule-repo
 
-    echo "[${task.tag}] cloning git repo..."
-    git clone --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-9560554.git" capsule-repo
-    mv capsule-repo/code capsule/code
-    rm -rf capsule-repo
+	echo "[${task.tag}] running capsule..."
+	cd capsule/code
+	chmod +x run
+	./run clean ${cloud} ${output_path}
 
-    echo "[${task.tag}] running capsule..."
-    cd capsule/code
-    chmod +x run
-    ./run clean
-
-    echo "[${task.tag}] completed!"
+	echo "[${task.tag}] completed!"
     """
 }
