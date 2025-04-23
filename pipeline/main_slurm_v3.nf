@@ -172,7 +172,7 @@ ch_quantification_to_final = channel.create()
 // Process 1: Destripe and Shadow Correction (v0.0.4)
 process preprocessing {
     tag 'capsule-4725614'
-    container "$REGISTRY_HOST/published/73319e3c-625e-4153-b5d1-29fd755d1bf8:v1"
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-preprocessing:si-0.0.4"
 
     cpus 32
     memory '128 GB'
@@ -213,7 +213,7 @@ process preprocessing {
 }
 
 // Process 2: Image Stitching (v1.2.6)
-process process_stitch_v126 {
+process stitching {
     tag 'capsule-2124819'
     container "$REGISTRY_HOST/published/4c04ae91-ff3e-453b-b95f-e26970fc1350:v2"
 
