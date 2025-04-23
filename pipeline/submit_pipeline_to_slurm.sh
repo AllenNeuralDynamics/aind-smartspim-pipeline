@@ -6,8 +6,8 @@
 #SBATCH --partition=your_partition
 
 # Export the credentials for GHCR
-export SINGULARITY_DOCKER_USERNAME=your_github_username
-export SINGULARITY_DOCKER_PASSWORD=your_personal_access_token
+# export SINGULARITY_DOCKER_USERNAME=your_github_username
+# export SINGULARITY_DOCKER_PASSWORD=your_personal_access_token
 
 PIPELINE_PATH="/your/path/to/aind-smartspim-pipeline"
 DATA_PATH="/your/path/to/smartspim_data"
