@@ -1,37 +1,97 @@
 #!/usr/bin/env nextflow
-// hash:sha256:6524f107fdaf3c4b64e5dc06044dcaa4f5087e8571325bc58648a4bd6b983813
+"""
+Nextflow Script: SmartSPIM Pipeline
+
+Note: This pipeline works with ome.zarr files.
+
+This script executes the SmartSPIM pipeline, performing the following operations:
+1. Retrospective flatfield correction
+2. Image horizontal destriping
+3. Flatfield correction
+4. Image stitching
+5. Image fusion
+6. Image atlas registration to the Allen CCF v3 atlas
+7. Image cell detection
+8. Image cell quantification
+
+Parameters
+----------
+DATA_PATH : str
+    Path to the dataset.
+RESULTS_PATH : str
+    Path to the results folder.
+PARAMS : dict
+    Configuration parameters for the SmartSPIM pipeline.
+
+Author: Camilo Laiton
+Date: Nov 1st, 2024.
+"""
 
 nextflow.enable.dsl = 1
 
-params.smartspim_dataset_url = 's3://aind-scratch-data/smartspim_dataset'
+params.lightsheet_dataset = DATA_PATH
+
+println "DATA_PATH: ${DATA_PATH}"
+println "RESULTS_PATH: ${RESULTS_PATH}"
+println "PARAMS: ${params}"
+
+// Retrieve keys from params
+params_keys = params.keySet()
+
+// Set cloud copy, defaulting to "false" if not specified
+cloud = params_keys.contains("cloud") ? params.cloud : "false"
+
+// Ensure output_path is provided
+if (!params_keys.contains('output_path')) {
+    exit 1, "Error: Missing required parameter 'output_path'."
+}
+output_path = params.output_path
+
+// Ensure template_path is provided
+if (!params_keys.contains('template_path')) {
+    exit 1, "Error: Missing SmartSPIM template"
+}
+template_path = params.template_path
+
+// Ensure cell_detection_model is provided
+if (!params_keys.contains('cell_detection_model')) {
+    exit 1, "Error: Missing SmartSPIM cell detection model"
+}
+cell_detection_model = params.cell_detection_model
+
+println "Output path: ${output_path}"
+println "Cell detection model: ${cell_detection_model}"
+println "Using cloud: ${cloud}"
+
+params.lightsheet_dataset = 's3://aind-scratch-data/smartspim_dataset'
 params.smartspim_production_models_url = 's3://aind-benchmark-data/mesoscale-anatomy-cell-detection/models/smartspim_production_models'
 
 // Input Channels - Organized by data source and target process
 // Dataset to Destripe process
-ch_dataset_to_destripe_derivatives = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives", type: 'any')
-ch_dataset_to_destripe_acquisition = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
-ch_dataset_to_destripe_images = channel.fromPath(params.smartspim_dataset_url + "/SPIM/Ex_*_Em_*", type: 'any')
+ch_dataset_to_destripe_derivatives = channel.fromPath(params.lightsheet_dataset + "/SPIM/derivatives", type: 'any')
+ch_dataset_to_destripe_acquisition = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
+ch_dataset_to_destripe_images = channel.fromPath(params.lightsheet_dataset + "/SPIM/Ex_*_Em_*", type: 'any')
 
 // Dataset to Stitching process
-ch_dataset_to_stitch_acquisition = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
-ch_dataset_to_stitch_data_description = channel.fromPath(params.smartspim_dataset_url + "/data_description.json", type: 'any')
-ch_dataset_to_stitch_manifest = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+ch_dataset_to_stitch_acquisition = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
+ch_dataset_to_stitch_data_description = channel.fromPath(params.lightsheet_dataset + "/data_description.json", type: 'any')
+ch_dataset_to_stitch_manifest = channel.fromPath(params.lightsheet_dataset + "/SPIM/derivatives/processing_manifest.json", type: 'any')
 
 // Dataset to Fusion process
-ch_dataset_to_fuse_acquisition = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
+ch_dataset_to_fuse_acquisition = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
 
 // Dataset to Flatfield Estimation process
-ch_dataset_to_flatfield_metadata = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/metadata.json", type: 'any')
-ch_dataset_to_flatfield_images = channel.fromPath(params.smartspim_dataset_url + "/SPIM/Ex_*_Em_*", type: 'any')
-ch_dataset_to_flatfield_data_description = channel.fromPath(params.smartspim_dataset_url + "/data_description.json", type: 'any')
+ch_dataset_to_flatfield_metadata = channel.fromPath(params.lightsheet_dataset + "/SPIM/derivatives/metadata.json", type: 'any')
+ch_dataset_to_flatfield_images = channel.fromPath(params.lightsheet_dataset + "/SPIM/Ex_*_Em_*", type: 'any')
+ch_dataset_to_flatfield_data_description = channel.fromPath(params.lightsheet_dataset + "/data_description.json", type: 'any')
 
 // Dataset to Pipeline Dispatcher
-ch_dataset_to_dispatcher_metadata = channel.fromPath(params.smartspim_dataset_url + "/*.json", type: 'any')
-ch_dataset_to_dispatcher_manifest = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+ch_dataset_to_dispatcher_metadata = channel.fromPath(params.lightsheet_dataset + "/*.json", type: 'any')
+ch_dataset_to_dispatcher_manifest = channel.fromPath(params.lightsheet_dataset + "/SPIM/derivatives/processing_manifest.json", type: 'any')
 
 // Dataset to CCF Registration
-ch_dataset_to_registration_manifest = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
-ch_dataset_to_registration_acquisition = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
+ch_dataset_to_registration_manifest = channel.fromPath(params.lightsheet_dataset + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+ch_dataset_to_registration_acquisition = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
 
 // Production models to Classification
 ch_models_to_classification = channel.fromPath(params.smartspim_production_models_url + "/", type: 'any')
@@ -110,7 +170,7 @@ ch_segmentation_to_classification = channel.create()
 ch_quantification_to_final = channel.create()
 
 // Process 1: Destripe and Shadow Correction (v0.0.4)
-process process_destripe_v004 {
+process preprocessing {
     tag 'capsule-4725614'
     container "$REGISTRY_HOST/published/73319e3c-625e-4153-b5d1-29fd755d1bf8:v1"
 
@@ -131,19 +191,15 @@ process process_destripe_v004 {
     script:
     """
     #!/usr/bin/env bash
-    set -e
+	set -e
 
-    export CO_CAPSULE_ID=73319e3c-625e-4153-b5d1-29fd755d1bf8
-    export CO_CPUS=32
-    export CO_MEMORY=137438953472
-
-    mkdir -p capsule
-    mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
-    mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
-    mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
+	mkdir -p capsule
+	mkdir -p capsule/data
+	mkdir -p capsule/results
+	mkdir -p capsule/scratch
 
     echo "[${task.tag}] cloning git repo..."
-    git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-4725614.git" capsule-repo
+    git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-destripe.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
