@@ -29,7 +29,7 @@ CLOUD="false"
 NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
   -C $PIPELINE_PATH/pipeline/nextflow_slurm.config \
   -log $RESULTS_PATH/nextflow/nextflow.log \
-  run $PIPELINE_PATH/pipeline/main_slurm.nf \
+  run $PIPELINE_PATH/pipeline/main_slurm_v2.nf \
   -work-dir $WORKDIR \
   --output_path $OUTPUT_PATH \
   --template_path $TEMPLATE_PATH \
