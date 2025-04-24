@@ -336,7 +336,7 @@ process fusion {
 // capsule - aind-smartspim-ccf-registration
 process atlas_registration {
 	tag 'atlas-registration'
-	container "ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.24"
+	container "ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.31"
 
 	cpus 16
 	memory '128 GB'
