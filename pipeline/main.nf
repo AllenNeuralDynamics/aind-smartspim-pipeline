@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:6524f107fdaf3c4b64e5dc06044dcaa4f5087e8571325bc58648a4bd6b983813
+// hash:sha256:4a64c4098ef469c89473a45e23dac153cb3329bed0fe1bdbcb88759e9e213815
 
 nextflow.enable.dsl = 1
 
@@ -15,7 +15,7 @@ smartspim_dataset_to_aind_smartspim_stitch_1_2_6_6 = channel.fromPath(params.sma
 smartspim_dataset_to_aind_smartspim_stitch_1_2_6_7 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
 capsule_aind_destripe_shadow_correction_004_1_to_capsule_aind_smartspim_stitch_125_2_8 = channel.create()
 capsule_aind_destripe_shadow_correction_004_1_to_capsule_aind_smartspim_fuse_002_3_9 = channel.create()
-smartspim_dataset_to_aind_smartspim_fuse_0_0_2_10 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_fuse_0_0_4_bigstitcher_10 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
 capsule_aind_smartspim_stitch_125_2_to_capsule_aind_smartspim_fuse_002_3_11 = channel.create()
 smartspim_dataset_to_aind_smartspim_flatfield_estimation_12 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/metadata.json", type: 'any')
 smartspim_dataset_to_aind_smartspim_flatfield_estimation_13 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/Ex_*_Em_*", type: 'any')
@@ -99,8 +99,8 @@ process capsule_aind_destripe_shadow_correction_004_1 {
 
 // capsule - aind-smartspim-stitch-1.2.6
 process capsule_aind_smartspim_stitch_125_2 {
-	tag 'capsule-2124819'
-	container "$REGISTRY_HOST/published/4c04ae91-ff3e-453b-b95f-e26970fc1350:v2"
+	tag 'capsule-2825072'
+	container "$REGISTRY_HOST/capsule/53ecb114-e201-48b5-8d5e-5277d26cbb2b:69351eee84c1baa80ef68483579bbf75"
 
 	cpus 16
 	memory '128 GB'
@@ -120,7 +120,7 @@ process capsule_aind_smartspim_stitch_125_2 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=4c04ae91-ff3e-453b-b95f-e26970fc1350
+	export CO_CAPSULE_ID=53ecb114-e201-48b5-8d5e-5277d26cbb2b
 	export CO_CPUS=16
 	export CO_MEMORY=137438953472
 
@@ -130,7 +130,8 @@ process capsule_aind_smartspim_stitch_125_2 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v2.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2124819.git" capsule-repo
+	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2825072.git" capsule-repo
+	git -C capsule-repo checkout 48276a2767874332be5be6e99eaf9f2c887bc708 --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -143,19 +144,17 @@ process capsule_aind_smartspim_stitch_125_2 {
 	"""
 }
 
-// capsule - aind-smartspim-fuse-0.0.2
+// capsule - aind-smartspim-fuse-0.0.4-bigstitcher
 process capsule_aind_smartspim_fuse_002_3 {
 	tag 'capsule-0248143'
-	container "$REGISTRY_HOST/published/10d08e17-f8a0-4c33-8610-40f8eeaef236:v1"
+	container "$REGISTRY_HOST/published/10d08e17-f8a0-4c33-8610-40f8eeaef236:v2"
 
 	cpus 16
 	memory '128 GB'
-	accelerator 1
-	label 'gpu'
 
 	input:
 	path 'capsule/data/preprocessed_data' from capsule_aind_destripe_shadow_correction_004_1_to_capsule_aind_smartspim_fuse_002_3_9.flatten()
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_fuse_0_0_2_10.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_fuse_0_0_4_bigstitcher_10.collect()
 	path 'capsule/data/' from capsule_aind_smartspim_stitch_125_2_to_capsule_aind_smartspim_fuse_002_3_11.collect()
 
 	output:
@@ -180,7 +179,7 @@ process capsule_aind_smartspim_fuse_002_3 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-0248143.git" capsule-repo
+	git clone --branch v2.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-0248143.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 

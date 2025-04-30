@@ -49,10 +49,11 @@
 		{
 			"name": "capsule_aind_smartspim_stitch_125_2",
 			"capsule": {
-				"id": "4c04ae91-ff3e-453b-b95f-e26970fc1350",
+				"id": "53ecb114-e201-48b5-8d5e-5277d26cbb2b",
 				"name": "aind-smartspim-stitch-1.2.6",
-				"slug": "2124819",
-				"version": 2
+				"slug": "2825072",
+				"commit": "48276a2767874332be5be6e99eaf9f2c887bc708",
+				"image_tag": "69351eee84c1baa80ef68483579bbf75"
 			},
 			"resources": {
 				"cpus": 16,
@@ -98,14 +99,13 @@
 			"name": "capsule_aind_smartspim_fuse_002_3",
 			"capsule": {
 				"id": "10d08e17-f8a0-4c33-8610-40f8eeaef236",
-				"name": "aind-smartspim-fuse-0.0.2",
+				"name": "aind-smartspim-fuse-0.0.4-bigstitcher",
 				"slug": "0248143",
-				"version": 1
+				"version": 2
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 128,
-				"gpus": 1
+				"memory": 128
 			},
 			"inputs": [
 				{
