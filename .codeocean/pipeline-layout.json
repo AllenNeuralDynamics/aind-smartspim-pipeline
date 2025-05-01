@@ -202,14 +202,14 @@
 		},
 		{
 			"data": {
-				"capsule_id": "73319e3c-625e-4153-b5d1-29fd755d1bf8"
+				"capsule_id": "9297b361-aefa-419f-8897-0466e6b2ba0e"
 			},
 			"id": "capsule_aind_destripe_shadow_correction_004_1",
 			"position": {
 				"x": -521.8294375849397,
 				"y": 405.0017199081467
 			},
-			"selected": false,
+			"selected": true,
 			"type": "capsule"
 		},
 		{
@@ -245,7 +245,7 @@
 				"x": 1134.4138475929321,
 				"y": 564.8157705024632
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -318,7 +318,7 @@
 			"type": "dataset"
 		}
 	],
-	"timestamp": 1745961875959,
+	"timestamp": 1746070430279,
 	"viewport": {
 		"x": 714.9350838085463,
 		"y": 107.6330158121487,
