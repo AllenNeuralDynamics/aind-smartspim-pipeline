@@ -9,7 +9,7 @@ wget -O Dockerfile_cell_detection https://raw.githubusercontent.com/AllenNeuralD
 wget -O Dockerfile_cell_classification https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-classification/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
 wget -O Dockerfile_cell_quantification https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-quantification/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
 
-docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-flatfield-estimation:si-0.0.1 -f Dockerfile_validation .
+docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-flatfield-estimation:si-0.0.1 -f Dockerfile_flat_est .
 docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-preprocessing:si-0.0.4 -f Dockerfile_preprocessing .
 docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.6 -f Dockerfile_stitch .
 docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.31 -f Dockerfile_registration .

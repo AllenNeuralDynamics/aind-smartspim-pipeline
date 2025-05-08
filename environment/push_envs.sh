@@ -9,7 +9,7 @@ docker tag ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.6 ghcr.io/al
 docker tag ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.31 ghcr.io/allenneuraldynamics/aind-smartspim-registration:latest
 docker tag ghcr.io/allenneuraldynamics/aind-smartspim-fuse:si-0.0.4 ghcr.io/allenneuraldynamics/aind-smartspim-fuse:latest
 docker tag ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:si-1.0.1 ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:latest
-docker tag ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:si-0.0.9 ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:latest
+docker tag ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:si-1.0.0 ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:latest
 docker tag ghcr.io/allenneuraldynamics/aind-smartspim-cell-classification:si-0.0.6 ghcr.io/allenneuraldynamics/aind-smartspim-cell-classification:latest
 docker tag ghcr.io/allenneuraldynamics/aind-smartspim-cell-quantification:si-1.6.1 ghcr.io/allenneuraldynamics/aind-smartspim-cell-quantification:latest
 

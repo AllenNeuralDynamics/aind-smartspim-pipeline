@@ -63,7 +63,7 @@ println "Output path: ${output_path}"
 println "Cell detection model: ${cell_detection_model}"
 println "Using cloud: ${cloud}"
 
-params.lightsheet_dataset = 's3://aind-scratch-data/smartspim_dataset'
+// params.lightsheet_dataset = 's3://aind-scratch-data/smartspim_dataset'
 params.smartspim_production_models_url = 's3://aind-benchmark-data/mesoscale-anatomy-cell-detection/models/smartspim_production_models'
 
 // Input Channels - Organized by data source and target process
@@ -96,77 +96,77 @@ ch_dataset_to_registration_acquisition = channel.fromPath(params.lightsheet_data
 // Production models to Classification
 ch_models_to_classification = channel.fromPath(params.smartspim_production_models_url + "/", type: 'any')
 
-// Inter-process channels (organized by source → target)
-// Flatfield → Destripe
+// Inter-process channels (organized by source -> target)
+// Flatfield -> Destripe
 ch_flatfield_to_destripe = channel.create()
 
-// Destripe → Stitch
+// Destripe -> Stitch
 ch_destripe_to_stitch = channel.create()
 
-// Destripe → Fuse
+// Destripe -> Fuse
 ch_destripe_to_fuse = channel.create()
 
-// Destripe → Dispatcher
+// Destripe -> Dispatcher
 ch_destripe_to_dispatcher = channel.create()
 
-// Stitch → Fuse
+// Stitch -> Fuse
 ch_stitch_to_fuse = channel.create()
 
-// Stitch → Dispatcher
+// Stitch -> Dispatcher
 ch_stitch_to_dispatcher = channel.create()
 
-// Fuse → Dispatcher
+// Fuse -> Dispatcher
 ch_fuse_to_dispatcher = channel.create()
 
-// Fuse → Quantification
+// Fuse -> Quantification
 ch_fuse_to_quantification = channel.create()
 
-// Fuse → Registration
+// Fuse -> Registration
 ch_fuse_to_registration = channel.create()
 
-// Fuse → Segmentation
+// Fuse -> Segmentation
 ch_fuse_to_segmentation = channel.create()
 
-// Fuse → Classification
+// Fuse -> Classification
 ch_fuse_to_classification = channel.create()
 
-// Flatfield → Dispatcher
+// Flatfield -> Dispatcher
 ch_flatfield_to_dispatcher = channel.create()
 
-// Registration → Dispatcher
+// Registration -> Dispatcher
 ch_registration_to_dispatcher = channel.create()
 
-// Registration → Quantification
+// Registration -> Quantification
 ch_registration_to_quantification = channel.create()
 
-// Dispatcher → Quantification (multiple files)
+// Dispatcher -> Quantification (multiple files)
 ch_dispatcher_to_quantification_manifest = channel.create()
 ch_dispatcher_to_quantification_description = channel.create()
 ch_dispatcher_to_quantification_acquisition = channel.create()
 
-// Dispatcher → Segmentation
+// Dispatcher -> Segmentation
 ch_dispatcher_to_segmentation_description = channel.create()
 ch_dispatcher_to_segmentation_manifest = channel.create()
 
-// Dispatcher → Classification
+// Dispatcher -> Classification
 ch_dispatcher_to_classification_description = channel.create()
 ch_dispatcher_to_classification_acquisition = channel.create()
 
-// Dispatcher → Final Dispatcher
+// Dispatcher -> Final Dispatcher
 ch_dispatcher_to_final_processing = channel.create()
 ch_dispatcher_to_final_manifest = channel.create()
 ch_dispatcher_to_final_description = channel.create()
 
-// Classification → Quantification
+// Classification -> Quantification
 ch_classification_to_quantification = channel.create()
 
-// Classification → Final Dispatcher
+// Classification -> Final Dispatcher
 ch_classification_to_final = channel.create()
 
-// Segmentation → Classification
+// Segmentation -> Classification
 ch_segmentation_to_classification = channel.create()
 
-// Quantification → Final Dispatcher
+// Quantification -> Final Dispatcher
 ch_quantification_to_final = channel.create()
 
 // Retrospective flatfield correction
@@ -333,14 +333,15 @@ process fusion {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone -b terastitcher-pipeline-v2.0 "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
+	git clone -b fix-multiscale-fusion "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
     echo "[${task.tag}] running capsule..."
     cd capsule/code
-    chmod +x run
-    ./run
+    // chmod +x run
+    // ./run
+    python -u run_cloudfusion.py "$@"
 
     echo "[${task.tag}] completed!"
     """
@@ -353,7 +354,7 @@ process atlas_registration {
 
     cpus 16
     memory '128 GB'
-    time '3h'
+    time '4h'
 
     input:
     path 'capsule/data/' from ch_dataset_to_registration_manifest.collect()
@@ -393,7 +394,7 @@ process atlas_registration {
 // Pipeline Dispatcher
 process dispatcher {
     tag 'dispatcher'
-    container "ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:si-0.0.2"
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:si-1.0.1"
 
     cpus 16
     memory '128 GB'
@@ -447,7 +448,7 @@ process dispatcher {
 // Cell proposal generation
 process cell_proposals {
     tag 'cell-proposals'
-    container "ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:si-0.0.9"
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:si-1.0.0"
 
     cpus 16
     memory '256 GB'
@@ -472,7 +473,7 @@ process cell_proposals {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation.git" capsule-repo
+	git clone -b feat-fast-detection "https://github.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -582,7 +583,7 @@ process cell_quantification {
 // Cleaning up
 process clean_up {
     tag 'clean-up'
-    container "ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:si-0.0.2"
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:si-1.0.1"
 
     cpus 16
     memory '64 GB'
