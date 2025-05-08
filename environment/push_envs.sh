@@ -1,3 +1,8 @@
+# Create a token to deploy images to the GitHub Container Registry
+# export CR_PAT=ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+# before running this script
+echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+
 docker tag ghcr.io/allenneuraldynamics/aind-smartspim-flatfield-estimation:si-0.0.1 ghcr.io/allenneuraldynamics/aind-smartspim-flatfield-estimation:latest
 docker tag ghcr.io/allenneuraldynamics/aind-smartspim-preprocessing:si-0.0.4 ghcr.io/allenneuraldynamics/aind-smartspim-preprocessing:latest
 docker tag ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.6 ghcr.io/allenneuraldynamics/aind-smartspim-stitch:latest
