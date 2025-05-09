@@ -53,18 +53,12 @@ if (!params_keys.contains('template_path')) {
 }
 template_path = params.template_path
 
-// Ensure cell_detection_model is provided
-if (!params_keys.contains('cell_detection_model')) {
-    exit 1, "Error: Missing SmartSPIM cell detection model"
-}
-cell_detection_model = params.cell_detection_model
-
-println "Output path: ${output_path}"
-println "Cell detection model: ${cell_detection_model}"
-println "Using cloud: ${cloud}"
-
 // params.lightsheet_dataset = 's3://aind-scratch-data/smartspim_dataset'
 params.smartspim_production_models_url = 's3://aind-benchmark-data/mesoscale-anatomy-cell-detection/models/smartspim_production_models'
+
+println "Output path: ${output_path}"
+println "Path for deep learning production models: ${params.smartspim_production_models_url}"
+println "Using cloud: ${cloud}"
 
 // Input Channels - Organized by data source and target process
 // Dataset to Destripe process
@@ -341,7 +335,7 @@ process fusion {
     cd capsule/code
     // chmod +x run
     // ./run
-    python -u run_cloudfusion.py "$@"
+    python -u run_cloudfusion.py
 
     echo "[${task.tag}] completed!"
     """
@@ -517,8 +511,6 @@ process cell_classification {
 	mkdir -p capsule/data
 	mkdir -p capsule/results
 	mkdir -p capsule/scratch
-
-	ln -s "${cell_detection_model}" "capsule/data/smartspim_18_model"
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-classification.git" capsule-repo
