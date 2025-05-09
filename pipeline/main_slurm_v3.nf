@@ -279,7 +279,7 @@ process stitching {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-stitch.git" capsule-repo
+	git clone -b feat-slurm-deployment "https://github.com/AllenNeuralDynamics/aind-smartspim-stitch.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -327,7 +327,7 @@ process fusion {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone -b fix-multiscale-fusion "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
+	git clone -b feat-slurm-deployment "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
