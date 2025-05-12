@@ -250,7 +250,7 @@ process preprocessing {
 }
 
 // Image Stitching
-process stitching {
+process stitching_test2 {
     tag 'stitching'
     container "ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.6"
 
@@ -298,10 +298,14 @@ process fusion {
     tag 'fusion'
     container "ghcr.io/allenneuraldynamics/aind-smartspim-fuse:si-0.0.4"
 
+    env = [
+        'CLASSPATH': '/home/BigStitcher-Spark/target/*:/home/n5-aws-s3/target/*'
+    ]
+
     cpus 16
     memory '128 GB'
-    accelerator 1
-    label 'gpu'
+    // accelerator 1
+    // label 'gpu'
 	time '18h'
 
     input:
@@ -326,16 +330,17 @@ process fusion {
 	mkdir -p capsule/results
 	mkdir -p capsule/scratch
 
+    export HOME=/root
+
 	echo "[${task.tag}] cloning git repo..."
-	git clone -b feat-slurm-deployment "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
+	git clone -b fix-multiscale-fusion "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
     echo "[${task.tag}] running capsule..."
     cd capsule/code
-    // chmod +x run
-    // ./run
-    python -u run_cloudfusion.py
+    chmod +x run
+    ./run
 
     echo "[${task.tag}] completed!"
     """
