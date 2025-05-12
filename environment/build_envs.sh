@@ -3,7 +3,8 @@ wget -O Dockerfile_flat_est https://raw.githubusercontent.com/AllenNeuralDynamic
 wget -O Dockerfile_preprocessing https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-destripe/refs/heads/feat-slurm-pipeline-v3/environment/Dockerfile_local
 wget -O Dockerfile_stitch https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-stitch/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
 wget -O Dockerfile_registration https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-ccf-registration/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
-wget -O Dockerfile_fuse https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-fuse/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
+wget -O Dockerfile_fuse https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-fuse/refs/heads/fix-multiscale-fusion/environment/Dockerfile_local
+wget -O postInstall https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-fuse/refs/heads/fix-multiscale-fusion/environment/postInstall
 wget -O Dockerfile_dispatcher https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher/refs/heads/feat-v3-deployment/environment/Dockerfile_local
 wget -O Dockerfile_cell_detection https://raw.githubusercontent.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation/refs/heads/feat-fast-detection/environment/Dockerfile_local
 wget -O Dockerfile_cell_classification https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-classification/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
@@ -20,3 +21,4 @@ docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-cell-classification:s
 docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-cell-quantification:si-1.6.1 -f Dockerfile_cell_quantification .
 
 rm Dockerfile_*
+rm postInstall
