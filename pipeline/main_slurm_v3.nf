@@ -250,7 +250,7 @@ process preprocessing {
 }
 
 // Image Stitching
-process stitching_test2 {
+process stitching {
     tag 'stitching'
     container "ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.6"
 
@@ -431,7 +431,7 @@ process dispatcher {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher.git" capsule-repo
+	git clone -b feat-v3-deployment "https://github.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -478,8 +478,8 @@ process cell_proposals {
 
     echo "[${task.tag}] running capsule..."
     cd capsule/code
-    chmod +x run
-    ./run
+    chmod +x run_slurm
+    ./run_slurm
 
     echo "[${task.tag}] completed!"
     """
@@ -518,14 +518,14 @@ process cell_classification {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-classification.git" capsule-repo
+	git clone -b feat-slurm-deployment "https://github.com/AllenNeuralDynamics/aind-smartspim-classification.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
 	echo "[${task.tag}] running capsule..."
 	cd capsule/code
-	chmod +x run
-	./run
+	chmod +x run_slurm
+    ./run_slurm
 
 	echo "[${task.tag}] completed!"
     """
@@ -534,7 +534,7 @@ process cell_classification {
 // Cell quantification -> mapping cells to CCF
 process cell_quantification {
     tag 'cell-quantification'
-    container "ghcr.io/allenneuraldynamics/aind-smartspim-cell-classification:si-1.6.1"
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-cell-quantification:si-1.6.1"
 
     cpus 16
     memory '128 GB'
@@ -564,7 +564,7 @@ process cell_quantification {
 	ln -s "${template_path}" "capsule/data/lightsheet_template_ccf_registration"
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-quantification.git" capsule-repo
+	git clone -b feat-slurm-deployment "https://github.com/AllenNeuralDynamics/aind-smartspim-quantification.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -609,7 +609,7 @@ process clean_up {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher.git" capsule-repo
+	git clone -b feat-v3-deployment "https://github.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
