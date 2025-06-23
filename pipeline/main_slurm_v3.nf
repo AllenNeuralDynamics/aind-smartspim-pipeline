@@ -53,11 +53,15 @@ if (!params_keys.contains('template_path')) {
 }
 template_path = params.template_path
 
-// params.lightsheet_dataset = 's3://aind-scratch-data/smartspim_dataset'
-params.smartspim_production_models_url = 's3://aind-benchmark-data/mesoscale-anatomy-cell-detection/models/smartspim_production_models'
+// Ensure cell_models_path is provided
+if (!params_keys.contains('cell_models_path')) {
+    exit 1, "Error: Missing SmartSPIM template"
+}
+
+cell_models_path = params.cell_models_path
 
 println "Output path: ${output_path}"
-println "Path for deep learning production models: ${params.smartspim_production_models_url}"
+println "Path for deep learning production models: ${cell_models_path}"
 println "Using cloud: ${cloud}"
 
 // Input Channels - Organized by data source and target process
@@ -88,7 +92,7 @@ ch_dataset_to_registration_manifest = channel.fromPath(params.lightsheet_dataset
 ch_dataset_to_registration_acquisition = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
 
 // Production models to Classification
-ch_models_to_classification = channel.fromPath(params.smartspim_production_models_url + "/", type: 'any')
+ch_models_to_classification = channel.fromPath(cell_models_path + "/", type: 'any')
 
 // Inter-process channels (organized by source -> target)
 // Flatfield -> Destripe
