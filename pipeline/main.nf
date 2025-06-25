@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:74d4c3af15388efb108005a6a481301a622697bcf9d7c93d8f0eb86052653106
+// hash:sha256:26aca0845a315ae38573bef61b65123568d53e3447c41c1d3e9ce547aaae18b3
 
 nextflow.enable.dsl = 1
 
@@ -17,7 +17,7 @@ smartspim_dataset_to_aind_smartspim_stitch_1_2_6_8 = channel.fromPath(params.sma
 smartspim_dataset_to_aind_smartspim_stitch_1_2_6_9 = channel.fromPath(params.smartspim_dataset_url + "/data_description.json", type: 'any')
 smartspim_dataset_to_aind_smartspim_stitch_1_2_6_10 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
 capsule_aind_destripe_shadow_correction_004_1_to_capsule_aind_smartspim_fuse_002_3_11 = channel.create()
-smartspim_dataset_to_aind_smartspim_fuse_0_0_2_12 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_fuse_0_0_4_bigstitcher_12 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
 capsule_aind_smartspim_stitch_125_2_to_capsule_aind_smartspim_fuse_002_3_13 = channel.create()
 smartspim_dataset_to_aind_smartspim_flatfield_estimation_14 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/metadata.json", type: 'any')
 smartspim_dataset_to_aind_smartspim_flatfield_estimation_15 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/Ex_*_Em_*", type: 'any')
@@ -55,10 +55,10 @@ capsule_aind_smartspim_cell_quantification_151_7_to_capsule_aind_smartspim_pipel
 // capsule - aind-destripe-shadow-correction-0.0.4
 process capsule_aind_destripe_shadow_correction_004_1 {
 	tag 'capsule-2729769'
-	container "$REGISTRY_HOST/capsule/9297b361-aefa-419f-8897-0466e6b2ba0e:7e709f1cdb28032783c5e2e8eb726413"
+	container "$REGISTRY_HOST/capsule/9297b361-aefa-419f-8897-0466e6b2ba0e:73c76f839031ef10c3df1b562e426d06"
 
 	cpus 32
-	memory '128 GB'
+	memory '120 GB'
 
 	input:
 	path 'capsule/data/' from smartspim_dataset_to_aind_destripe_shadow_correction_0_0_4_1.collect()
@@ -80,7 +80,7 @@ process capsule_aind_destripe_shadow_correction_004_1 {
 
 	export CO_CAPSULE_ID=9297b361-aefa-419f-8897-0466e6b2ba0e
 	export CO_CPUS=32
-	export CO_MEMORY=137438953472
+	export CO_MEMORY=128849018880
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -88,8 +88,12 @@ process capsule_aind_destripe_shadow_correction_004_1 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2729769.git" capsule-repo
-	git -C capsule-repo checkout 9c8f4a4a55cd257ca07c09f8556ca38f771791f3 --quiet
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2729769.git" capsule-repo
+	else
+		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2729769.git" capsule-repo
+	fi
+	git -C capsule-repo checkout 6215e8a5d804029903a6429e25af9f6be48abdce --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -108,7 +112,7 @@ process capsule_aind_smartspim_stitch_125_2 {
 	container "$REGISTRY_HOST/capsule/53ecb114-e201-48b5-8d5e-5277d26cbb2b:69351eee84c1baa80ef68483579bbf75"
 
 	cpus 16
-	memory '128 GB'
+	memory '120 GB'
 
 	input:
 	path 'capsule/data/preprocessed_data/' from capsule_aind_destripe_shadow_correction_004_1_to_capsule_aind_smartspim_stitch_125_2_6.collect()
@@ -128,7 +132,7 @@ process capsule_aind_smartspim_stitch_125_2 {
 
 	export CO_CAPSULE_ID=53ecb114-e201-48b5-8d5e-5277d26cbb2b
 	export CO_CPUS=16
-	export CO_MEMORY=137438953472
+	export CO_MEMORY=128849018880
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -136,7 +140,11 @@ process capsule_aind_smartspim_stitch_125_2 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2825072.git" capsule-repo
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2825072.git" capsule-repo
+	else
+		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2825072.git" capsule-repo
+	fi
 	git -C capsule-repo checkout c33c53d0e047ba9078277eb333b006aa4bf1ae2e --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
@@ -150,19 +158,19 @@ process capsule_aind_smartspim_stitch_125_2 {
 	"""
 }
 
-// capsule - aind-smartspim-fuse-0.0.2
+// capsule - aind-smartspim-fuse-0.0.4-bigstitcher
 process capsule_aind_smartspim_fuse_002_3 {
-	tag 'capsule-0248143'
-	container "$REGISTRY_HOST/published/10d08e17-f8a0-4c33-8610-40f8eeaef236:v1"
+	tag 'capsule-5768558'
+	container "$REGISTRY_HOST/capsule/e28fec7f-8253-46ba-8502-10ac3711e3f2:f5b2f2a9754d5690f3080e6f94332df6"
 
 	cpus 16
-	memory '128 GB'
+	memory '120 GB'
 	accelerator 1
 	label 'gpu'
 
 	input:
 	path 'capsule/data/preprocessed_data' from capsule_aind_destripe_shadow_correction_004_1_to_capsule_aind_smartspim_fuse_002_3_11.flatten()
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_fuse_0_0_2_12.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_fuse_0_0_4_bigstitcher_12.collect()
 	path 'capsule/data/' from capsule_aind_smartspim_stitch_125_2_to_capsule_aind_smartspim_fuse_002_3_13.collect()
 
 	output:
@@ -177,9 +185,9 @@ process capsule_aind_smartspim_fuse_002_3 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=10d08e17-f8a0-4c33-8610-40f8eeaef236
+	export CO_CAPSULE_ID=e28fec7f-8253-46ba-8502-10ac3711e3f2
 	export CO_CPUS=16
-	export CO_MEMORY=137438953472
+	export CO_MEMORY=128849018880
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -187,7 +195,12 @@ process capsule_aind_smartspim_fuse_002_3 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-0248143.git" capsule-repo
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5768558.git" capsule-repo
+	else
+		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5768558.git" capsule-repo
+	fi
+	git -C capsule-repo checkout dc789c6c63dffd7aa1aa0a6616e48d606fa14737 --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -206,7 +219,7 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 	container "$REGISTRY_HOST/published/94d2cbcc-55b3-41fb-9686-9ccc1d3601b1:v1"
 
 	cpus 16
-	memory '128 GB'
+	memory '120 GB'
 
 	input:
 	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_flatfield_estimation_14.collect()
@@ -224,7 +237,7 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 
 	export CO_CAPSULE_ID=94d2cbcc-55b3-41fb-9686-9ccc1d3601b1
 	export CO_CPUS=16
-	export CO_MEMORY=137438953472
+	export CO_MEMORY=128849018880
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -232,7 +245,11 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2734547.git" capsule-repo
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2734547.git" capsule-repo
+	else
+		git clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2734547.git" capsule-repo
+	fi
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -251,7 +268,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_6 {
 	container "$REGISTRY_HOST/published/aaf91c8f-c0a2-413d-8e1e-f9e263df1b32:v3"
 
 	cpus 16
-	memory '128 GB'
+	memory '120 GB'
 
 	input:
 	path 'capsule/data/input_aind_metadata/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_1_17.collect()
@@ -281,7 +298,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_6 {
 
 	export CO_CAPSULE_ID=aaf91c8f-c0a2-413d-8e1e-f9e263df1b32
 	export CO_CPUS=16
-	export CO_MEMORY=137438953472
+	export CO_MEMORY=128849018880
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -289,7 +306,11 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_6 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-9560554.git" capsule-repo
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-9560554.git" capsule-repo
+	else
+		git clone --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-9560554.git" capsule-repo
+	fi
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -308,7 +329,7 @@ process capsule_aind_smartspim_cell_quantification_151_7 {
 	container "$REGISTRY_HOST/published/b895947f-db4f-4025-adb4-a1a04b7f1587:v3"
 
 	cpus 16
-	memory '128 GB'
+	memory '120 GB'
 
 	input:
 	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_002_3_to_capsule_aind_smartspim_cell_quantification_151_7_24.collect()
@@ -328,7 +349,7 @@ process capsule_aind_smartspim_cell_quantification_151_7 {
 
 	export CO_CAPSULE_ID=b895947f-db4f-4025-adb4-a1a04b7f1587
 	export CO_CPUS=16
-	export CO_MEMORY=137438953472
+	export CO_MEMORY=128849018880
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -338,7 +359,11 @@ process capsule_aind_smartspim_cell_quantification_151_7 {
 	ln -s "/tmp/data/lightsheet_template_ccf_registration" "capsule/data/lightsheet_template_ccf_registration" # id: 9be4e3ac-adfb-4335-824c-bd99364a2c0f
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2107437.git" capsule-repo
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2107437.git" capsule-repo
+	else
+		git clone --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2107437.git" capsule-repo
+	fi
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -353,11 +378,11 @@ process capsule_aind_smartspim_cell_quantification_151_7 {
 
 // capsule - aind-smartspim-ccf-registration-0.0.30
 process capsule_aind_smartspim_ccf_registration_8 {
-	tag 'capsule-8584302'
-	container "$REGISTRY_HOST/published/d61333f3-fd41-464e-9dac-dbdad02aec54:v6"
+	tag 'capsule-6045222'
+	container "$REGISTRY_HOST/capsule/30b4f986-4d55-452f-aae7-463e19dba67d:a0d57d2543a254b5dc733c92516685f7"
 
 	cpus 16
-	memory '128 GB'
+	memory '120 GB'
 
 	input:
 	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_30_30.collect()
@@ -373,9 +398,9 @@ process capsule_aind_smartspim_ccf_registration_8 {
 	#!/usr/bin/env bash
 	set -e
 
-	export CO_CAPSULE_ID=d61333f3-fd41-464e-9dac-dbdad02aec54
+	export CO_CAPSULE_ID=30b4f986-4d55-452f-aae7-463e19dba67d
 	export CO_CPUS=16
-	export CO_MEMORY=137438953472
+	export CO_MEMORY=128849018880
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -385,7 +410,12 @@ process capsule_aind_smartspim_ccf_registration_8 {
 	ln -s "/tmp/data/lightsheet_template_ccf_registration" "capsule/data/lightsheet_template_ccf_registration" # id: 9be4e3ac-adfb-4335-824c-bd99364a2c0f
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v6.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8584302.git" capsule-repo
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-6045222.git" capsule-repo
+	else
+		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-6045222.git" capsule-repo
+	fi
+	git -C capsule-repo checkout ac0692e4d022cc557facc3db1e0a6792cb09e3ff --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -404,7 +434,7 @@ process capsule_aind_smartspim_cell_segmentation_007_9 {
 	container "$REGISTRY_HOST/published/0d01bdb8-e530-40b8-8311-883814bde142:v5"
 
 	cpus 16
-	memory '256 GB'
+	memory '240 GB'
 
 	input:
 	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_002_3_to_capsule_aind_smartspim_cell_segmentation_007_9_33.collect()
@@ -421,7 +451,7 @@ process capsule_aind_smartspim_cell_segmentation_007_9 {
 
 	export CO_CAPSULE_ID=0d01bdb8-e530-40b8-8311-883814bde142
 	export CO_CPUS=16
-	export CO_MEMORY=274877906944
+	export CO_MEMORY=257698037760
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -429,7 +459,11 @@ process capsule_aind_smartspim_cell_segmentation_007_9 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v5.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5009831.git" capsule-repo
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 --branch v5.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5009831.git" capsule-repo
+	else
+		git clone --branch v5.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5009831.git" capsule-repo
+	fi
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -448,7 +482,7 @@ process capsule_aind_smartspim_classification_003_10 {
 	container "$REGISTRY_HOST/published/eab3673c-2c7f-488b-82b9-75dbfdddcb53:v4"
 
 	cpus 16
-	memory '128 GB'
+	memory '120 GB'
 	accelerator 1
 	label 'gpu'
 
@@ -470,7 +504,7 @@ process capsule_aind_smartspim_classification_003_10 {
 
 	export CO_CAPSULE_ID=eab3673c-2c7f-488b-82b9-75dbfdddcb53
 	export CO_CPUS=16
-	export CO_MEMORY=137438953472
+	export CO_MEMORY=128849018880
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -478,7 +512,11 @@ process capsule_aind_smartspim_classification_003_10 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v4.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-4355840.git" capsule-repo
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 --branch v4.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-4355840.git" capsule-repo
+	else
+		git clone --branch v4.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-4355840.git" capsule-repo
+	fi
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -497,7 +535,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_11 {
 	container "$REGISTRY_HOST/published/aaf91c8f-c0a2-413d-8e1e-f9e263df1b32:v3"
 
 	cpus 16
-	memory '64 GB'
+	memory '60 GB'
 
 	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
 
@@ -518,7 +556,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_11 {
 
 	export CO_CAPSULE_ID=aaf91c8f-c0a2-413d-8e1e-f9e263df1b32
 	export CO_CPUS=16
-	export CO_MEMORY=68719476736
+	export CO_MEMORY=64424509440
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -526,7 +564,11 @@ process capsule_aind_smartspim_pipeline_dispatcher_100_11 {
 	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-9560554.git" capsule-repo
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-9560554.git" capsule-repo
+	else
+		git clone --branch v3.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-9560554.git" capsule-repo
+	fi
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 

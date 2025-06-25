@@ -7,8 +7,8 @@
 				"id": "9297b361-aefa-419f-8897-0466e6b2ba0e",
 				"name": "aind-destripe-shadow-correction-0.0.4",
 				"slug": "2729769",
-				"commit": "9c8f4a4a55cd257ca07c09f8556ca38f771791f3",
-				"image_tag": "7e709f1cdb28032783c5e2e8eb726413"
+				"commit": "6215e8a5d804029903a6429e25af9f6be48abdce",
+				"image_tag": "73c76f839031ef10c3df1b562e426d06"
 			},
 			"resources": {
 				"cpus": 32,
@@ -115,10 +115,11 @@
 		{
 			"name": "capsule_aind_smartspim_fuse_002_3",
 			"capsule": {
-				"id": "10d08e17-f8a0-4c33-8610-40f8eeaef236",
-				"name": "aind-smartspim-fuse-0.0.2",
-				"slug": "0248143",
-				"version": 1
+				"id": "e28fec7f-8253-46ba-8502-10ac3711e3f2",
+				"name": "aind-smartspim-fuse-0.0.4-bigstitcher",
+				"slug": "5768558",
+				"commit": "dc789c6c63dffd7aa1aa0a6616e48d606fa14737",
+				"image_tag": "f5b2f2a9754d5690f3080e6f94332df6"
 			},
 			"resources": {
 				"cpus": 16,
@@ -343,10 +344,11 @@
 		{
 			"name": "capsule_aind_smartspim_ccf_registration_8",
 			"capsule": {
-				"id": "d61333f3-fd41-464e-9dac-dbdad02aec54",
+				"id": "30b4f986-4d55-452f-aae7-463e19dba67d",
 				"name": "aind-smartspim-ccf-registration-0.0.30",
-				"slug": "8584302",
-				"version": 6
+				"slug": "6045222",
+				"commit": "ac0692e4d022cc557facc3db1e0a6792cb09e3ff",
+				"image_tag": "a0d57d2543a254b5dc733c92516685f7"
 			},
 			"resources": {
 				"cpus": 16,

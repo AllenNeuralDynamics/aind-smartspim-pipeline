@@ -209,12 +209,12 @@
 				"x": -521.8294375849397,
 				"y": 405.0017199081467
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
 			"data": {
-				"capsule_id": "10d08e17-f8a0-4c33-8610-40f8eeaef236"
+				"capsule_id": "e28fec7f-8253-46ba-8502-10ac3711e3f2"
 			},
 			"id": "capsule_aind_smartspim_fuse_002_3",
 			"position": {
@@ -226,14 +226,14 @@
 		},
 		{
 			"data": {
-				"capsule_id": "d61333f3-fd41-464e-9dac-dbdad02aec54"
+				"capsule_id": "30b4f986-4d55-452f-aae7-463e19dba67d"
 			},
 			"id": "capsule_aind_smartspim_ccf_registration_8",
 			"position": {
 				"x": -1064.968035369693,
 				"y": 1162.223655468595
 			},
-			"selected": false,
+			"selected": true,
 			"type": "capsule"
 		},
 		{
@@ -318,7 +318,7 @@
 			"type": "dataset"
 		}
 	],
-	"timestamp": 1746070430279,
+	"timestamp": 1750175155394,
 	"viewport": {
 		"x": 714.9350838085463,
 		"y": 107.6330158121487,
