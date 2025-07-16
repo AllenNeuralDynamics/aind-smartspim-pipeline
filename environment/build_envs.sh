@@ -21,4 +21,4 @@ docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-cell-classification:s
 docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-cell-quantification:si-1.6.1 -f Dockerfile_cell_quantification .
 
 rm Dockerfile_*
-rm postInstall
+# rm postInstall
