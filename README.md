@@ -196,6 +196,8 @@ lsof /path/to/process/workdir/db/LOCK
 ```batch
 rm /path/to/process/workdir/db/LOCK
 ```
+- Update the nextflow_slurm.config to align with the configuration of your SLURM cluster. Please, check the `envWhitelist` to make sure you are able to access `SLURM_JOBID`, `SLURM_JOB_CPUS_PER_NODE` and `SLURM_JOB_GPUS`. Many of the processes are using this information to dynamically assign the workload based on available resources.
+- Make sure the container option in the processes contain --nv in the GPU processes to be able to load the GPUs and drivers.
 
 ---
 **NOTE**
