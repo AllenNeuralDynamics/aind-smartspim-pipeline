@@ -144,6 +144,7 @@ ch_dispatcher_to_quantification_acquisition = channel.create()
 
 // Dispatcher -> Segmentation
 ch_dispatcher_to_segmentation_description = channel.create()
+ch_dispatcher_to_segmentation_acquisition = channel.create()
 ch_dispatcher_to_segmentation_manifest = channel.create()
 
 // Dispatcher -> Classification
@@ -351,7 +352,7 @@ process fusion {
 }
 
 // Atlas CCF Registration
-process atlas_registration {
+process atlas_registration_test1 {
     tag 'atlas-registration'
     container "ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.31"
 
@@ -381,7 +382,7 @@ process atlas_registration {
 	ln -s "${template_path}" "capsule/data/lightsheet_template_ccf_registration"
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-ccf-registration.git" capsule-repo
+	git clone -b feat-slurm-deployment "https://github.com/AllenNeuralDynamics/aind-ccf-registration.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -417,6 +418,7 @@ process dispatcher {
     path 'capsule/results/output_aind_metadata/data_description.json' into ch_dispatcher_to_quantification_description
     path 'capsule/results/output_aind_metadata/acquisition.json' into ch_dispatcher_to_quantification_acquisition
     path 'capsule/results/output_aind_metadata/data_description.json' into ch_dispatcher_to_segmentation_description
+    path 'capsule/results/output_aind_metadata/acquisition.json' into ch_dispatcher_to_segmentation_acquisition
     path 'capsule/results/segmentation_processing_manifest_*.json' into ch_dispatcher_to_segmentation_manifest
     path 'capsule/results/output_aind_metadata/data_description.json' into ch_dispatcher_to_classification_description
     path 'capsule/results/output_aind_metadata/acquisition.json' into ch_dispatcher_to_classification_acquisition
@@ -449,18 +451,22 @@ process dispatcher {
 }
 
 // Cell proposal generation
-process cell_proposals {
+process cell_proposals_test3 {
     tag 'cell-proposals'
     container "ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:si-1.0.0"
 
     cpus 16
     memory '256 GB'
 	time '12h'
+    
+    // To request gpu in slurm
+    label 'gpu'
 
     input:
     path 'capsule/data/fused/' from ch_fuse_to_segmentation.collect()
     path 'capsule/data/' from ch_dispatcher_to_segmentation_description.collect()
     path 'capsule/data/' from ch_dispatcher_to_segmentation_manifest.flatten()
+    path 'capsule/data/' from ch_dispatcher_to_segmentation_acquisition.collect()
 
     output:
     path 'capsule/results/*' into ch_segmentation_to_classification
@@ -474,6 +480,17 @@ process cell_proposals {
 	mkdir -p capsule/data
 	mkdir -p capsule/results
 	mkdir -p capsule/scratch
+
+    echo "[${task.tag}] System info:"
+    echo "Executor: ${task.executor}"
+    echo "Container: ${task.container}"
+    echo "Container options: ${task.containerOptions}"
+
+    echo "[${task.tag}] GPU check:"
+    which nvidia-smi && nvidia-smi || echo "nvidia-smi not found"
+
+    echo "[${task.tag}] CUDA check:"
+    python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')" || echo "PyTorch not available"
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone -b feat-fast-detection "https://github.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation.git" capsule-repo
@@ -496,9 +513,10 @@ process cell_classification {
 
     cpus 16
     memory '128 GB'
-    accelerator 1
-    label 'gpu'
 	time '24h'
+
+    // To request gpu in slurm
+    label 'gpu'
 
     input:
     path 'capsule/data/' from ch_dispatcher_to_classification_description.collect()
