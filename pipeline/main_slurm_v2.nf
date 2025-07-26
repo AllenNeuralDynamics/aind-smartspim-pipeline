@@ -2,6 +2,8 @@
 """
 Nextflow Script: SmartSPIM Pipeline
 
+Note: This pipeline works with PNG files.
+
 This script executes the SmartSPIM pipeline, performing the following operations:
 1. Retrospective flatfield correction
 2. Image horizontal destriping
@@ -228,7 +230,7 @@ process preprocessing {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-destripe.git" capsule-repo
+	git clone -b png-pipeline-v2.0 "https://github.com/AllenNeuralDynamics/aind-smartspim-destripe.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -271,7 +273,7 @@ process stitching {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-stitch.git" capsule-repo
+	git clone -b terastitcher-pipeline-v2.0 "https://github.com/AllenNeuralDynamics/aind-smartspim-stitch.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -318,7 +320,7 @@ process fusion {
 	mkdir -p capsule/scratch
 
 	echo "[${task.tag}] cloning git repo..."
-	git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
+	git clone -b terastitcher-pipeline-v2.0 "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -334,7 +336,7 @@ process fusion {
 // capsule - aind-smartspim-ccf-registration
 process atlas_registration {
 	tag 'atlas-registration'
-	container "ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.24"
+	container "ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.31"
 
 	cpus 16
 	memory '128 GB'
