@@ -4,10 +4,11 @@
 		{
 			"name": "capsule_aind_destripe_shadow_correction_004_1",
 			"capsule": {
-				"id": "73319e3c-625e-4153-b5d1-29fd755d1bf8",
+				"id": "9297b361-aefa-419f-8897-0466e6b2ba0e",
 				"name": "aind-destripe-shadow-correction-0.0.4",
-				"slug": "4725614",
-				"version": 1
+				"slug": "2729769",
+				"commit": "6215e8a5d804029903a6429e25af9f6be48abdce",
+				"image_tag": "73c76f839031ef10c3df1b562e426d06"
 			},
 			"resources": {
 				"cpus": 32,
@@ -38,6 +39,14 @@
 					"source_path": "smartspim_dataset/SPIM/Ex_*_Em_*"
 				},
 				{
+					"id": "liqtWOFkroxS35lR",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/data_description.json",
+					"collect": true
+				},
+				{
 					"id": "yiCYyIt6Ax8rx9oo",
 					"source_id": "capsule_aind_smartspim_flatfield_estimation_5",
 					"type": "capsule",
@@ -49,16 +58,34 @@
 		{
 			"name": "capsule_aind_smartspim_stitch_125_2",
 			"capsule": {
-				"id": "4c04ae91-ff3e-453b-b95f-e26970fc1350",
+				"id": "53ecb114-e201-48b5-8d5e-5277d26cbb2b",
 				"name": "aind-smartspim-stitch-1.2.6",
-				"slug": "2124819",
-				"version": 2
+				"slug": "2825072",
+				"commit": "c33c53d0e047ba9078277eb333b006aa4bf1ae2e",
+				"image_tag": "69351eee84c1baa80ef68483579bbf75"
 			},
 			"resources": {
 				"cpus": 16,
 				"memory": 128
 			},
 			"inputs": [
+				{
+					"id": "rbnjIAw6MDth3Mfm",
+					"source_id": "capsule_aind_destripe_shadow_correction_004_1",
+					"type": "capsule",
+					"name": "aind-destripe-shadow-correction-0.0.4",
+					"source_path": "destriped_data/Ex_*_Em_*",
+					"target_path": "preprocessed_data",
+					"collect": true
+				},
+				{
+					"id": "lNRGretzOkbUV3zx",
+					"source_id": "capsule_aind_destripe_shadow_correction_004_1",
+					"type": "capsule",
+					"name": "aind-destripe-shadow-correction-0.0.4",
+					"source_path": "path_to_cloud_*",
+					"collect": true
+				},
 				{
 					"id": "7FbFhvG82ObUJQpe",
 					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
@@ -82,25 +109,17 @@
 					"name": "smartspim_dataset",
 					"source_path": "smartspim_dataset/SPIM/derivatives/processing_manifest.json",
 					"collect": true
-				},
-				{
-					"id": "rbnjIAw6MDth3Mfm",
-					"source_id": "capsule_aind_destripe_shadow_correction_004_1",
-					"type": "capsule",
-					"name": "aind-destripe-shadow-correction-0.0.4",
-					"source_path": "destriped_data/Ex_*_Em_*",
-					"target_path": "preprocessed_data",
-					"collect": true
 				}
 			]
 		},
 		{
 			"name": "capsule_aind_smartspim_fuse_002_3",
 			"capsule": {
-				"id": "10d08e17-f8a0-4c33-8610-40f8eeaef236",
-				"name": "aind-smartspim-fuse-0.0.2",
-				"slug": "0248143",
-				"version": 1
+				"id": "e28fec7f-8253-46ba-8502-10ac3711e3f2",
+				"name": "aind-smartspim-fuse-0.0.4-bigstitcher",
+				"slug": "5768558",
+				"commit": "dc789c6c63dffd7aa1aa0a6616e48d606fa14737",
+				"image_tag": "f5b2f2a9754d5690f3080e6f94332df6"
 			},
 			"resources": {
 				"cpus": 16,
@@ -325,10 +344,11 @@
 		{
 			"name": "capsule_aind_smartspim_ccf_registration_8",
 			"capsule": {
-				"id": "d61333f3-fd41-464e-9dac-dbdad02aec54",
+				"id": "30b4f986-4d55-452f-aae7-463e19dba67d",
 				"name": "aind-smartspim-ccf-registration-0.0.30",
-				"slug": "8584302",
-				"version": 6
+				"slug": "6045222",
+				"commit": "ac0692e4d022cc557facc3db1e0a6792cb09e3ff",
+				"image_tag": "a0d57d2543a254b5dc733c92516685f7"
 			},
 			"resources": {
 				"cpus": 16,
