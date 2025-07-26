@@ -131,26 +131,22 @@ Script example to execute pipeline:
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=4GB
-#SBATCH --time=2:00:00
+#SBATCH --time=24:00:00
 #SBATCH --partition=YOUR_PARTITION
 
-# Export the credentials for GHCR - Might be needed to download the containers
-export SINGULARITY_DOCKER_USERNAME=your_github_username
-export SINGULARITY_DOCKER_PASSWORD=your_personal_access_token
-
-PIPELINE_PATH="/your/path/to/aind-smartspim-pipeline"
-DATA_PATH="/your/path/to/smartspim_data"
-RESULTS_PATH="/your/path/to/results"
-WORKDIR="/your/path/to/workdir"
+PIPELINE_PATH="/your/repo-pipeline/path"
+DATA_PATH="/path/to/your/data"
+RESULTS_PATH="/path/to/your/outputs"
+WORKDIR="/path/to/workdir"
 
 # Change this output path to a S3 path if AWS cloud compatibility is needed
-OUTPUT_PATH="/your/path/to/processed/dataset"
+OUTPUT_PATH="/path/to/your/outputdir"
 
 # Template path
-TEMPLATE_PATH="your/path/to/lightsheet_to_template_to_ccf_registration"
+TEMPLATE_PATH="/path/to/templatev2"
 
 # Cell detection path
-CELL_DETECTION_PATH="/your/path/to/cell_detection_model"
+CELL_MODELS_PATH="/path/to/production-models"
 
 # Setting cloud parameter - Useful if you want to store the results in a bucket
 CLOUD="false"
@@ -158,18 +154,19 @@ CLOUD="false"
 NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
   -C $PIPELINE_PATH/pipeline/nextflow_slurm.config \
   -log $RESULTS_PATH/nextflow/nextflow.log \
-  run $PIPELINE_PATH/pipeline/main_slurm.nf \
+  run $PIPELINE_PATH/pipeline/main_slurm_v3.nf \
   -work-dir $WORKDIR \
   --output_path $OUTPUT_PATH \
   --template_path $TEMPLATE_PATH \
-  --cell_detection_model $CELL_DETECTION_PATH \
-  --cloud $CLOUD
-  # additional parameters here
+  --cell_models_path $CELL_MODELS_PATH \
+  --cloud $CLOUD \
+  -resume
 ```
 
 > [!IMPORTANT]
-> You should change the `--partition` parameter to match the partition you want to use on your cluster. 
-> The same partition should be also indicated as the `queue` argument in the `pipeline/nextflow_slurm_custom.config` file!
+> You should change the `--partition` parameter to match the partition you want to use on your cluster for the submission job.
+> You need to change the queue in the nextflow slurm config to allocate nodes in that queue.
+> The same partition should be also indicated as the `queue` argument in the `pipeline/nextflow_slurm_custom.config` file for simplicity.
 
 In Nextflow, you can also use the `-resume` flag to restart a previous execution:
 ```bash
