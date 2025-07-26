@@ -344,11 +344,10 @@
 		{
 			"name": "capsule_aind_smartspim_ccf_registration_8",
 			"capsule": {
-				"id": "30b4f986-4d55-452f-aae7-463e19dba67d",
+				"id": "d61333f3-fd41-464e-9dac-dbdad02aec54",
 				"name": "aind-smartspim-ccf-registration-0.0.30",
-				"slug": "6045222",
-				"commit": "ac0692e4d022cc557facc3db1e0a6792cb09e3ff",
-				"image_tag": "a0d57d2543a254b5dc733c92516685f7"
+				"slug": "8584302",
+				"version": 6
 			},
 			"resources": {
 				"cpus": 16,

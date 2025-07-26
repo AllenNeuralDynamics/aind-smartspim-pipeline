@@ -226,7 +226,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "30b4f986-4d55-452f-aae7-463e19dba67d"
+				"capsule_id": "d61333f3-fd41-464e-9dac-dbdad02aec54"
 			},
 			"id": "capsule_aind_smartspim_ccf_registration_8",
 			"position": {
@@ -318,7 +318,7 @@
 			"type": "dataset"
 		}
 	],
-	"timestamp": 1750175155394,
+	"timestamp": 1751905593531,
 	"viewport": {
 		"x": 714.9350838085463,
 		"y": 107.6330158121487,
