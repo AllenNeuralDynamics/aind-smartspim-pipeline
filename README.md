@@ -109,7 +109,7 @@ To deploy on a SLURM cluster, you need to have access to a SLURM cluster and hav
 ```bash
 bash environment/create_slurm_env.sh /path/to/environment
 ```
-After execution, the script will create the environment in the provided location.
+After execution, the script will create the environment in the provided location. We recommend using the script `create_singularity_containers.sh` to avoid having the submission job creating the SIFs as these could fail depending the resources the node has. Please, place these SIFs in the nextflow work directory in a folder called 'singularity'.
 
 Before submission, you need to configure the `nextflow_slurm.config` file to use your the partition you want in your SLURM to execute the pipeline.
 
@@ -210,6 +210,6 @@ This pipeline is currently using Nextflow DSL1. Currently, this version is not s
 # Datasets for pipeline processing
 
 - [SmartSPIM template v1.0](https://open.quiltdata.com/b/aind-open-data/tree/SmartSPIM-template_2024-05-16_11-26-14/): Please, download this dataset.
-- [SmartSPIM cell detection model](https://open.quiltdata.com/b/aind-benchmark-data/tree/mesoscale-anatomy-cell-detection/models/trained_models_03212024/): Please, download one of the cell detection models suitable for your image processing task.
+- [SmartSPIM cell detection models](https://open.quiltdata.com/b/aind-benchmark-data/tree/mesoscale-anatomy-cell-detection/models/smartspim_production_models/): Please, download one of the cell detection models suitable for your image processing task.
 
 Once the datasets are downloaded, you need to point the pipeline to them.

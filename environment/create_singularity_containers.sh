@@ -10,7 +10,7 @@ echo "Building preprocessing SIF"
 singularity build --force ghcr.io-allenneuraldynamics-aind-smartspim-preprocessing-si-0.0.4.img docker://ghcr.io/allenneuraldynamics/aind-smartspim-preprocessing:si-0.0.4 > /dev/null
 
 echo "Building stitch SIF"
-singularity build --force ghcr.io-allenneuraldynamics-aind-smartspim-stitch-si-1.2.6.img docker://ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.6 > /dev/null
+singularity build --force ghcr.io-allenneuraldynamics-aind-smartspim-stitch-si-1.2.7.img docker://ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.7 > /dev/null
 
 echo "Building registration SIF"
 singularity build --force ghcr.io-allenneuraldynamics-aind-smartspim-registration-si-0.0.31.img docker://ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.31 > /dev/null

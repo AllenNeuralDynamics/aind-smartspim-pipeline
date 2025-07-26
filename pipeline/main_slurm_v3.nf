@@ -24,7 +24,7 @@ PARAMS : dict
     Configuration parameters for the SmartSPIM pipeline.
 
 Author: Camilo Laiton
-Date: Apr 23rd, 2022.
+Date: April, 2025.
 """
 
 nextflow.enable.dsl = 1
@@ -241,7 +241,7 @@ process preprocessing {
 	mkdir -p capsule/scratch
 
     echo "[${task.tag}] cloning git repo..."
-    git clone "https://github.com/AllenNeuralDynamics/aind-smartspim-destripe.git" capsule-repo
+    git clone -b feat-slurm-pipeline-v3 "https://github.com/AllenNeuralDynamics/aind-smartspim-destripe.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -257,10 +257,14 @@ process preprocessing {
 // Image Stitching
 process stitching {
     tag 'stitching'
-    container "ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.6"
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.7"
+
+    env = [
+        'CLASSPATH': '/home/BigStitcher-Spark/target/*:/home/n5-aws-s3/target/*'
+    ]
 
     cpus 16
-    memory '128 GB'
+    memory '256 GB'
 	time '6h'
 
     input:
@@ -282,6 +286,8 @@ process stitching {
 	mkdir -p capsule/data
 	mkdir -p capsule/results
 	mkdir -p capsule/scratch
+
+    export HOME=/root
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone -b feat-slurm-deployment "https://github.com/AllenNeuralDynamics/aind-smartspim-stitch.git" capsule-repo
@@ -352,7 +358,7 @@ process fusion {
 }
 
 // Atlas CCF Registration
-process atlas_registration_test1 {
+process atlas_registration {
     tag 'atlas-registration'
     container "ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.31"
 
@@ -451,7 +457,7 @@ process dispatcher {
 }
 
 // Cell proposal generation
-process cell_proposals_test3 {
+process cell_proposals {
     tag 'cell-proposals'
     container "ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:si-1.0.0"
 
