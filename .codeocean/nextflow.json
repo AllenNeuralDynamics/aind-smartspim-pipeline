@@ -195,17 +195,18 @@
 		{
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 			"capsule": {
-				"id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32",
+				"id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
-				"slug": "9560554",
-				"version": 3,
+				"slug": "3294345",
+				"commit": "8cb0cf277c47680908e318fd0bf7998bec31778d",
+				"image_tag": "3d43415e5e57512b3d1a406b222b7a58",
 				"arguments": [
 					"dispatch"
 				]
 			},
 			"resources": {
-				"cpus": 16,
-				"memory": 128
+				"cpus": 2,
+				"memory": 16
 			},
 			"inputs": [
 				{
@@ -270,10 +271,11 @@
 		{
 			"name": "capsule_aind_smartspim_cell_quantification_151_7",
 			"capsule": {
-				"id": "b895947f-db4f-4025-adb4-a1a04b7f1587",
-				"name": "aind-smartspim-cell-quantification-1.6.1",
-				"slug": "2107437",
-				"version": 3,
+				"id": "a240d629-4d4b-430d-a040-0ab11d48a2a0",
+				"name": "aind-smartspim-cell-quantification-1.6.2",
+				"slug": "2404927",
+				"commit": "90356f4763cbc93a59d373b6ff586c033e56c4e7",
+				"image_tag": "8f7109c38bfddadb527256bc9d6e2672",
 				"arguments": [
 					"detect"
 				]
@@ -344,10 +346,11 @@
 		{
 			"name": "capsule_aind_smartspim_ccf_registration_8",
 			"capsule": {
-				"id": "d61333f3-fd41-464e-9dac-dbdad02aec54",
-				"name": "aind-smartspim-ccf-registration-0.0.30",
-				"slug": "8584302",
-				"version": 6
+				"id": "30b4f986-4d55-452f-aae7-463e19dba67d",
+				"name": "aind-smartspim-ccf-registration-0.0.32",
+				"slug": "6045222",
+				"commit": "b1a1c8d3fbc2b5876f87a50b14e738a4fc78603b",
+				"image_tag": "4039507616948f9280eb6f782920d0a5"
 			},
 			"resources": {
 				"cpus": 16,
@@ -489,43 +492,35 @@
 		{
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_100_11",
 			"capsule": {
-				"id": "aaf91c8f-c0a2-413d-8e1e-f9e263df1b32",
+				"id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
-				"slug": "9560554",
-				"version": 3,
+				"slug": "3294345",
+				"commit": "8cb0cf277c47680908e318fd0bf7998bec31778d",
+				"image_tag": "3d43415e5e57512b3d1a406b222b7a58",
 				"arguments": [
 					"clean"
 				]
 			},
 			"resources": {
-				"cpus": 16,
-				"memory": 64
+				"cpus": 2,
+				"memory": 16
 			},
 			"inputs": [
 				{
-					"id": "fs6kkVE7ACsEva2y",
+					"id": "039uBE3XilSGNnQw",
 					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
-					"source_path": "output_aind_metadata/processing.json",
-					"target_path": "input_aind_metadata",
-					"collect": true
-				},
-				{
-					"id": "fkhPBgCl0Lgb7WU2",
-					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
-					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
 					"source_path": "modified_processing_manifest.json",
 					"collect": true
 				},
 				{
-					"id": "NhPmFI4or3ZpepCM",
+					"id": "UzgTWq6ypPoFz2wy",
 					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_100_6",
 					"type": "capsule",
-					"name": "aind-smartspim-pipeline-dispatcher-1.0.0",
-					"source_path": "output_aind_metadata/data_description.json",
-					"target_path": "input_aind_metadata",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "output_aind_metadata/*.json",
+					"target_path": "input_aind_metadata/",
 					"collect": true
 				},
 				{
