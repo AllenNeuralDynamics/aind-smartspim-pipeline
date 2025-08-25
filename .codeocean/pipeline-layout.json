@@ -1,13 +1,55 @@
 {
 	"edges": [
 		{
-			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_destripe_shadow_correction_005_5",
+			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_flatfield_estimation_5",
+			"selected": false,
 			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
-			"target": "capsule_aind_destripe_shadow_correction_005_5"
+			"target": "capsule_aind_smartspim_flatfield_estimation_5"
 		},
 		{
-			"id": "xy-edge__capsule_aind_destripe_shadow_correction_005_5-results",
-			"source": "capsule_aind_destripe_shadow_correction_005_5",
+			"id": "xy-edge__69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_destripe_shadow_correction_005_6",
+			"selected": false,
+			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
+			"target": "capsule_aind_destripe_shadow_correction_005_6"
+		},
+		{
+			"id": "xy-edge__capsule_aind_smartspim_flatfield_estimation_5-capsule_aind_destripe_shadow_correction_005_6",
+			"source": "capsule_aind_smartspim_flatfield_estimation_5",
+			"target": "capsule_aind_destripe_shadow_correction_005_6"
+		},
+		{
+			"id": "xy-edge__69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_stitch_127_7",
+			"selected": false,
+			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
+			"target": "capsule_aind_smartspim_stitch_127_7"
+		},
+		{
+			"id": "xy-edge__capsule_aind_destripe_shadow_correction_005_6-capsule_aind_smartspim_stitch_127_7",
+			"selected": false,
+			"source": "capsule_aind_destripe_shadow_correction_005_6",
+			"target": "capsule_aind_smartspim_stitch_127_7"
+		},
+		{
+			"id": "xy-edge__capsule_aind_destripe_shadow_correction_005_6-capsule_aind_smartspim_fuse_005_bigstitcher_8",
+			"selected": false,
+			"source": "capsule_aind_destripe_shadow_correction_005_6",
+			"target": "capsule_aind_smartspim_fuse_005_bigstitcher_8"
+		},
+		{
+			"id": "xy-edge__69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_fuse_005_bigstitcher_8",
+			"selected": false,
+			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
+			"target": "capsule_aind_smartspim_fuse_005_bigstitcher_8"
+		},
+		{
+			"id": "xy-edge__capsule_aind_smartspim_stitch_127_7-capsule_aind_smartspim_fuse_005_bigstitcher_8",
+			"selected": false,
+			"source": "capsule_aind_smartspim_stitch_127_7",
+			"target": "capsule_aind_smartspim_fuse_005_bigstitcher_8"
+		},
+		{
+			"id": "xy-edge__capsule_aind_smartspim_fuse_005_bigstitcher_8-results",
+			"source": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
 			"target": "results"
 		}
 	],
@@ -15,10 +57,10 @@
 		{
 			"id": "results",
 			"position": {
-				"x": -345.3352459787056,
-				"y": 1292.772189199243
+				"x": -572.0019126453724,
+				"y": 1266.1055225325765
 			},
-			"selected": true,
+			"selected": false,
 			"type": "results"
 		},
 		{
@@ -31,16 +73,57 @@
 		},
 		{
 			"data": {
+				"capsule_id": "37c0404c-111e-4f43-8744-39616bae91f1"
+			},
+			"id": "capsule_aind_smartspim_flatfield_estimation_5",
+			"position": {
+				"x": -1166.582026040372,
+				"y": -316.9926545818997
+			},
+			"selected": false,
+			"type": "capsule"
+		},
+		{
+			"data": {
 				"capsule_id": "e989fbed-af2e-4552-b931-e7bd48e4b8cf"
 			},
-			"id": "capsule_aind_destripe_shadow_correction_005_5",
+			"id": "capsule_aind_destripe_shadow_correction_005_6",
 			"position": {
-				"x": -1046.582026040372,
-				"y": 236.34067875143364
+				"x": -962.4503403969775,
+				"y": 9.22328571243402
+			},
+			"selected": false,
+			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "7bba4392-d98e-48ef-9b33-242908c455cb"
+			},
+			"id": "capsule_aind_smartspim_stitch_127_7",
+			"position": {
+				"x": 160.8830437989862,
+				"y": 222.55661904576738
+			},
+			"selected": false,
+			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "664683c7-6ac9-4968-91e3-08d5e2f430e7"
+			},
+			"id": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
+			"position": {
+				"x": -735.7836737303109,
+				"y": 575.2232990638747
 			},
 			"selected": true,
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1756142564974
+	"timestamp": 1756154675676,
+	"viewport": {
+		"x": 456.9350838085463,
+		"y": 196.83301180671648,
+		"zoom": 0.3
+	}
 }
