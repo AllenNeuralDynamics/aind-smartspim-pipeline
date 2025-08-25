@@ -48,24 +48,38 @@
 			"target": "capsule_aind_smartspim_fuse_005_bigstitcher_8"
 		},
 		{
-			"id": "xy-edge__capsule_aind_smartspim_fuse_005_bigstitcher_8-results",
-			"source": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
-			"target": "results"
-		},
-		{
 			"id": "xy-edge__capsule_create_individual_zgroup_9-capsule_aind_smartspim_stitch_127_7",
+			"selected": false,
 			"source": "capsule_create_individual_zgroup_9",
 			"target": "capsule_aind_smartspim_stitch_127_7"
+		},
+		{
+			"id": "xy-edge__69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_ccf_registration_0033_10",
+			"selected": false,
+			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
+			"target": "capsule_aind_smartspim_ccf_registration_0033_10"
+		},
+		{
+			"id": "xy-edge__capsule_aind_smartspim_fuse_005_bigstitcher_8-capsule_aind_smartspim_ccf_registration_0033_10",
+			"selected": false,
+			"source": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
+			"target": "capsule_aind_smartspim_ccf_registration_0033_10"
+		},
+		{
+			"id": "xy-edge__b1977b1f-9034-4f82-9e8b-80904158fed2-capsule_aind_smartspim_ccf_registration_0033_10",
+			"selected": false,
+			"source": "b1977b1f-9034-4f82-9e8b-80904158fed2",
+			"target": "capsule_aind_smartspim_ccf_registration_0033_10"
 		}
 	],
 	"nodes": [
 		{
 			"id": "results",
 			"position": {
-				"x": -572.0019126453724,
-				"y": 1266.1055225325765
+				"x": -15.33524597870568,
+				"y": 1422.7721891992435
 			},
-			"selected": false,
+			"selected": true,
 			"type": "results"
 		},
 		{
@@ -94,8 +108,8 @@
 			},
 			"id": "capsule_aind_destripe_shadow_correction_005_6",
 			"position": {
-				"x": -962.4503403969775,
-				"y": 9.22328571243402
+				"x": -895.7836737303109,
+				"y": 205.88995237910075
 			},
 			"selected": false,
 			"type": "capsule"
@@ -106,8 +120,8 @@
 			},
 			"id": "capsule_aind_smartspim_stitch_127_7",
 			"position": {
-				"x": 160.8830437989862,
-				"y": 222.55661904576738
+				"x": 140.8830437989862,
+				"y": 372.5566190457674
 			},
 			"selected": false,
 			"type": "capsule"
@@ -118,8 +132,8 @@
 			},
 			"id": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
 			"position": {
-				"x": -735.7836737303109,
-				"y": 575.2232990638747
+				"x": -732.4503403969775,
+				"y": 751.8899657305417
 			},
 			"selected": false,
 			"type": "capsule"
@@ -130,17 +144,38 @@
 			},
 			"id": "capsule_create_individual_zgroup_9",
 			"position": {
-				"x": 454.21632626968926,
-				"y": -28.110034269458595
+				"x": -102.45034039697741,
+				"y": 55.22329906387475
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "4e9ff62e-76b9-48eb-9b62-bd79e398fae6"
+			},
+			"id": "capsule_aind_smartspim_ccf_registration_0033_10",
+			"position": {
+				"x": 690.8807804119419,
+				"y": 945.223299063875
+			},
+			"selected": false,
+			"type": "capsule"
+		},
+		{
+			"id": "b1977b1f-9034-4f82-9e8b-80904158fed2",
+			"position": {
+				"x": 1209.2138467164666,
+				"y": 648.5566323972084
+			},
+			"selected": false,
+			"type": "dataset"
 		}
 	],
-	"timestamp": 1756154863299,
+	"timestamp": 1756157369555,
 	"viewport": {
-		"x": 456.9350838085463,
-		"y": 195.83301180671648,
+		"x": 256.4358276745131,
+		"y": 117.83301180671637,
 		"zoom": 0.3
 	}
 }

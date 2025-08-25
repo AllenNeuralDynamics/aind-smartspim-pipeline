@@ -52,13 +52,6 @@
 			},
 			"inputs": [
 				{
-					"id": "wFtmmtFimKOYWf50",
-					"source_id": "capsule_aind_smartspim_flatfield_estimation_5",
-					"type": "capsule",
-					"name": "aind-smartspim-flatfield-estimation",
-					"collect": true
-				},
-				{
 					"id": "8Edm5ISSrmQhBnfy",
 					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
 					"type": "dataset",
@@ -79,7 +72,13 @@
 					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
 					"type": "dataset",
 					"name": "smartspim_dataset",
-					"source_path": "smartspim_dataset/SPIM/Ex_*_Em_*.zarr",
+					"source_path": "smartspim_dataset/SPIM/Ex_*_Em_*.zarr"
+				},
+				{
+					"id": "wFtmmtFimKOYWf50",
+					"source_id": "capsule_aind_smartspim_flatfield_estimation_5",
+					"type": "capsule",
+					"name": "aind-smartspim-flatfield-estimation",
 					"collect": true
 				}
 			]
@@ -102,7 +101,7 @@
 					"type": "capsule",
 					"name": "Create individual .zgroup",
 					"source_path": "zgroup_folder/.zgroup",
-					"target_path": "preprocessed_data",
+					"target_path": "preprocessed_data/",
 					"collect": true
 				},
 				{
@@ -153,6 +152,15 @@
 			},
 			"inputs": [
 				{
+					"id": "luVwiam2nydm5Oto",
+					"source_id": "capsule_aind_destripe_shadow_correction_005_6",
+					"type": "capsule",
+					"name": "aind-smartspim-destripe-shadow-correction-0.0.5",
+					"source_path": "destriped_data*",
+					"target_path": "preprocessed_data",
+					"flatten": true
+				},
+				{
 					"id": "E7Y06jOTw3sGTIhe",
 					"source_id": "capsule_aind_smartspim_stitch_127_7",
 					"type": "capsule",
@@ -166,20 +174,8 @@
 					"name": "smartspim_dataset",
 					"source_path": "smartspim_dataset/acquisiton.json",
 					"collect": true
-				},
-				{
-					"id": "luVwiam2nydm5Oto",
-					"source_id": "capsule_aind_destripe_shadow_correction_005_6",
-					"type": "capsule",
-					"name": "aind-smartspim-destripe-shadow-correction-0.0.5",
-					"source_path": "destriped_data*",
-					"target_path": "preprocessed_data",
-					"collect": true
 				}
-			],
-			"results": {
-				"id": "664683c7-6ac9-4968-91e3-08d5e2f430e7"
-			}
+			]
 		},
 		{
 			"name": "capsule_create_individual_zgroup_9",
@@ -192,6 +188,54 @@
 				"cpus": 1,
 				"memory": 8
 			}
+		},
+		{
+			"name": "capsule_aind_smartspim_ccf_registration_0033_10",
+			"capsule": {
+				"id": "4e9ff62e-76b9-48eb-9b62-bd79e398fae6",
+				"name": "aind-smartspim-ccf-registration-0.0.33",
+				"slug": "2505115"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 128
+			},
+			"inputs": [
+				{
+					"id": "tx3wjM3oIgwn1d7T",
+					"source_id": "b1977b1f-9034-4f82-9e8b-80904158fed2",
+					"type": "dataset",
+					"name": "SmartSPIM-template_2024-05-16_11-26-14",
+					"source_path": "SmartSPIM-template_2024-05-16_11-26-14/",
+					"target_path": "lightsheet_template_ccf_registration/",
+					"collect": true
+				},
+				{
+					"id": "QKCqGUbopd6neATo",
+					"source_id": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
+					"type": "capsule",
+					"name": "aind-smartspim-fuse-0.0.5-bigstitcher",
+					"source_path": "Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "ZYFjG8IVbRqRzHY8",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/SPIM/derivatives/processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "JZyCBQtYePi0uiwt",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/acquisiton.json",
+					"collect": true
+				}
+			]
 		}
 	]
 }
