@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:a6f97657ee547e624b81b87e0640f11e6e0b60c499d98541c275e31c95e88eb3
+// hash:sha256:85699d2b51cd95b9b23924bf5ce37598a7113badb18d8d2197ef6e3cceab83a1
 
 nextflow.enable.dsl = 1
 
@@ -25,6 +25,13 @@ smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_33
 capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_ccf_registration_0033_10_17 = channel.create()
 smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_18 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
 smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_19 = channel.fromPath(params.smartspim_dataset_url + "/acquisiton.json", type: 'any')
+capsule_aind_smartspim_flatfield_estimation_5_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_20 = channel.create()
+capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_21 = channel.create()
+capsule_aind_smartspim_stitch_127_7_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_22 = channel.create()
+capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_23 = channel.create()
+capsule_aind_smartspim_ccf_registration_0033_10_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_24 = channel.create()
+smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_1_25 = channel.fromPath(params.smartspim_dataset_url + "/*.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_1_26 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
 
 // capsule - aind-smartspim-flatfield-estimation
 process capsule_aind_smartspim_flatfield_estimation_5 {
@@ -41,6 +48,7 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 
 	output:
 	path 'capsule/results/*' into capsule_aind_smartspim_flatfield_estimation_5_to_capsule_aind_destripe_shadow_correction_005_6_7
+	path 'capsule/results/*' into capsule_aind_smartspim_flatfield_estimation_5_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_20
 
 	script:
 	"""
@@ -91,6 +99,7 @@ process capsule_aind_destripe_shadow_correction_005_6 {
 	output:
 	path 'capsule/results/destriped_data/Ex_*_Em_*' into capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_stitch_127_7_9
 	path 'capsule/results/destriped_data*' into capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_fuse_005_bigstitcher_8_13
+	path 'capsule/results/image_destriping_*.json' into capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_21
 
 	script:
 	"""
@@ -141,6 +150,7 @@ process capsule_aind_smartspim_stitch_127_7 {
 
 	output:
 	path 'capsule/results/*' into capsule_aind_smartspim_stitch_127_7_to_capsule_aind_smartspim_fuse_005_bigstitcher_8_14
+	path 'capsule/results/*' into capsule_aind_smartspim_stitch_127_7_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_22
 
 	script:
 	"""
@@ -189,6 +199,7 @@ process capsule_aind_smartspim_fuse_005_bigstitcher_8 {
 
 	output:
 	path 'capsule/results/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_ccf_registration_0033_10_17
+	path 'capsule/results/*' into capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_23
 
 	script:
 	"""
@@ -279,6 +290,9 @@ process capsule_aind_smartspim_ccf_registration_0033_10 {
 	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_18.collect()
 	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_19.collect()
 
+	output:
+	path 'capsule/results/*' into capsule_aind_smartspim_ccf_registration_0033_10_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_24
+
 	script:
 	"""
 	#!/usr/bin/env bash
@@ -306,6 +320,60 @@ process capsule_aind_smartspim_ccf_registration_0033_10 {
 	cd capsule/code
 	chmod +x run
 	./run
+
+	echo "[${task.tag}] completed!"
+	"""
+}
+
+// capsule - aind-smartspim-pipeline-dispatcher-1.0.1
+process capsule_aind_smartspim_pipeline_dispatcher_101_11 {
+	tag 'capsule-3294345'
+	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0"
+
+	cpus 16
+	memory '60 GB'
+
+	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
+
+	input:
+	path 'capsule/data/flatfield_estimation/' from capsule_aind_smartspim_flatfield_estimation_5_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_20.collect()
+	path 'capsule/data/' from capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_21.collect()
+	path 'capsule/data/stitched/' from capsule_aind_smartspim_stitch_127_7_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_22.collect()
+	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_23.collect()
+	path 'capsule/data/ccf_registration_results/' from capsule_aind_smartspim_ccf_registration_0033_10_to_capsule_aind_smartspim_pipeline_dispatcher_101_11_24.collect()
+	path 'capsule/data/input_aind_metadata/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_1_25.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_1_26.collect()
+
+	output:
+	path 'capsule/results/*'
+
+	script:
+	"""
+	#!/usr/bin/env bash
+	set -e
+
+	export CO_CAPSULE_ID=7adb694b-b8cd-42ef-ba37-4639508b7ee0
+	export CO_CPUS=16
+	export CO_MEMORY=64424509440
+
+	mkdir -p capsule
+	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
+	mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
+	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
+
+	echo "[${task.tag}] cloning git repo..."
+	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
+		git clone --filter=tree:0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-3294345.git" capsule-repo
+	else
+		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-3294345.git" capsule-repo
+	fi
+	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
+	rm -rf capsule-repo
+
+	echo "[${task.tag}] running capsule..."
+	cd capsule/code
+	chmod +x run
+	./run dispatch
 
 	echo "[${task.tag}] completed!"
 	"""

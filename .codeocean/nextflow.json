@@ -236,6 +236,83 @@
 					"collect": true
 				}
 			]
+		},
+		{
+			"name": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+			"capsule": {
+				"id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0",
+				"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+				"slug": "3294345",
+				"arguments": [
+					"dispatch"
+				]
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 64
+			},
+			"inputs": [
+				{
+					"id": "DVo22B0ZTA9CgVZI",
+					"source_id": "capsule_aind_smartspim_flatfield_estimation_5",
+					"type": "capsule",
+					"name": "aind-smartspim-flatfield-estimation",
+					"target_path": "flatfield_estimation",
+					"collect": true
+				},
+				{
+					"id": "sv9OBe3Yz2c6yhLC",
+					"source_id": "capsule_aind_destripe_shadow_correction_005_6",
+					"type": "capsule",
+					"name": "aind-smartspim-destripe-shadow-correction-0.0.5",
+					"source_path": "image_destriping_*.json",
+					"collect": true
+				},
+				{
+					"id": "B5yvaihLizi9zx4H",
+					"source_id": "capsule_aind_smartspim_stitch_127_7",
+					"type": "capsule",
+					"name": "aind-smartspim-stitch-1.2.8",
+					"target_path": "stitched",
+					"collect": true
+				},
+				{
+					"id": "lpfHoELPsPrBy9BA",
+					"source_id": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
+					"type": "capsule",
+					"name": "aind-smartspim-fuse-0.0.5-bigstitcher",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "sLGPKHvTgBQb85WK",
+					"source_id": "capsule_aind_smartspim_ccf_registration_0033_10",
+					"type": "capsule",
+					"name": "aind-smartspim-ccf-registration-0.0.33",
+					"target_path": "ccf_registration_results",
+					"collect": true
+				},
+				{
+					"id": "iKa4NAKEiiLp5DQD",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/*.json",
+					"target_path": "input_aind_metadata",
+					"collect": true
+				},
+				{
+					"id": "msEWiN9wokjs0ZlV",
+					"source_id": "69579d3b-8d01-4520-8375-bcd074be4996",
+					"type": "dataset",
+					"name": "smartspim_dataset",
+					"source_path": "smartspim_dataset/SPIM/derivatives/processing_manifest.json",
+					"collect": true
+				}
+			],
+			"results": {
+				"id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0"
+			}
 		}
 	]
 }
