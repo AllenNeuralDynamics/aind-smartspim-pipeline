@@ -101,7 +101,7 @@
 					"type": "capsule",
 					"name": "Create individual .zgroup",
 					"source_path": "zgroup_folder/.zgroup",
-					"target_path": "preprocessed_data/",
+					"target_path": "preprocessed_data",
 					"collect": true
 				},
 				{
@@ -207,7 +207,7 @@
 					"type": "dataset",
 					"name": "SmartSPIM-template_2024-05-16_11-26-14",
 					"source_path": "SmartSPIM-template_2024-05-16_11-26-14/",
-					"target_path": "lightsheet_template_ccf_registration/",
+					"target_path": "lightsheet_template_ccf_registration",
 					"collect": true
 				},
 				{
@@ -307,6 +307,225 @@
 					"type": "dataset",
 					"name": "smartspim_dataset",
 					"source_path": "smartspim_dataset/SPIM/derivatives/processing_manifest.json",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_cell_segmentation_101_12",
+			"capsule": {
+				"id": "e4e4cf4a-7295-4006-bab1-4e2b1a3247c1",
+				"name": "aind-smartspim-cell-segmentation-1.0.1",
+				"slug": "5129020"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 61,
+				"gpus": 1
+			},
+			"inputs": [
+				{
+					"id": "TjfJEnliM09GO9nN",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "output_aind_metadata/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "FqvSgxtEf0IZHlbP",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "output_aind_metadata/acquisition.json",
+					"collect": true
+				},
+				{
+					"id": "AO35PgFTDQgd2TlM",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "segmentation_processing_manifest_*.json",
+					"flatten": true
+				},
+				{
+					"id": "h8O7OPOXuppG0x9M",
+					"source_id": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
+					"type": "capsule",
+					"name": "aind-smartspim-fuse-0.0.5-bigstitcher",
+					"source_path": "Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_classification_007_13",
+			"capsule": {
+				"id": "1f5844df-dbb3-4efc-8eb9-fda57bc43735",
+				"name": "aind-smartspim-classification-0.0.7",
+				"slug": "5543118"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 61,
+				"gpus": 1
+			},
+			"inputs": [
+				{
+					"id": "KsLYFCGunpTDRjZA",
+					"source_id": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
+					"type": "capsule",
+					"name": "aind-smartspim-fuse-0.0.5-bigstitcher",
+					"source_path": "Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "lbpN1dGSn2Flm2DN",
+					"source_id": "capsule_aind_smartspim_cell_segmentation_101_12",
+					"type": "capsule",
+					"name": "aind-smartspim-cell-segmentation-1.0.1"
+				},
+				{
+					"id": "ZGzdFp9yemAkuVvJ",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "output_aind_metadata/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "XUFhjDDaZ860hvYD",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "output_aind_metadata/acquisition.json",
+					"collect": true
+				},
+				{
+					"id": "hqE7C4OYDhgni6QZ",
+					"source_id": "5b27ac5e-d18a-44bd-a219-2d237e99d7a5",
+					"type": "dataset",
+					"name": "smartspim_production_models",
+					"source_path": "smartspim_production_models/"
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_cell_quantification_161_14",
+			"capsule": {
+				"id": "ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f",
+				"name": "aind-smartspim-cell-quantification-1.6.1",
+				"slug": "5932556"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 128
+			},
+			"inputs": [
+				{
+					"id": "Brw3toNVFIJvbxQy",
+					"source_id": "capsule_aind_smartspim_ccf_registration_0033_10",
+					"type": "capsule",
+					"name": "aind-smartspim-ccf-registration-0.0.33",
+					"collect": true
+				},
+				{
+					"id": "l1y9BNygHHjTwBDM",
+					"source_id": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
+					"type": "capsule",
+					"name": "aind-smartspim-fuse-0.0.5-bigstitcher",
+					"source_path": "Ex_*_Em_*.zarr",
+					"target_path": "fused",
+					"collect": true
+				},
+				{
+					"id": "IL5ku4fxhQ34IiQI",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "segmentation_processing_manifest_*.json",
+					"flatten": true
+				},
+				{
+					"id": "pKt2Gk8Q5QR7RoH0",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "output_aind_metadata/data_description.json",
+					"collect": true
+				},
+				{
+					"id": "yIWBVulnZT6zDWpO",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "output_aind_metadata/acquisition.json",
+					"collect": true
+				},
+				{
+					"id": "I7uePbJhwxI9h2bL",
+					"source_id": "capsule_aind_smartspim_classification_007_13",
+					"type": "capsule",
+					"name": "aind-smartspim-classification-0.0.7",
+					"collect": true
+				},
+				{
+					"id": "5gqHTVBKaBJNkdu2",
+					"source_id": "b1977b1f-9034-4f82-9e8b-80904158fed2",
+					"type": "dataset",
+					"name": "SmartSPIM-template_2024-05-16_11-26-14",
+					"source_path": "SmartSPIM-template_2024-05-16_11-26-14/",
+					"target_path": "lightsheet_template_ccf_registration",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_smartspim_pipeline_dispatcher_101_15",
+			"capsule": {
+				"id": "7adb694b-b8cd-42ef-ba37-4639508b7ee0",
+				"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+				"slug": "3294345",
+				"arguments": [
+					"clean"
+				]
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 64
+			},
+			"inputs": [
+				{
+					"id": "otjEoChVcEerVFcE",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "modified_processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "c7n7Aonhg8RGMuHI",
+					"source_id": "capsule_aind_smartspim_pipeline_dispatcher_101_11",
+					"type": "capsule",
+					"name": "aind-smartspim-pipeline-dispatcher-1.0.1",
+					"source_path": "output_aind_metadata/*.json",
+					"target_path": "input_aind_metadata/",
+					"collect": true
+				},
+				{
+					"id": "DiWFU39yJ6B6eecC",
+					"source_id": "capsule_aind_smartspim_cell_quantification_161_14",
+					"type": "capsule",
+					"name": "aind-smartspim-cell-quantification-1.6.1",
+					"collect": true
+				},
+				{
+					"id": "1dd1LdmG2PO8Ogd6",
+					"source_id": "capsule_aind_smartspim_classification_007_13",
+					"type": "capsule",
+					"name": "aind-smartspim-classification-0.0.7",
 					"collect": true
 				}
 			],
