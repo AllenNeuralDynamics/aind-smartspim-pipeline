@@ -51,6 +51,11 @@
 			"id": "xy-edge__capsule_aind_smartspim_fuse_005_bigstitcher_8-results",
 			"source": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
 			"target": "results"
+		},
+		{
+			"id": "xy-edge__capsule_create_individual_zgroup_9-capsule_aind_smartspim_stitch_127_7",
+			"source": "capsule_create_individual_zgroup_9",
+			"target": "capsule_aind_smartspim_stitch_127_7"
 		}
 	],
 	"nodes": [
@@ -116,14 +121,26 @@
 				"x": -735.7836737303109,
 				"y": 575.2232990638747
 			},
+			"selected": false,
+			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "2ae3bb33-55ac-48f4-ae22-93d148b0f5ab"
+			},
+			"id": "capsule_create_individual_zgroup_9",
+			"position": {
+				"x": 454.21632626968926,
+				"y": -28.110034269458595
+			},
 			"selected": true,
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1756154675676,
+	"timestamp": 1756154863299,
 	"viewport": {
 		"x": 456.9350838085463,
-		"y": 196.83301180671648,
+		"y": 195.83301180671648,
 		"zoom": 0.3
 	}
 }

@@ -97,6 +97,15 @@
 			},
 			"inputs": [
 				{
+					"id": "oYV33Fp2fmrSCNNO",
+					"source_id": "capsule_create_individual_zgroup_9",
+					"type": "capsule",
+					"name": "Create individual .zgroup",
+					"source_path": "zgroup_folder/.zgroup",
+					"target_path": "preprocessed_data",
+					"collect": true
+				},
+				{
 					"id": "iaO1TJ3b5EePdj77",
 					"source_id": "capsule_aind_destripe_shadow_correction_005_6",
 					"type": "capsule",
@@ -170,6 +179,18 @@
 			],
 			"results": {
 				"id": "664683c7-6ac9-4968-91e3-08d5e2f430e7"
+			}
+		},
+		{
+			"name": "capsule_create_individual_zgroup_9",
+			"capsule": {
+				"id": "2ae3bb33-55ac-48f4-ae22-93d148b0f5ab",
+				"name": "Create individual .zgroup",
+				"slug": "5587181"
+			},
+			"resources": {
+				"cpus": 1,
+				"memory": 8
 			}
 		}
 	]
