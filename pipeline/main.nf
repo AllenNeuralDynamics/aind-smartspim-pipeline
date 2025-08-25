@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:a874e22ebb9eeee510cfe1f952a2d03b30ad9620ce1f988c7328cd499d5b6d06
+// hash:sha256:1e0bfe3b9369774cfcb285ba794e021c4992921a1ecb805a611ddb2e9d402f52
 
 nextflow.enable.dsl = 1
 
@@ -12,7 +12,7 @@ smartspim_dataset_to_aind_smartspim_flatfield_estimation_2 = channel.fromPath(pa
 smartspim_dataset_to_aind_smartspim_flatfield_estimation_3 = channel.fromPath(params.smartspim_dataset_url + "/data_description.json", type: 'any')
 smartspim_dataset_to_aind_smartspim_destripe_shadow_correction_0_0_5_4 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives", type: 'any')
 smartspim_dataset_to_aind_smartspim_destripe_shadow_correction_0_0_5_5 = channel.fromPath(params.smartspim_dataset_url + "/acquisiton.json", type: 'any')
-smartspim_dataset_to_aind_smartspim_destripe_shadow_correction_0_0_5_6 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/Ex_*_Em_*.zarr", type: 'any')
+smartspim_dataset_to_aind_smartspim_destripe_shadow_correction_0_0_5_6 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/Ex_*_Em_*", type: 'any')
 capsule_aind_smartspim_flatfield_estimation_5_to_capsule_aind_destripe_shadow_correction_005_6_7 = channel.create()
 capsule_create_individual_zgroup_9_to_capsule_aind_smartspim_stitch_127_7_8 = channel.create()
 capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_stitch_127_7_9 = channel.create()
@@ -57,7 +57,7 @@ capsule_aind_smartspim_classification_007_13_to_capsule_aind_smartspim_pipeline_
 // capsule - aind-smartspim-flatfield-estimation
 process capsule_aind_smartspim_flatfield_estimation_5 {
 	tag 'capsule-1467402'
-	container "$REGISTRY_HOST/capsule/37c0404c-111e-4f43-8744-39616bae91f1"
+	container "$REGISTRY_HOST/capsule/37c0404c-111e-4f43-8744-39616bae91f1:30182cb3e12fc8c750913f6ecfb7cb7c"
 
 	cpus 4
 	memory '30 GB'
@@ -91,6 +91,7 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-1467402.git" capsule-repo
 	fi
+	git -C capsule-repo checkout 805d99f3b92bdc430ca8a659d1413535af513bf1 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -106,7 +107,7 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 // capsule - aind-smartspim-destripe-shadow-correction-0.0.5
 process capsule_aind_destripe_shadow_correction_005_6 {
 	tag 'capsule-6067584'
-	container "$REGISTRY_HOST/capsule/e989fbed-af2e-4552-b931-e7bd48e4b8cf"
+	container "$REGISTRY_HOST/capsule/e989fbed-af2e-4552-b931-e7bd48e4b8cf:f1cf3049b6f6769d437266273c055d4d"
 
 	cpus 32
 	memory '120 GB'
@@ -142,6 +143,7 @@ process capsule_aind_destripe_shadow_correction_005_6 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-6067584.git" capsule-repo
 	fi
+	git -C capsule-repo checkout 5b29ddafc5a54fdcbdb827400e37076ea8f8eb44 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -157,7 +159,7 @@ process capsule_aind_destripe_shadow_correction_005_6 {
 // capsule - aind-smartspim-stitch-1.2.8
 process capsule_aind_smartspim_stitch_127_7 {
 	tag 'capsule-8765450'
-	container "$REGISTRY_HOST/capsule/7bba4392-d98e-48ef-9b33-242908c455cb"
+	container "$REGISTRY_HOST/capsule/7bba4392-d98e-48ef-9b33-242908c455cb:c79ef3a39fb92f03d51b62e60729cd5f"
 
 	cpus 16
 	memory '120 GB'
@@ -193,6 +195,7 @@ process capsule_aind_smartspim_stitch_127_7 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8765450.git" capsule-repo
 	fi
+	git -C capsule-repo checkout a35b9bcfef78f0233bc4e909224b22b6eb71547f --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -208,7 +211,7 @@ process capsule_aind_smartspim_stitch_127_7 {
 // capsule - aind-smartspim-fuse-0.0.5-bigstitcher
 process capsule_aind_smartspim_fuse_005_bigstitcher_8 {
 	tag 'capsule-1972908'
-	container "$REGISTRY_HOST/capsule/664683c7-6ac9-4968-91e3-08d5e2f430e7"
+	container "$REGISTRY_HOST/capsule/664683c7-6ac9-4968-91e3-08d5e2f430e7:432bb3de2fa8293b7c207063ddb90860"
 
 	cpus 16
 	memory '120 GB'
@@ -245,6 +248,7 @@ process capsule_aind_smartspim_fuse_005_bigstitcher_8 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-1972908.git" capsule-repo
 	fi
+	git -C capsule-repo checkout 88cab75ec24aaddc14dc436456fb522d4c313bd9 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -260,10 +264,10 @@ process capsule_aind_smartspim_fuse_005_bigstitcher_8 {
 // capsule - Create individual .zgroup
 process capsule_create_individual_zgroup_9 {
 	tag 'capsule-5587181'
-	container "$REGISTRY_HOST/capsule/2ae3bb33-55ac-48f4-ae22-93d148b0f5ab"
+	container "$REGISTRY_HOST/capsule/2ae3bb33-55ac-48f4-ae22-93d148b0f5ab:cbb76805f9b77fda6ae280a5bbda2296"
 
-	cpus 1
-	memory '7.5 GB'
+	cpus 2
+	memory '15 GB'
 
 	output:
 	path 'capsule/results/zgroup_folder/.zgroup' into capsule_create_individual_zgroup_9_to_capsule_aind_smartspim_stitch_127_7_8
@@ -274,8 +278,8 @@ process capsule_create_individual_zgroup_9 {
 	set -e
 
 	export CO_CAPSULE_ID=2ae3bb33-55ac-48f4-ae22-93d148b0f5ab
-	export CO_CPUS=1
-	export CO_MEMORY=8053063680
+	export CO_CPUS=2
+	export CO_MEMORY=16106127360
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -288,6 +292,7 @@ process capsule_create_individual_zgroup_9 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5587181.git" capsule-repo
 	fi
+	git -C capsule-repo checkout f7397ee59e2f7a91677d19d0b29fffc2ba16306c --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -303,7 +308,7 @@ process capsule_create_individual_zgroup_9 {
 // capsule - aind-smartspim-ccf-registration-0.0.33
 process capsule_aind_smartspim_ccf_registration_0033_10 {
 	tag 'capsule-2505115'
-	container "$REGISTRY_HOST/capsule/4e9ff62e-76b9-48eb-9b62-bd79e398fae6"
+	container "$REGISTRY_HOST/capsule/4e9ff62e-76b9-48eb-9b62-bd79e398fae6:c6847cc5d50809741a1559cac06fc8c0"
 
 	cpus 16
 	memory '120 GB'
@@ -338,6 +343,7 @@ process capsule_aind_smartspim_ccf_registration_0033_10 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2505115.git" capsule-repo
 	fi
+	git -C capsule-repo checkout c21b5b9a876ce01e7580c605c3395039e4144d54 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -353,7 +359,7 @@ process capsule_aind_smartspim_ccf_registration_0033_10 {
 // capsule - aind-smartspim-pipeline-dispatcher-1.0.1
 process capsule_aind_smartspim_pipeline_dispatcher_101_11 {
 	tag 'capsule-3294345'
-	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0"
+	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0:3d43415e5e57512b3d1a406b222b7a58"
 
 	cpus 16
 	memory '60 GB'
@@ -399,6 +405,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_101_11 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-3294345.git" capsule-repo
 	fi
+	git -C capsule-repo checkout 8cb0cf277c47680908e318fd0bf7998bec31778d --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -414,7 +421,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_101_11 {
 // capsule - aind-smartspim-cell-segmentation-1.0.1
 process capsule_aind_smartspim_cell_segmentation_101_12 {
 	tag 'capsule-5129020'
-	container "$REGISTRY_HOST/capsule/e4e4cf4a-7295-4006-bab1-4e2b1a3247c1"
+	container "$REGISTRY_HOST/capsule/e4e4cf4a-7295-4006-bab1-4e2b1a3247c1:785c45be70c150b00cddf40e3bc49751"
 
 	cpus 16
 	memory '61 GB'
@@ -450,6 +457,7 @@ process capsule_aind_smartspim_cell_segmentation_101_12 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5129020.git" capsule-repo
 	fi
+	git -C capsule-repo checkout c1910238049aba38077337c140e6157b4fb444da --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -465,7 +473,7 @@ process capsule_aind_smartspim_cell_segmentation_101_12 {
 // capsule - aind-smartspim-classification-0.0.7
 process capsule_aind_smartspim_classification_007_13 {
 	tag 'capsule-5543118'
-	container "$REGISTRY_HOST/capsule/1f5844df-dbb3-4efc-8eb9-fda57bc43735"
+	container "$REGISTRY_HOST/capsule/1f5844df-dbb3-4efc-8eb9-fda57bc43735:bf129855bfc892b0d5c612a7536faf4e"
 
 	cpus 16
 	memory '61 GB'
@@ -503,6 +511,7 @@ process capsule_aind_smartspim_classification_007_13 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5543118.git" capsule-repo
 	fi
+	git -C capsule-repo checkout bd051f8f9ca875ea6f3b2fcae0e62a5c89ffe9a1 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -518,7 +527,7 @@ process capsule_aind_smartspim_classification_007_13 {
 // capsule - aind-smartspim-cell-quantification-1.6.1
 process capsule_aind_smartspim_cell_quantification_161_14 {
 	tag 'capsule-5932556'
-	container "$REGISTRY_HOST/capsule/ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f"
+	container "$REGISTRY_HOST/capsule/ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f:f153e972b8ef0752aa612736972ac1d5"
 
 	cpus 16
 	memory '120 GB'
@@ -555,6 +564,7 @@ process capsule_aind_smartspim_cell_quantification_161_14 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5932556.git" capsule-repo
 	fi
+	git -C capsule-repo checkout 6ee8e1411f02b152ca1792b4a8b77744c0d0194e --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -570,7 +580,7 @@ process capsule_aind_smartspim_cell_quantification_161_14 {
 // capsule - aind-smartspim-pipeline-dispatcher-1.0.1
 process capsule_aind_smartspim_pipeline_dispatcher_101_15 {
 	tag 'capsule-3294345'
-	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0"
+	container "$REGISTRY_HOST/capsule/7adb694b-b8cd-42ef-ba37-4639508b7ee0:3d43415e5e57512b3d1a406b222b7a58"
 
 	cpus 16
 	memory '60 GB'
@@ -606,6 +616,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_101_15 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-3294345.git" capsule-repo
 	fi
+	git -C capsule-repo checkout 8cb0cf277c47680908e318fd0bf7998bec31778d --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
