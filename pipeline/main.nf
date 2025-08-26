@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:7917df31454e70a32143cccbea46381916a596b844dd03e7e4f2ea492b7eb2d0
+// hash:sha256:f41dceb6d968b7923baf7de5df896c5bba60c2a268b474f864eef9bd264612da
 
 nextflow.enable.dsl = 1
 
@@ -23,10 +23,10 @@ capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_stitch_1
 smartspim_dataset_to_aind_smartspim_fuse_0_0_5_bigstitcher_14 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
 capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_fuse_005_bigstitcher_8_15 = channel.create()
 capsule_aind_smartspim_stitch_127_7_to_capsule_aind_smartspim_fuse_005_bigstitcher_8_16 = channel.create()
-smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_33_17 = channel.fromPath(params.smartspim_template_2024_05_16_11_26_14_url + "/", type: 'any')
-capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_ccf_registration_0033_10_18 = channel.create()
-smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_19 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
-smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_20 = channel.fromPath(params.smartspim_dataset_url + "/acquisiton.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_17 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_18 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
+smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_33_19 = channel.fromPath(params.smartspim_template_2024_05_16_11_26_14_url + "/", type: 'any')
+capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_ccf_registration_0033_10_20 = channel.create()
 capsule_aind_smartspim_flatfield_estimation_5_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_21 = channel.create()
 capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_22 = channel.create()
 capsule_aind_smartspim_stitch_127_7_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_23 = channel.create()
@@ -226,7 +226,7 @@ process capsule_aind_smartspim_fuse_005_bigstitcher_8 {
 	path 'capsule/data/' from capsule_aind_smartspim_stitch_127_7_to_capsule_aind_smartspim_fuse_005_bigstitcher_8_16.collect()
 
 	output:
-	path 'capsule/results/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_ccf_registration_0033_10_18
+	path 'capsule/results/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_ccf_registration_0033_10_20
 	path 'capsule/results/*' into capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_24
 	path 'capsule/results/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_cell_segmentation_101_12_31
 	path 'capsule/results/Ex_*_Em_*.zarr' into capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_classification_007_13_32
@@ -318,10 +318,10 @@ process capsule_aind_smartspim_ccf_registration_0033_10 {
 	memory '120 GB'
 
 	input:
-	path 'capsule/data/lightsheet_template_ccf_registration' from smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_33_17.collect()
-	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_ccf_registration_0033_10_18.collect()
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_19.collect()
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_20.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_17.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_18.collect()
+	path 'capsule/data/lightsheet_template_ccf_registration' from smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_33_19.collect()
+	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_ccf_registration_0033_10_20.collect()
 
 	output:
 	path 'capsule/results/*' into capsule_aind_smartspim_ccf_registration_0033_10_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_25
