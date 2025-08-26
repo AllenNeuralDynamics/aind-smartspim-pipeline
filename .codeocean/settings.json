@@ -4,5 +4,8 @@
 	"role": {
 		"role_arn": "arn:aws:iam::467914378000:role/aind-codeocean-power-user"
 	},
+	"nextflow_error_strategy": {
+		"error_strategy": "terminate"
+	},
 	"verbose_logs": true
 }
