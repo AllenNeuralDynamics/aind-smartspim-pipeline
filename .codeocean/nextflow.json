@@ -46,7 +46,7 @@
 				"id": "e989fbed-af2e-4552-b931-e7bd48e4b8cf",
 				"name": "aind-smartspim-destripe-shadow-correction-0.0.5",
 				"slug": "6067584",
-				"commit": "f91778fb71aed181cf6ca438e1bbc9da588c5ccc",
+				"commit": "e4a1a792a67e33e9223fe245c630481d52b073ef",
 				"image_tag": "16c8c83a4bef2332e717c6b047643741"
 			},
 			"resources": {
@@ -213,8 +213,8 @@
 				"id": "4e9ff62e-76b9-48eb-9b62-bd79e398fae6",
 				"name": "aind-smartspim-ccf-registration-0.0.33",
 				"slug": "2505115",
-				"commit": "c21b5b9a876ce01e7580c605c3395039e4144d54",
-				"image_tag": "c6847cc5d50809741a1559cac06fc8c0"
+				"commit": "2422d5d7af8e361d1640eb1a7d5b3f8cec134e59",
+				"image_tag": "aa821180261fd8ab48eb869adb0380b0"
 			},
 			"resources": {
 				"cpus": 16,
@@ -399,6 +399,15 @@
 			},
 			"inputs": [
 				{
+					"id": "hqE7C4OYDhgni6QZ",
+					"source_id": "5b27ac5e-d18a-44bd-a219-2d237e99d7a5",
+					"type": "dataset",
+					"name": "smartspim_production_models",
+					"source_path": "smartspim_production_models/",
+					"target_path": "smartspim_production_models",
+					"collect": true
+				},
+				{
 					"id": "KsLYFCGunpTDRjZA",
 					"source_id": "capsule_aind_smartspim_fuse_005_bigstitcher_8",
 					"type": "capsule",
@@ -428,13 +437,6 @@
 					"name": "aind-smartspim-pipeline-dispatcher-1.0.2",
 					"source_path": "output_aind_metadata/acquisition.json",
 					"collect": true
-				},
-				{
-					"id": "hqE7C4OYDhgni6QZ",
-					"source_id": "5b27ac5e-d18a-44bd-a219-2d237e99d7a5",
-					"type": "dataset",
-					"name": "smartspim_production_models",
-					"source_path": "smartspim_production_models/"
 				}
 			]
 		},
