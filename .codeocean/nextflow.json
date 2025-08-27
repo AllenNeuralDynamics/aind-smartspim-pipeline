@@ -263,7 +263,7 @@
 				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.2",
 				"slug": "7923375",
-				"commit": "cf1fc3e3ab20a7d3bf708f7e0b3828816d341482",
+				"commit": "94097bc9e7c7fd46ac0c0d9694b61e81a7af622e",
 				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
 				"arguments": [
 					"dispatch"
@@ -518,7 +518,7 @@
 				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.2",
 				"slug": "7923375",
-				"commit": "cf1fc3e3ab20a7d3bf708f7e0b3828816d341482",
+				"commit": "94097bc9e7c7fd46ac0c0d9694b61e81a7af622e",
 				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
 				"arguments": [
 					"clean"
@@ -571,7 +571,7 @@
 				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.2",
 				"slug": "7923375",
-				"commit": "cf1fc3e3ab20a7d3bf708f7e0b3828816d341482",
+				"commit": "94097bc9e7c7fd46ac0c0d9694b61e81a7af622e",
 				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
 				"arguments": [
 					"split_channels"
