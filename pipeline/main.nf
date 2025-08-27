@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:f41dceb6d968b7923baf7de5df896c5bba60c2a268b474f864eef9bd264612da
+// hash:sha256:27421be47deb6dd5f3e4ab76476ea4cf106a052aa3e14ba7a12b480ed4e536a4
 
 nextflow.enable.dsl = 1
 
@@ -60,7 +60,7 @@ smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_2_49 = channel.fromP
 // capsule - aind-smartspim-flatfield-estimation-0.0.2
 process capsule_aind_smartspim_flatfield_estimation_5 {
 	tag 'capsule-1467402'
-	container "$REGISTRY_HOST/capsule/37c0404c-111e-4f43-8744-39616bae91f1:30182cb3e12fc8c750913f6ecfb7cb7c"
+	container "$REGISTRY_HOST/capsule/37c0404c-111e-4f43-8744-39616bae91f1:44d68d43fa30b3578ed3e50b6efef069"
 
 	cpus 4
 	memory '30 GB'
@@ -94,7 +94,7 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-1467402.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 805d99f3b92bdc430ca8a659d1413535af513bf1 --quiet
+	git -C capsule-repo checkout 2cb18dbb01eceb123d456e359a30eef637c7804e --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -110,7 +110,7 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 // capsule - aind-smartspim-destripe-shadow-correction-0.0.5
 process capsule_aind_destripe_shadow_correction_005_6 {
 	tag 'capsule-6067584'
-	container "$REGISTRY_HOST/capsule/e989fbed-af2e-4552-b931-e7bd48e4b8cf:5f146db51da60f6262dce0bd8fe921b4"
+	container "$REGISTRY_HOST/capsule/e989fbed-af2e-4552-b931-e7bd48e4b8cf:16c8c83a4bef2332e717c6b047643741"
 
 	cpus 32
 	memory '120 GB'
@@ -147,7 +147,7 @@ process capsule_aind_destripe_shadow_correction_005_6 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-6067584.git" capsule-repo
 	fi
-	git -C capsule-repo checkout c5ffe8c2c76c2836abea9e9314a9b21bd7f627d1 --quiet
+	git -C capsule-repo checkout f91778fb71aed181cf6ca438e1bbc9da588c5ccc --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -363,7 +363,7 @@ process capsule_aind_smartspim_ccf_registration_0033_10 {
 // capsule - aind-smartspim-pipeline-dispatcher-1.0.2
 process capsule_aind_smartspim_pipeline_dispatcher_102_11 {
 	tag 'capsule-7923375'
-	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3"
+	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3:ec226c73a74d73ebf24b1404ddd9d2d5"
 
 	cpus 2
 	memory '15 GB'
@@ -409,6 +409,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_11 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7923375.git" capsule-repo
 	fi
+	git -C capsule-repo checkout cf1fc3e3ab20a7d3bf708f7e0b3828816d341482 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -583,7 +584,7 @@ process capsule_aind_smartspim_cell_quantification_161_14 {
 // capsule - aind-smartspim-pipeline-dispatcher-1.0.2
 process capsule_aind_smartspim_pipeline_dispatcher_102_15 {
 	tag 'capsule-7923375'
-	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3"
+	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3:ec226c73a74d73ebf24b1404ddd9d2d5"
 
 	cpus 2
 	memory '15 GB'
@@ -619,6 +620,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_15 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7923375.git" capsule-repo
 	fi
+	git -C capsule-repo checkout cf1fc3e3ab20a7d3bf708f7e0b3828816d341482 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -634,7 +636,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_15 {
 // capsule - aind-smartspim-pipeline-dispatcher-1.0.2
 process capsule_aind_smartspim_pipeline_dispatcher_102_16 {
 	tag 'capsule-7923375'
-	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3"
+	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3:ec226c73a74d73ebf24b1404ddd9d2d5"
 
 	cpus 2
 	memory '15 GB'
@@ -667,6 +669,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_16 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7923375.git" capsule-repo
 	fi
+	git -C capsule-repo checkout cf1fc3e3ab20a7d3bf708f7e0b3828816d341482 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 

@@ -7,8 +7,8 @@
 				"id": "37c0404c-111e-4f43-8744-39616bae91f1",
 				"name": "aind-smartspim-flatfield-estimation-0.0.2",
 				"slug": "1467402",
-				"commit": "805d99f3b92bdc430ca8a659d1413535af513bf1",
-				"image_tag": "30182cb3e12fc8c750913f6ecfb7cb7c"
+				"commit": "2cb18dbb01eceb123d456e359a30eef637c7804e",
+				"image_tag": "44d68d43fa30b3578ed3e50b6efef069"
 			},
 			"resources": {
 				"cpus": 4,
@@ -46,8 +46,8 @@
 				"id": "e989fbed-af2e-4552-b931-e7bd48e4b8cf",
 				"name": "aind-smartspim-destripe-shadow-correction-0.0.5",
 				"slug": "6067584",
-				"commit": "c5ffe8c2c76c2836abea9e9314a9b21bd7f627d1",
-				"image_tag": "5f146db51da60f6262dce0bd8fe921b4"
+				"commit": "f91778fb71aed181cf6ca438e1bbc9da588c5ccc",
+				"image_tag": "16c8c83a4bef2332e717c6b047643741"
 			},
 			"resources": {
 				"cpus": 32,
@@ -263,6 +263,8 @@
 				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.2",
 				"slug": "7923375",
+				"commit": "cf1fc3e3ab20a7d3bf708f7e0b3828816d341482",
+				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
 				"arguments": [
 					"dispatch"
 				]
@@ -514,6 +516,8 @@
 				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.2",
 				"slug": "7923375",
+				"commit": "cf1fc3e3ab20a7d3bf708f7e0b3828816d341482",
+				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
 				"arguments": [
 					"clean"
 				]
@@ -565,6 +569,8 @@
 				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.2",
 				"slug": "7923375",
+				"commit": "cf1fc3e3ab20a7d3bf708f7e0b3828816d341482",
+				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
 				"arguments": [
 					"split_channels"
 				]
