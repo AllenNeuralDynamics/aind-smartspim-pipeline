@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:2e0c4bf0643f614176f9d442acff0e50f6996e5f1d6b62eccad428c6a688a7f6
+// hash:sha256:029b22546d68a518897d4242cf2c352508697faa33f1b7c995ff5534fc3b62c8
 
 nextflow.enable.dsl = 1
 
@@ -365,8 +365,8 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_11 {
 	tag 'capsule-7923375'
 	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3:ec226c73a74d73ebf24b1404ddd9d2d5"
 
-	cpus 2
-	memory '15 GB'
+	cpus 16
+	memory '60 GB'
 
 	input:
 	path 'capsule/data/flatfield_estimation/' from capsule_aind_smartspim_flatfield_estimation_5_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_21.collect()
@@ -395,8 +395,8 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_11 {
 	set -e
 
 	export CO_CAPSULE_ID=61ffdab7-797a-4022-9b9e-8792ad843cd3
-	export CO_CPUS=2
-	export CO_MEMORY=16106127360
+	export CO_CPUS=16
+	export CO_MEMORY=64424509440
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -586,8 +586,8 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_15 {
 	tag 'capsule-7923375'
 	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3:ec226c73a74d73ebf24b1404ddd9d2d5"
 
-	cpus 2
-	memory '15 GB'
+	cpus 16
+	memory '60 GB'
 
 	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
 
@@ -606,8 +606,8 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_15 {
 	set -e
 
 	export CO_CAPSULE_ID=61ffdab7-797a-4022-9b9e-8792ad843cd3
-	export CO_CPUS=2
-	export CO_MEMORY=16106127360
+	export CO_CPUS=16
+	export CO_MEMORY=64424509440
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
