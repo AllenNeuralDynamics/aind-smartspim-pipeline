@@ -389,8 +389,8 @@
 				"id": "1f5844df-dbb3-4efc-8eb9-fda57bc43735",
 				"name": "aind-smartspim-classification-0.0.7",
 				"slug": "5543118",
-				"commit": "619f4b36828c28eb1dac0d8b93c2c19596136c3a",
-				"image_tag": "6cf2f874ecb68e32b0a1d7427a9e0714"
+				"commit": "5da8b0a23945aa378f792d2fc5d0fd6beac1d353",
+				"image_tag": "2dd8f40475523154bbb5f198f34f0d4c"
 			},
 			"resources": {
 				"cpus": 16,

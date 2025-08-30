@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:6af1d353c6e0dd176009b7379bbeb90c16eb3ab822fb8f7e8d15981e35bbe786
+// hash:sha256:e7f90a7bacc8a12058e3cca7216523d2dbf1edb5739283dfb6432525a2f1e2d5
 
 nextflow.enable.dsl = 1
 
@@ -477,7 +477,7 @@ process capsule_aind_smartspim_cell_segmentation_101_12 {
 // capsule - aind-smartspim-classification-0.0.7
 process capsule_aind_smartspim_classification_007_13 {
 	tag 'capsule-5543118'
-	container "$REGISTRY_HOST/capsule/1f5844df-dbb3-4efc-8eb9-fda57bc43735:6cf2f874ecb68e32b0a1d7427a9e0714"
+	container "$REGISTRY_HOST/capsule/1f5844df-dbb3-4efc-8eb9-fda57bc43735:2dd8f40475523154bbb5f198f34f0d4c"
 
 	cpus 16
 	memory '61 GB'
@@ -515,7 +515,7 @@ process capsule_aind_smartspim_classification_007_13 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5543118.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 619f4b36828c28eb1dac0d8b93c2c19596136c3a --quiet
+	git -C capsule-repo checkout 5da8b0a23945aa378f792d2fc5d0fd6beac1d353 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
