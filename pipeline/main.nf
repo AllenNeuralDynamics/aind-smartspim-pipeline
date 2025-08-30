@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:3f02ddda90d8f325e01b9bae9190d00df6e1ac42a0cb0c71eaec030e50b20adc
+// hash:sha256:6af1d353c6e0dd176009b7379bbeb90c16eb3ab822fb8f7e8d15981e35bbe786
 
 nextflow.enable.dsl = 1
 
@@ -347,7 +347,7 @@ process capsule_aind_smartspim_ccf_registration_0033_10 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2505115.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 2422d5d7af8e361d1640eb1a7d5b3f8cec134e59 --quiet
+	git -C capsule-repo checkout 1ec0d3b33f1f68283f29cd09b3aa40045fcba292 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -477,7 +477,7 @@ process capsule_aind_smartspim_cell_segmentation_101_12 {
 // capsule - aind-smartspim-classification-0.0.7
 process capsule_aind_smartspim_classification_007_13 {
 	tag 'capsule-5543118'
-	container "$REGISTRY_HOST/capsule/1f5844df-dbb3-4efc-8eb9-fda57bc43735:038e11af849398ac8e0db3b0f10e5ba7"
+	container "$REGISTRY_HOST/capsule/1f5844df-dbb3-4efc-8eb9-fda57bc43735:6cf2f874ecb68e32b0a1d7427a9e0714"
 
 	cpus 16
 	memory '61 GB'
@@ -515,7 +515,7 @@ process capsule_aind_smartspim_classification_007_13 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5543118.git" capsule-repo
 	fi
-	git -C capsule-repo checkout faebb6666455bbbe6f5790e54e1aa4941a6e192b --quiet
+	git -C capsule-repo checkout 619f4b36828c28eb1dac0d8b93c2c19596136c3a --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -575,7 +575,7 @@ process capsule_aind_smartspim_cell_quantification_161_14 {
 	echo "[${task.tag}] running capsule..."
 	cd capsule/code
 	chmod +x run
-	./run
+	./run detect
 
 	echo "[${task.tag}] completed!"
 	"""
