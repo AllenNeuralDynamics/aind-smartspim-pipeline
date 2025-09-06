@@ -213,7 +213,7 @@
 				"id": "4e9ff62e-76b9-48eb-9b62-bd79e398fae6",
 				"name": "aind-smartspim-ccf-registration-0.0.33",
 				"slug": "2505115",
-				"commit": "1ec0d3b33f1f68283f29cd09b3aa40045fcba292",
+				"commit": "10529c0b99ecb28474468603ed48a43d89be733e",
 				"image_tag": "aa821180261fd8ab48eb869adb0380b0"
 			},
 			"resources": {
@@ -446,7 +446,7 @@
 				"id": "ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f",
 				"name": "aind-smartspim-cell-quantification-1.6.1",
 				"slug": "5932556",
-				"commit": "54af3a77a8c261ab426bc89d50a826bff436832f",
+				"commit": "0abf66e9d15f0c49bba9ad7efa77fe0d86106d7d",
 				"image_tag": "8c1f39fd1ad896b13786afded13b8bc3",
 				"arguments": [
 					"detect"
