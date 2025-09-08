@@ -446,7 +446,7 @@
 				"id": "ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f",
 				"name": "aind-smartspim-cell-quantification-1.6.1",
 				"slug": "5932556",
-				"commit": "0abf66e9d15f0c49bba9ad7efa77fe0d86106d7d",
+				"commit": "4076c70a030108b77adf38103f2a3ba8de886452",
 				"image_tag": "8c1f39fd1ad896b13786afded13b8bc3",
 				"arguments": [
 					"detect"
