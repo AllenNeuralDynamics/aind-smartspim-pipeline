@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:20f63dad483d42a3d8bbc8cf4e53562e96cf1100eede02d6fb871f492bd61e5b
+// hash:sha256:5bf22307922dd4a894b01796e5d4d41b7ac9dbfc7b514902c6997d52dbb8482f
 
 nextflow.enable.dsl = 1
 
@@ -515,7 +515,7 @@ process capsule_aind_smartspim_classification_007_13 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5543118.git" capsule-repo
 	fi
-	git -C capsule-repo checkout efe5b85bcff3bdbd7128cf822b270f8076be97d3 --quiet
+	git -C capsule-repo checkout 83b1ddc57e835d60c2cf1ae3f18c5fbc79ea9922 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
