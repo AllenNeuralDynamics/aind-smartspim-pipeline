@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:69c7d251fe13b262ee0a749ad6908c6a7c00a1775f85dcedd0f8ea106a73f4cc
+// hash:sha256:0a52c056d24c22ed1af94e6166a09b0a46eecd3d756601e4d4984ba196a9f3bf
 
 nextflow.enable.dsl = 1
 
@@ -199,7 +199,7 @@ process capsule_aind_smartspim_stitch_127_7 {
 	else
 		git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8765450.git" capsule-repo
 	fi
-	git -C capsule-repo checkout a35b9bcfef78f0233bc4e909224b22b6eb71547f --quiet
+	git -C capsule-repo checkout 98f4783b18743f5747950c556445f704bfbeda11 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
