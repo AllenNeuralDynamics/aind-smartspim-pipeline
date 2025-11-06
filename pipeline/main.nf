@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:0a52c056d24c22ed1af94e6166a09b0a46eecd3d756601e4d4984ba196a9f3bf
+// hash:sha256:1e3e75e2d3353b948c2957d71ec71acb8dbed17c849dbafd7944009de6ff75a5
 
 nextflow.enable.dsl = 1
 
@@ -23,22 +23,22 @@ capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_stitch_1
 smartspim_dataset_to_aind_smartspim_fuse_0_0_5_bigstitcher_14 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
 capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_fuse_005_bigstitcher_8_15 = channel.create()
 capsule_aind_smartspim_stitch_127_7_to_capsule_aind_smartspim_fuse_005_bigstitcher_8_16 = channel.create()
-smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_17 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
-smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_18 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
-smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_33_19 = channel.fromPath(params.smartspim_template_2024_05_16_11_26_14_url + "/", type: 'any')
+smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_34_17 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_34_18 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
+smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_34_19 = channel.fromPath(params.smartspim_template_2024_05_16_11_26_14_url + "/", type: 'any')
 capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_ccf_registration_0033_10_20 = channel.create()
 capsule_aind_smartspim_flatfield_estimation_5_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_21 = channel.create()
 capsule_aind_destripe_shadow_correction_005_6_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_22 = channel.create()
 capsule_aind_smartspim_stitch_127_7_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_23 = channel.create()
 capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_24 = channel.create()
 capsule_aind_smartspim_ccf_registration_0033_10_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_25 = channel.create()
-smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_2_26 = channel.fromPath(params.smartspim_dataset_url + "/*.json", type: 'any')
-smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_2_27 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_3_26 = channel.fromPath(params.smartspim_dataset_url + "/*.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_3_27 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
 capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_cell_segmentation_101_12_28 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_cell_segmentation_101_12_29 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_cell_segmentation_101_12_30 = channel.create()
 capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_cell_segmentation_101_12_31 = channel.create()
-smartspim_production_models_to_aind_smartspim_classification_0_0_7_32 = channel.fromPath(params.smartspim_production_models_url + "/", type: 'any')
+smartspim_production_models_to_aind_smartspim_classification_0_0_9_32 = channel.fromPath(params.smartspim_production_models_url + "/", type: 'any')
 capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_classification_007_13_33 = channel.create()
 capsule_aind_smartspim_cell_segmentation_101_12_to_capsule_aind_smartspim_classification_007_13_34 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_classification_007_13_35 = channel.create()
@@ -49,13 +49,13 @@ capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_cell
 capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_cell_quantification_161_14_40 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_cell_quantification_161_14_41 = channel.create()
 capsule_aind_smartspim_classification_007_13_to_capsule_aind_smartspim_cell_quantification_161_14_42 = channel.create()
-smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_cell_quantification_1_6_1_43 = channel.fromPath(params.smartspim_template_2024_05_16_11_26_14_url + "/", type: 'any')
+smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_cell_quantification_1_6_3_43 = channel.fromPath(params.smartspim_template_2024_05_16_11_26_14_url + "/", type: 'any')
 capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_pipeline_dispatcher_102_15_44 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_pipeline_dispatcher_102_15_45 = channel.create()
 capsule_aind_smartspim_cell_quantification_161_14_to_capsule_aind_smartspim_pipeline_dispatcher_102_15_46 = channel.create()
 capsule_aind_smartspim_classification_007_13_to_capsule_aind_smartspim_pipeline_dispatcher_102_15_47 = channel.create()
-smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_2_48 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
-smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_2_49 = channel.fromPath(params.smartspim_dataset_url + "/*.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_3_48 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_3_49 = channel.fromPath(params.smartspim_dataset_url + "/*.json", type: 'any')
 
 // capsule - aind-smartspim-flatfield-estimation-0.0.2
 process capsule_aind_smartspim_flatfield_estimation_5 {
@@ -166,7 +166,7 @@ process capsule_aind_smartspim_stitch_127_7 {
 	container "$REGISTRY_HOST/capsule/7bba4392-d98e-48ef-9b33-242908c455cb:c79ef3a39fb92f03d51b62e60729cd5f"
 
 	cpus 16
-	memory '120 GB'
+	memory '240 GB'
 
 	input:
 	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_stitch_1_2_8_9.collect()
@@ -186,7 +186,7 @@ process capsule_aind_smartspim_stitch_127_7 {
 
 	export CO_CAPSULE_ID=7bba4392-d98e-48ef-9b33-242908c455cb
 	export CO_CPUS=16
-	export CO_MEMORY=128849018880
+	export CO_MEMORY=257698037760
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -309,7 +309,7 @@ process capsule_create_individual_zgroup_9 {
 	"""
 }
 
-// capsule - aind-smartspim-ccf-registration-0.0.33
+// capsule - aind-smartspim-ccf-registration-0.0.34
 process capsule_aind_smartspim_ccf_registration_0033_10 {
 	tag 'capsule-2505115'
 	container "$REGISTRY_HOST/capsule/4e9ff62e-76b9-48eb-9b62-bd79e398fae6:aa821180261fd8ab48eb869adb0380b0"
@@ -318,9 +318,9 @@ process capsule_aind_smartspim_ccf_registration_0033_10 {
 	memory '120 GB'
 
 	input:
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_17.collect()
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_33_18.collect()
-	path 'capsule/data/lightsheet_template_ccf_registration' from smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_33_19.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_34_17.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_34_18.collect()
+	path 'capsule/data/lightsheet_template_ccf_registration' from smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_34_19.collect()
 	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_ccf_registration_0033_10_20.collect()
 
 	output:
@@ -360,7 +360,7 @@ process capsule_aind_smartspim_ccf_registration_0033_10 {
 	"""
 }
 
-// capsule - aind-smartspim-pipeline-dispatcher-1.0.2
+// capsule - aind-smartspim-pipeline-dispatcher-1.0.3
 process capsule_aind_smartspim_pipeline_dispatcher_102_11 {
 	tag 'capsule-7923375'
 	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3:ec226c73a74d73ebf24b1404ddd9d2d5"
@@ -374,8 +374,8 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_11 {
 	path 'capsule/data/stitched/' from capsule_aind_smartspim_stitch_127_7_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_23.collect()
 	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_24.collect()
 	path 'capsule/data/ccf_registration_results/' from capsule_aind_smartspim_ccf_registration_0033_10_to_capsule_aind_smartspim_pipeline_dispatcher_102_11_25.collect()
-	path 'capsule/data/input_aind_metadata/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_2_26.collect()
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_2_27.collect()
+	path 'capsule/data/input_aind_metadata/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_3_26.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_3_27.collect()
 
 	output:
 	path 'capsule/results/output_aind_metadata/data_description.json' into capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_cell_segmentation_101_12_28
@@ -422,7 +422,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_11 {
 	"""
 }
 
-// capsule - aind-smartspim-cell-segmentation-1.0.1
+// capsule - aind-smartspim-cell-segmentation-1.0.2
 process capsule_aind_smartspim_cell_segmentation_101_12 {
 	tag 'capsule-5129020'
 	container "$REGISTRY_HOST/capsule/e4e4cf4a-7295-4006-bab1-4e2b1a3247c1:785c45be70c150b00cddf40e3bc49751"
@@ -474,7 +474,7 @@ process capsule_aind_smartspim_cell_segmentation_101_12 {
 	"""
 }
 
-// capsule - aind-smartspim-classification-0.0.7
+// capsule - aind-smartspim-classification-0.0.9
 process capsule_aind_smartspim_classification_007_13 {
 	tag 'capsule-5543118'
 	container "$REGISTRY_HOST/capsule/1f5844df-dbb3-4efc-8eb9-fda57bc43735:19f86d15499f7abe6e9a4269ef01df2e"
@@ -485,7 +485,7 @@ process capsule_aind_smartspim_classification_007_13 {
 	label 'gpu'
 
 	input:
-	path 'capsule/data/smartspim_production_models' from smartspim_production_models_to_aind_smartspim_classification_0_0_7_32.collect()
+	path 'capsule/data/smartspim_production_models' from smartspim_production_models_to_aind_smartspim_classification_0_0_9_32.collect()
 	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_005_bigstitcher_8_to_capsule_aind_smartspim_classification_007_13_33.collect()
 	path 'capsule/data/' from capsule_aind_smartspim_cell_segmentation_101_12_to_capsule_aind_smartspim_classification_007_13_34
 	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_classification_007_13_35.collect()
@@ -528,7 +528,7 @@ process capsule_aind_smartspim_classification_007_13 {
 	"""
 }
 
-// capsule - aind-smartspim-cell-quantification-1.6.1
+// capsule - aind-smartspim-cell-quantification-1.6.3
 process capsule_aind_smartspim_cell_quantification_161_14 {
 	tag 'capsule-5932556'
 	container "$REGISTRY_HOST/capsule/ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f:8c1f39fd1ad896b13786afded13b8bc3"
@@ -543,7 +543,7 @@ process capsule_aind_smartspim_cell_quantification_161_14 {
 	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_cell_quantification_161_14_40.collect()
 	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_102_11_to_capsule_aind_smartspim_cell_quantification_161_14_41.collect()
 	path 'capsule/data/' from capsule_aind_smartspim_classification_007_13_to_capsule_aind_smartspim_cell_quantification_161_14_42.collect()
-	path 'capsule/data/lightsheet_template_ccf_registration' from smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_cell_quantification_1_6_1_43.collect()
+	path 'capsule/data/lightsheet_template_ccf_registration' from smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_cell_quantification_1_6_3_43.collect()
 
 	output:
 	path 'capsule/results/*' into capsule_aind_smartspim_cell_quantification_161_14_to_capsule_aind_smartspim_pipeline_dispatcher_102_15_46
@@ -581,7 +581,7 @@ process capsule_aind_smartspim_cell_quantification_161_14 {
 	"""
 }
 
-// capsule - aind-smartspim-pipeline-dispatcher-1.0.2
+// capsule - aind-smartspim-pipeline-dispatcher-1.0.3
 process capsule_aind_smartspim_pipeline_dispatcher_102_15 {
 	tag 'capsule-7923375'
 	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3:ec226c73a74d73ebf24b1404ddd9d2d5"
@@ -633,7 +633,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_15 {
 	"""
 }
 
-// capsule - aind-smartspim-pipeline-dispatcher-1.0.2
+// capsule - aind-smartspim-pipeline-dispatcher-1.0.3
 process capsule_aind_smartspim_pipeline_dispatcher_102_16 {
 	tag 'capsule-7923375'
 	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3:ec226c73a74d73ebf24b1404ddd9d2d5"
@@ -642,8 +642,8 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_16 {
 	memory '15 GB'
 
 	input:
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_2_48.collect()
-	path 'capsule/data/input_aind_metadata/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_2_49.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_3_48.collect()
+	path 'capsule/data/input_aind_metadata/' from smartspim_dataset_to_aind_smartspim_pipeline_dispatcher_1_0_3_49.collect()
 
 	output:
 	path 'capsule/results/*' into capsule_aind_smartspim_pipeline_dispatcher_102_16_to_capsule_aind_smartspim_flatfield_estimation_5_1

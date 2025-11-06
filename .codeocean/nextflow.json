@@ -106,7 +106,7 @@
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 128
+				"memory": 256
 			},
 			"inputs": [
 				{
@@ -211,7 +211,7 @@
 			"name": "capsule_aind_smartspim_ccf_registration_0033_10",
 			"capsule": {
 				"id": "4e9ff62e-76b9-48eb-9b62-bd79e398fae6",
-				"name": "aind-smartspim-ccf-registration-0.0.33",
+				"name": "aind-smartspim-ccf-registration-0.0.34",
 				"slug": "2505115",
 				"commit": "10529c0b99ecb28474468603ed48a43d89be733e",
 				"image_tag": "aa821180261fd8ab48eb869adb0380b0"
@@ -261,7 +261,7 @@
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_102_11",
 			"capsule": {
 				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
-				"name": "aind-smartspim-pipeline-dispatcher-1.0.2",
+				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
 				"slug": "7923375",
 				"commit": "9a09511a514a0fd95c7f587668f23d0f56fcf1b8",
 				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
@@ -337,7 +337,7 @@
 			"name": "capsule_aind_smartspim_cell_segmentation_101_12",
 			"capsule": {
 				"id": "e4e4cf4a-7295-4006-bab1-4e2b1a3247c1",
-				"name": "aind-smartspim-cell-segmentation-1.0.1",
+				"name": "aind-smartspim-cell-segmentation-1.0.2",
 				"slug": "5129020",
 				"commit": "a0389e92faa7fc5916aa10ac78fc0ceee574d970",
 				"image_tag": "785c45be70c150b00cddf40e3bc49751"
@@ -387,7 +387,7 @@
 			"name": "capsule_aind_smartspim_classification_007_13",
 			"capsule": {
 				"id": "1f5844df-dbb3-4efc-8eb9-fda57bc43735",
-				"name": "aind-smartspim-classification-0.0.7",
+				"name": "aind-smartspim-classification-0.0.9",
 				"slug": "5543118",
 				"commit": "83b1ddc57e835d60c2cf1ae3f18c5fbc79ea9922",
 				"image_tag": "19f86d15499f7abe6e9a4269ef01df2e"
@@ -444,7 +444,7 @@
 			"name": "capsule_aind_smartspim_cell_quantification_161_14",
 			"capsule": {
 				"id": "ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f",
-				"name": "aind-smartspim-cell-quantification-1.6.1",
+				"name": "aind-smartspim-cell-quantification-1.6.3",
 				"slug": "5932556",
 				"commit": "4076c70a030108b77adf38103f2a3ba8de886452",
 				"image_tag": "8c1f39fd1ad896b13786afded13b8bc3",
@@ -519,7 +519,7 @@
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_102_15",
 			"capsule": {
 				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
-				"name": "aind-smartspim-pipeline-dispatcher-1.0.2",
+				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
 				"slug": "7923375",
 				"commit": "9a09511a514a0fd95c7f587668f23d0f56fcf1b8",
 				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
@@ -572,7 +572,7 @@
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_102_16",
 			"capsule": {
 				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
-				"name": "aind-smartspim-pipeline-dispatcher-1.0.2",
+				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
 				"slug": "7923375",
 				"commit": "9a09511a514a0fd95c7f587668f23d0f56fcf1b8",
 				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
