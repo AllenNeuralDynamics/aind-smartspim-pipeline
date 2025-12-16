@@ -314,8 +314,8 @@ process capsule_aind_smartspim_ccf_registration_0033_10 {
 	tag 'capsule-2505115'
 	container "$REGISTRY_HOST/capsule/4e9ff62e-76b9-48eb-9b62-bd79e398fae6:aa821180261fd8ab48eb869adb0380b0"
 
-	cpus 16
-	memory '120 GB'
+	cpus 2
+	memory '15 GB'
 
 	input:
 	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_34_17.collect()
@@ -586,8 +586,8 @@ process capsule_aind_smartspim_pipeline_dispatcher_102_15 {
 	tag 'capsule-7923375'
 	container "$REGISTRY_HOST/capsule/61ffdab7-797a-4022-9b9e-8792ad843cd3:ec226c73a74d73ebf24b1404ddd9d2d5"
 
-	cpus 16
-	memory '60 GB'
+	cpus 2
+	memory '15 GB'
 
 	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
 

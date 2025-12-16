@@ -528,8 +528,8 @@
 				]
 			},
 			"resources": {
-				"cpus": 16,
-				"memory": 64
+				"cpus": 2,
+				"memory": 16
 			},
 			"inputs": [
 				{
