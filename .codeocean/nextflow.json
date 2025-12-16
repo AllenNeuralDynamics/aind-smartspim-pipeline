@@ -159,7 +159,7 @@
 				"id": "664683c7-6ac9-4968-91e3-08d5e2f430e7",
 				"name": "aind-smartspim-fuse-0.0.5-bigstitcher",
 				"slug": "1972908",
-				"commit": "88cab75ec24aaddc14dc436456fb522d4c313bd9",
+				"commit": "156125233ed9b3f890217576e0f2586e43f564bc",
 				"image_tag": "432bb3de2fa8293b7c207063ddb90860"
 			},
 			"resources": {
@@ -213,7 +213,7 @@
 				"id": "4e9ff62e-76b9-48eb-9b62-bd79e398fae6",
 				"name": "aind-smartspim-ccf-registration-0.0.34",
 				"slug": "2505115",
-				"commit": "10529c0b99ecb28474468603ed48a43d89be733e",
+				"commit": "b3464cd5435d752bcb53d8c1e4b78596d36b6f2e",
 				"image_tag": "aa821180261fd8ab48eb869adb0380b0"
 			},
 			"resources": {
@@ -528,8 +528,8 @@
 				]
 			},
 			"resources": {
-				"cpus": 16,
-				"memory": 64
+				"cpus": 2,
+				"memory": 16
 			},
 			"inputs": [
 				{
