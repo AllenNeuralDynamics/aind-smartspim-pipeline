@@ -12,6 +12,7 @@
 		},
 		{
 			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_destripe_shadow_correction_005_1",
+			"selected": false,
 			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
 			"target": "capsule_aind_smartspim_destripe_shadow_correction_005_1"
 		},
@@ -22,11 +23,13 @@
 		},
 		{
 			"id": "reactflow__edge-capsule_aind_smartspim_flatfield_estimation_5-capsule_aind_smartspim_destripe_shadow_correction_005_1",
+			"selected": false,
 			"source": "capsule_aind_smartspim_flatfield_estimation_5",
 			"target": "capsule_aind_smartspim_destripe_shadow_correction_005_1"
 		},
 		{
 			"id": "reactflow__edge-69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_flatfield_estimation_5",
+			"selected": false,
 			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
 			"target": "capsule_aind_smartspim_flatfield_estimation_5"
 		},
@@ -179,6 +182,21 @@
 			"id": "xy-edge__b1977b1f-9034-4f82-9e8b-80904158fed2-capsule_aind_smartspim_cell_quantification_163_7",
 			"source": "b1977b1f-9034-4f82-9e8b-80904158fed2",
 			"target": "capsule_aind_smartspim_cell_quantification_163_7"
+		},
+		{
+			"id": "xy-edge__69579d3b-8d01-4520-8375-bcd074be4996-capsule_aind_smartspim_pipeline_dispatcher_103_13",
+			"source": "69579d3b-8d01-4520-8375-bcd074be4996",
+			"target": "capsule_aind_smartspim_pipeline_dispatcher_103_13"
+		},
+		{
+			"id": "xy-edge__capsule_aind_smartspim_pipeline_dispatcher_103_13-capsule_aind_smartspim_flatfield_estimation_5",
+			"source": "capsule_aind_smartspim_pipeline_dispatcher_103_13",
+			"target": "capsule_aind_smartspim_flatfield_estimation_5"
+		},
+		{
+			"id": "xy-edge__capsule_aind_smartspim_pipeline_dispatcher_103_13-capsule_aind_smartspim_destripe_shadow_correction_005_1",
+			"source": "capsule_aind_smartspim_pipeline_dispatcher_103_13",
+			"target": "capsule_aind_smartspim_destripe_shadow_correction_005_1"
 		}
 	],
 	"nodes": [
@@ -334,7 +352,7 @@
 				"x": -1062.414274742804,
 				"y": 2126.0306237077148
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -348,12 +366,24 @@
 			},
 			"selected": false,
 			"type": "capsule"
+		},
+		{
+			"data": {
+				"capsule_id": "61ffdab7-797a-4022-9b9e-8792ad843cd3"
+			},
+			"id": "capsule_aind_smartspim_pipeline_dispatcher_103_13",
+			"position": {
+				"x": -911.7283794253672,
+				"y": -424.9317302072021
+			},
+			"selected": true,
+			"type": "capsule"
 		}
 	],
-	"timestamp": 1766430921791,
+	"timestamp": 1766432648441,
 	"viewport": {
-		"x": 653.1168011208607,
-		"y": -423.3510812327934,
-		"zoom": 0.46362632978879353
+		"x": 721.761123532673,
+		"y": 367.2365015042451,
+		"zoom": 0.4799760769996539
 	}
 }
