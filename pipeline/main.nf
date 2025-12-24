@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:8b2ad69deec168e89343939026dfa0b7c3225b5c39766a553ace56a197dca40e
+// hash:sha256:00ef14123a7c9ca0ef21e9dc6cf7aea2592581a67e8708a77c49f32381c36d8b
 
 nextflow.enable.dsl = 1
 
@@ -321,7 +321,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_103_6 {
 	echo "[${task.tag}] running capsule..."
 	cd capsule/code
 	chmod +x run
-	./run
+	./run dispatch
 
 	echo "[${task.tag}] completed!"
 	"""
@@ -583,7 +583,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_103_11 {
 	echo "[${task.tag}] running capsule..."
 	cd capsule/code
 	chmod +x run
-	./run
+	./run clean
 
 	echo "[${task.tag}] completed!"
 	"""

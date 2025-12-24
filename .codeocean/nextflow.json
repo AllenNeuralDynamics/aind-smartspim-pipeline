@@ -200,7 +200,10 @@
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
 				"slug": "7923375",
 				"commit": "9a09511a514a0fd95c7f587668f23d0f56fcf1b8",
-				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5"
+				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
+				"arguments": [
+					"dispatch"
+				]
 			},
 			"resources": {
 				"cpus": 2,
@@ -502,7 +505,10 @@
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
 				"slug": "7923375",
 				"commit": "9a09511a514a0fd95c7f587668f23d0f56fcf1b8",
-				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5"
+				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
+				"arguments": [
+					"clean"
+				]
 			},
 			"resources": {
 				"cpus": 2,
