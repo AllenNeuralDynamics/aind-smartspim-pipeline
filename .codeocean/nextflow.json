@@ -7,7 +7,7 @@
 				"id": "e989fbed-af2e-4552-b931-e7bd48e4b8cf",
 				"name": "aind-smartspim-destripe-shadow-correction-0.0.5",
 				"slug": "6067584",
-				"commit": "e4a1a792a67e33e9223fe245c630481d52b073ef",
+				"commit": "acb578d3e2e22fa0bd950a1f0b5fa8fb203c844c",
 				"image_tag": "16c8c83a4bef2332e717c6b047643741"
 			},
 			"resources": {
@@ -62,12 +62,12 @@
 				"id": "7bba4392-d98e-48ef-9b33-242908c455cb",
 				"name": "aind-smartspim-stitch-1.2.8",
 				"slug": "8765450",
-				"commit": "98f4783b18743f5747950c556445f704bfbeda11",
+				"commit": "c0b51c43ca4cbe0a2556dae77b4a2b41943e5393",
 				"image_tag": "c79ef3a39fb92f03d51b62e60729cd5f"
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 128
+				"memory": 256
 			},
 			"inputs": [
 				{
@@ -120,7 +120,7 @@
 				"id": "664683c7-6ac9-4968-91e3-08d5e2f430e7",
 				"name": "aind-smartspim-fuse-0.0.5-bigstitcher",
 				"slug": "1972908",
-				"commit": "156125233ed9b3f890217576e0f2586e43f564bc",
+				"commit": "890af7f124f62d1c183fb78fa92e6adaec427b11",
 				"image_tag": "432bb3de2fa8293b7c207063ddb90860"
 			},
 			"resources": {
@@ -160,7 +160,7 @@
 				"id": "37c0404c-111e-4f43-8744-39616bae91f1",
 				"name": "aind-smartspim-flatfield-estimation-0.0.2",
 				"slug": "1467402",
-				"commit": "2cb18dbb01eceb123d456e359a30eef637c7804e",
+				"commit": "94d77d8800a8033338f1f3726a814a7ce008f353",
 				"image_tag": "44d68d43fa30b3578ed3e50b6efef069"
 			},
 			"resources": {
@@ -275,8 +275,11 @@
 				"id": "ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f",
 				"name": "aind-smartspim-cell-quantification-1.6.3",
 				"slug": "5932556",
-				"commit": "4076c70a030108b77adf38103f2a3ba8de886452",
-				"image_tag": "8c1f39fd1ad896b13786afded13b8bc3"
+				"commit": "f305ab336ba35b733e2d7a556bf658f46ab2c0e7",
+				"image_tag": "8c1f39fd1ad896b13786afded13b8bc3",
+				"arguments": [
+					"detect"
+				]
 			},
 			"resources": {
 				"cpus": 16,
@@ -397,7 +400,7 @@
 				"id": "e4e4cf4a-7295-4006-bab1-4e2b1a3247c1",
 				"name": "aind-smartspim-cell-segmentation-1.0.2",
 				"slug": "5129020",
-				"commit": "a0389e92faa7fc5916aa10ac78fc0ceee574d970",
+				"commit": "a370a0d3e3de57c29f58ce93335c342efc95eab5",
 				"image_tag": "785c45be70c150b00cddf40e3bc49751"
 			},
 			"resources": {
@@ -447,7 +450,7 @@
 				"id": "1f5844df-dbb3-4efc-8eb9-fda57bc43735",
 				"name": "aind-smartspim-classification-0.0.9",
 				"slug": "5543118",
-				"commit": "83b1ddc57e835d60c2cf1ae3f18c5fbc79ea9922",
+				"commit": "fd9560d91494ab37db979f52d9dc8ff13e3748d0",
 				"image_tag": "19f86d15499f7abe6e9a4269ef01df2e"
 			},
 			"resources": {

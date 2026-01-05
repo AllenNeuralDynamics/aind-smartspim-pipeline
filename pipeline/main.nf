@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:00ef14123a7c9ca0ef21e9dc6cf7aea2592581a67e8708a77c49f32381c36d8b
+// hash:sha256:e56970bdba87183977c5e607a67898567431ab524920fc8934302c2430d855b6
 
 nextflow.enable.dsl = 1
 
@@ -97,7 +97,7 @@ process capsule_aind_smartspim_destripe_shadow_correction_005_1 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-6067584.git" capsule-repo
 	fi
-	git -C capsule-repo checkout e4a1a792a67e33e9223fe245c630481d52b073ef --quiet
+	git -C capsule-repo checkout acb578d3e2e22fa0bd950a1f0b5fa8fb203c844c --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -116,7 +116,7 @@ process capsule_aind_smartspim_stitch_128_2 {
 	container "$REGISTRY_HOST/capsule/7bba4392-d98e-48ef-9b33-242908c455cb:c79ef3a39fb92f03d51b62e60729cd5f"
 
 	cpus 16
-	memory '120 GB'
+	memory '240 GB'
 
 	input:
 	path 'capsule/data/preprocessed_data/' from capsule_aind_smartspim_destripe_shadow_correction_005_1_to_capsule_aind_smartspim_stitch_128_2_6.collect()
@@ -136,7 +136,7 @@ process capsule_aind_smartspim_stitch_128_2 {
 
 	export CO_CAPSULE_ID=7bba4392-d98e-48ef-9b33-242908c455cb
 	export CO_CPUS=16
-	export CO_MEMORY=128849018880
+	export CO_MEMORY=257698037760
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -149,7 +149,7 @@ process capsule_aind_smartspim_stitch_128_2 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8765450.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 98f4783b18743f5747950c556445f704bfbeda11 --quiet
+	git -C capsule-repo checkout c0b51c43ca4cbe0a2556dae77b4a2b41943e5393 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -202,7 +202,7 @@ process capsule_aind_smartspim_fuse_005_bigstitcher_3 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-1972908.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 156125233ed9b3f890217576e0f2586e43f564bc --quiet
+	git -C capsule-repo checkout 890af7f124f62d1c183fb78fa92e6adaec427b11 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -252,7 +252,7 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-1467402.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 2cb18dbb01eceb123d456e359a30eef637c7804e --quiet
+	git -C capsule-repo checkout 94d77d8800a8033338f1f3726a814a7ce008f353 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -367,14 +367,14 @@ process capsule_aind_smartspim_cell_quantification_163_7 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5932556.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 4076c70a030108b77adf38103f2a3ba8de886452 --quiet
+	git -C capsule-repo checkout f305ab336ba35b733e2d7a556bf658f46ab2c0e7 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
 	echo "[${task.tag}] running capsule..."
 	cd capsule/code
 	chmod +x run
-	./run
+	./run detect
 
 	echo "[${task.tag}] completed!"
 	"""
@@ -470,7 +470,7 @@ process capsule_aind_smartspim_cell_segmentation_102_9 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5129020.git" capsule-repo
 	fi
-	git -C capsule-repo checkout a0389e92faa7fc5916aa10ac78fc0ceee574d970 --quiet
+	git -C capsule-repo checkout a370a0d3e3de57c29f58ce93335c342efc95eab5 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -524,7 +524,7 @@ process capsule_aind_smartspim_classification_009_10 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5543118.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 83b1ddc57e835d60c2cf1ae3f18c5fbc79ea9922 --quiet
+	git -C capsule-repo checkout fd9560d91494ab37db979f52d9dc8ff13e3748d0 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
