@@ -455,7 +455,7 @@
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 61,
+				"memory": 128,
 				"gpus": 1
 			},
 			"inputs": [

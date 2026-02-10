@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:e56970bdba87183977c5e607a67898567431ab524920fc8934302c2430d855b6
+// hash:sha256:0c962514613a7a8f0e674038a1b9f6cd3c8af34a8c78221d40831c31b40292e6
 
 nextflow.enable.dsl = 1
 
@@ -489,7 +489,7 @@ process capsule_aind_smartspim_classification_009_10 {
 	container "$REGISTRY_HOST/capsule/1f5844df-dbb3-4efc-8eb9-fda57bc43735:19f86d15499f7abe6e9a4269ef01df2e"
 
 	cpus 16
-	memory '61 GB'
+	memory '120 GB'
 	accelerator 1
 	label 'gpu'
 
@@ -511,7 +511,7 @@ process capsule_aind_smartspim_classification_009_10 {
 
 	export CO_CAPSULE_ID=1f5844df-dbb3-4efc-8eb9-fda57bc43735
 	export CO_CPUS=16
-	export CO_MEMORY=65498251264
+	export CO_MEMORY=128849018880
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
