@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:0c962514613a7a8f0e674038a1b9f6cd3c8af34a8c78221d40831c31b40292e6
+// hash:sha256:34a82e8b06a087ff68871760fdb8368bb0ddfaa2289eb916129353a6a8f7ab15
 
 nextflow.enable.dsl = 1
 
@@ -330,7 +330,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_103_6 {
 // capsule - aind-smartspim-cell-quantification-1.6.3
 process capsule_aind_smartspim_cell_quantification_163_7 {
 	tag 'capsule-5932556'
-	container "$REGISTRY_HOST/capsule/ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f:8c1f39fd1ad896b13786afded13b8bc3"
+	container "$REGISTRY_HOST/capsule/ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f:b28febcc4f760c04bcdf0fdee6cec3db"
 
 	cpus 16
 	memory '120 GB'
@@ -367,7 +367,7 @@ process capsule_aind_smartspim_cell_quantification_163_7 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5932556.git" capsule-repo
 	fi
-	git -C capsule-repo checkout f305ab336ba35b733e2d7a556bf658f46ab2c0e7 --quiet
+	git -C capsule-repo checkout 097986e17b6926fff1fc8d736b1db81ddd5a9cee --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -486,7 +486,7 @@ process capsule_aind_smartspim_cell_segmentation_102_9 {
 // capsule - aind-smartspim-classification-0.0.9
 process capsule_aind_smartspim_classification_009_10 {
 	tag 'capsule-5543118'
-	container "$REGISTRY_HOST/capsule/1f5844df-dbb3-4efc-8eb9-fda57bc43735:19f86d15499f7abe6e9a4269ef01df2e"
+	container "$REGISTRY_HOST/capsule/1f5844df-dbb3-4efc-8eb9-fda57bc43735:53b1bb1f67cf744c0d80da467c52e3fc"
 
 	cpus 16
 	memory '120 GB'
@@ -524,7 +524,7 @@ process capsule_aind_smartspim_classification_009_10 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5543118.git" capsule-repo
 	fi
-	git -C capsule-repo checkout fd9560d91494ab37db979f52d9dc8ff13e3748d0 --quiet
+	git -C capsule-repo checkout 243b3ba8dcebe9036dc1b409a3e6537ef8c02ffe --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
