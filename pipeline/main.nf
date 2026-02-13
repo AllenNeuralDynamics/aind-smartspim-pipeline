@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:34a82e8b06a087ff68871760fdb8368bb0ddfaa2289eb916129353a6a8f7ab15
+// hash:sha256:2ac5494e586dd2bc1ec8c43390c629dda609b1eade322c12b0a8822c5957b051
 
 nextflow.enable.dsl = 1
 
@@ -97,7 +97,7 @@ process capsule_aind_smartspim_destripe_shadow_correction_005_1 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-6067584.git" capsule-repo
 	fi
-	git -C capsule-repo checkout acb578d3e2e22fa0bd950a1f0b5fa8fb203c844c --quiet
+	git -C capsule-repo checkout 9eb3fa1fb69d0188ce574c8f277767fd9fbc10b0 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -149,7 +149,7 @@ process capsule_aind_smartspim_stitch_128_2 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8765450.git" capsule-repo
 	fi
-	git -C capsule-repo checkout c0b51c43ca4cbe0a2556dae77b4a2b41943e5393 --quiet
+	git -C capsule-repo checkout 6ec7d3c89b779b71df5a5193df76bf5c360b5d3e --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -202,7 +202,7 @@ process capsule_aind_smartspim_fuse_005_bigstitcher_3 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-1972908.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 890af7f124f62d1c183fb78fa92e6adaec427b11 --quiet
+	git -C capsule-repo checkout 9801c29930d3463f21fda07bf5979d6251868c80 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -252,7 +252,7 @@ process capsule_aind_smartspim_flatfield_estimation_5 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-1467402.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 94d77d8800a8033338f1f3726a814a7ce008f353 --quiet
+	git -C capsule-repo checkout 051c9e7ce37e724356d1bdcba77b2a851ebe2974 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -314,7 +314,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_103_6 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7923375.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 9a09511a514a0fd95c7f587668f23d0f56fcf1b8 --quiet
+	git -C capsule-repo checkout a133851b983b40679aa7cd90fbc20a9e0184d4cd --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -367,7 +367,7 @@ process capsule_aind_smartspim_cell_quantification_163_7 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5932556.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 097986e17b6926fff1fc8d736b1db81ddd5a9cee --quiet
+	git -C capsule-repo checkout ec3e891fd4eae40c174c53f470b97c8ea68fac45 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -418,7 +418,7 @@ process capsule_aind_smartspim_ccf_registration_0034_8 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-2505115.git" capsule-repo
 	fi
-	git -C capsule-repo checkout b3464cd5435d752bcb53d8c1e4b78596d36b6f2e --quiet
+	git -C capsule-repo checkout 34c43b0f294673779ea1419ade09ee5ce87c8773 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -470,7 +470,7 @@ process capsule_aind_smartspim_cell_segmentation_102_9 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5129020.git" capsule-repo
 	fi
-	git -C capsule-repo checkout a370a0d3e3de57c29f58ce93335c342efc95eab5 --quiet
+	git -C capsule-repo checkout 62ab6df8b04a7ce5948d2ea6870be28f71ba6c67 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -524,7 +524,7 @@ process capsule_aind_smartspim_classification_009_10 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-5543118.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 243b3ba8dcebe9036dc1b409a3e6537ef8c02ffe --quiet
+	git -C capsule-repo checkout 995bb4e88b82fd477c159eb493e0d7fb85f6db61 --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -576,7 +576,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_103_11 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7923375.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 9a09511a514a0fd95c7f587668f23d0f56fcf1b8 --quiet
+	git -C capsule-repo checkout a133851b983b40679aa7cd90fbc20a9e0184d4cd --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
@@ -669,7 +669,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_103_13 {
 	else
 		git -c credential.helper= clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7923375.git" capsule-repo
 	fi
-	git -C capsule-repo checkout 9a09511a514a0fd95c7f587668f23d0f56fcf1b8 --quiet
+	git -C capsule-repo checkout a133851b983b40679aa7cd90fbc20a9e0184d4cd --quiet
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
 
