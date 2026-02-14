@@ -547,11 +547,10 @@
 		{
 			"name": "capsule_create_individual_zgroup_12",
 			"capsule": {
-				"id": "2ae3bb33-55ac-48f4-ae22-93d148b0f5ab",
+				"id": "d0f7b244-ce70-4622-ae2d-efb702c39e7c",
 				"name": "Create individual .zgroup",
-				"slug": "5587181",
-				"commit": "f7397ee59e2f7a91677d19d0b29fffc2ba16306c",
-				"image_tag": "cbb76805f9b77fda6ae280a5bbda2296"
+				"slug": "3177104",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 1,

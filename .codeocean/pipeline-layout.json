@@ -252,14 +252,14 @@
 		},
 		{
 			"data": {
-				"capsule_id": "2ae3bb33-55ac-48f4-ae22-93d148b0f5ab"
+				"capsule_id": "d0f7b244-ce70-4622-ae2d-efb702c39e7c"
 			},
 			"id": "capsule_create_individual_zgroup_12",
 			"position": {
 				"x": 370.8043402473011,
 				"y": 219.1427217716054
 			},
-			"selected": false,
+			"selected": true,
 			"type": "capsule"
 		},
 		{
@@ -295,7 +295,7 @@
 				"x": -1028.0964538517767,
 				"y": 1169.6860279183866
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -380,10 +380,10 @@
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1771060517202,
+	"timestamp": 1771101359815,
 	"viewport": {
-		"x": 724.761123532673,
-		"y": -506.7634984957549,
+		"x": 788.761123532673,
+		"y": -5.763498495754902,
 		"zoom": 0.4799760769996539
 	}
 }
