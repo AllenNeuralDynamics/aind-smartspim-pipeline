@@ -219,7 +219,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "37c0404c-111e-4f43-8744-39616bae91f1"
+				"capsule_id": "94d2cbcc-55b3-41fb-9686-9ccc1d3601b1"
 			},
 			"id": "capsule_aind_smartspim_flatfield_estimation_5",
 			"position": {
@@ -240,7 +240,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "e989fbed-af2e-4552-b931-e7bd48e4b8cf"
+				"capsule_id": "f7f1d820-253d-4ec4-b8d8-be288d62596f"
 			},
 			"id": "capsule_aind_smartspim_destripe_shadow_correction_005_1",
 			"position": {
@@ -264,7 +264,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "7bba4392-d98e-48ef-9b33-242908c455cb"
+				"capsule_id": "9fd01a17-58d1-48f5-9a7e-beeccb8c90f5"
 			},
 			"id": "capsule_aind_smartspim_stitch_128_2",
 			"position": {
@@ -276,7 +276,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "664683c7-6ac9-4968-91e3-08d5e2f430e7"
+				"capsule_id": "04cf5fe6-caa7-47dd-a95e-1706ab4aa32c"
 			},
 			"id": "capsule_aind_smartspim_fuse_005_bigstitcher_3",
 			"position": {
@@ -288,19 +288,19 @@
 		},
 		{
 			"data": {
-				"capsule_id": "4e9ff62e-76b9-48eb-9b62-bd79e398fae6"
+				"capsule_id": "1d42f62b-68e4-40b7-ab32-32225960c6a3"
 			},
 			"id": "capsule_aind_smartspim_ccf_registration_0034_8",
 			"position": {
 				"x": -1028.0964538517767,
 				"y": 1169.6860279183866
 			},
-			"selected": false,
+			"selected": true,
 			"type": "capsule"
 		},
 		{
 			"data": {
-				"capsule_id": "61ffdab7-797a-4022-9b9e-8792ad843cd3"
+				"capsule_id": "de997ea8-f900-4eef-8432-7d6726a579ae"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_103_6",
 			"position": {
@@ -312,7 +312,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "e4e4cf4a-7295-4006-bab1-4e2b1a3247c1"
+				"capsule_id": "1937c92b-b912-4e40-adc9-5b241dd80125"
 			},
 			"id": "capsule_aind_smartspim_cell_segmentation_102_9",
 			"position": {
@@ -333,7 +333,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "1f5844df-dbb3-4efc-8eb9-fda57bc43735"
+				"capsule_id": "e9054c0b-c45c-42c4-a8da-c8e1ddd9e61d"
 			},
 			"id": "capsule_aind_smartspim_classification_009_10",
 			"position": {
@@ -345,7 +345,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f"
+				"capsule_id": "035a9a9d-a755-4050-9724-b7b2decff0e9"
 			},
 			"id": "capsule_aind_smartspim_cell_quantification_163_7",
 			"position": {
@@ -357,7 +357,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "61ffdab7-797a-4022-9b9e-8792ad843cd3"
+				"capsule_id": "de997ea8-f900-4eef-8432-7d6726a579ae"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_103_11",
 			"position": {
@@ -369,21 +369,21 @@
 		},
 		{
 			"data": {
-				"capsule_id": "61ffdab7-797a-4022-9b9e-8792ad843cd3"
+				"capsule_id": "de997ea8-f900-4eef-8432-7d6726a579ae"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_103_13",
 			"position": {
 				"x": -911.7283794253672,
 				"y": -424.9317302072021
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1766432648441,
+	"timestamp": 1771060517202,
 	"viewport": {
-		"x": 721.761123532673,
-		"y": 367.2365015042451,
+		"x": 724.761123532673,
+		"y": -506.7634984957549,
 		"zoom": 0.4799760769996539
 	}
 }
