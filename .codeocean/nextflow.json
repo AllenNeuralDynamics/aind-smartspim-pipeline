@@ -4,11 +4,10 @@
 		{
 			"name": "capsule_aind_smartspim_destripe_shadow_correction_005_1",
 			"capsule": {
-				"id": "e989fbed-af2e-4552-b931-e7bd48e4b8cf",
+				"id": "f7f1d820-253d-4ec4-b8d8-be288d62596f",
 				"name": "aind-smartspim-destripe-shadow-correction-0.0.5",
-				"slug": "6067584",
-				"commit": "9eb3fa1fb69d0188ce574c8f277767fd9fbc10b0",
-				"image_tag": "16c8c83a4bef2332e717c6b047643741"
+				"slug": "5224764",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
@@ -59,15 +58,14 @@
 		{
 			"name": "capsule_aind_smartspim_stitch_128_2",
 			"capsule": {
-				"id": "7bba4392-d98e-48ef-9b33-242908c455cb",
+				"id": "9fd01a17-58d1-48f5-9a7e-beeccb8c90f5",
 				"name": "aind-smartspim-stitch-1.2.8",
-				"slug": "8765450",
-				"commit": "6ec7d3c89b779b71df5a5193df76bf5c360b5d3e",
-				"image_tag": "c79ef3a39fb92f03d51b62e60729cd5f"
+				"slug": "6599682",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 256
+				"memory": 128
 			},
 			"inputs": [
 				{
@@ -117,11 +115,10 @@
 		{
 			"name": "capsule_aind_smartspim_fuse_005_bigstitcher_3",
 			"capsule": {
-				"id": "664683c7-6ac9-4968-91e3-08d5e2f430e7",
+				"id": "04cf5fe6-caa7-47dd-a95e-1706ab4aa32c",
 				"name": "aind-smartspim-fuse-0.0.5-bigstitcher",
-				"slug": "1972908",
-				"commit": "9801c29930d3463f21fda07bf5979d6251868c80",
-				"image_tag": "432bb3de2fa8293b7c207063ddb90860"
+				"slug": "8580265",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
@@ -157,11 +154,10 @@
 		{
 			"name": "capsule_aind_smartspim_flatfield_estimation_5",
 			"capsule": {
-				"id": "37c0404c-111e-4f43-8744-39616bae91f1",
-				"name": "aind-smartspim-flatfield-estimation-0.0.2",
-				"slug": "1467402",
-				"commit": "051c9e7ce37e724356d1bdcba77b2a851ebe2974",
-				"image_tag": "44d68d43fa30b3578ed3e50b6efef069"
+				"id": "d7a650d2-bf40-4128-a2b4-e0d6afb4b4ce",
+				"name": "aind-smartspim-flatfield-estimation-0.0.3",
+				"slug": "7523377",
+				"version": 2
 			},
 			"resources": {
 				"cpus": 4,
@@ -196,11 +192,10 @@
 		{
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_103_6",
 			"capsule": {
-				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
+				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
-				"slug": "7923375",
-				"commit": "a133851b983b40679aa7cd90fbc20a9e0184d4cd",
-				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
+				"slug": "6615385",
+				"version": 1,
 				"arguments": [
 					"dispatch"
 				]
@@ -272,11 +267,10 @@
 		{
 			"name": "capsule_aind_smartspim_cell_quantification_163_7",
 			"capsule": {
-				"id": "ada793d3-bfa3-45fb-bdf5-3b2eb2c6df2f",
+				"id": "035a9a9d-a755-4050-9724-b7b2decff0e9",
 				"name": "aind-smartspim-cell-quantification-1.7.0",
-				"slug": "5932556",
-				"commit": "ec3e891fd4eae40c174c53f470b97c8ea68fac45",
-				"image_tag": "b28febcc4f760c04bcdf0fdee6cec3db",
+				"slug": "9139738",
+				"version": 1,
 				"arguments": [
 					"detect"
 				]
@@ -347,11 +341,10 @@
 		{
 			"name": "capsule_aind_smartspim_ccf_registration_0034_8",
 			"capsule": {
-				"id": "4e9ff62e-76b9-48eb-9b62-bd79e398fae6",
+				"id": "1d42f62b-68e4-40b7-ab32-32225960c6a3",
 				"name": "aind-smartspim-ccf-registration-0.0.34",
-				"slug": "2505115",
-				"commit": "4aece6924c1c8cd35c9d3c88f319ec92532790df",
-				"image_tag": "aa821180261fd8ab48eb869adb0380b0"
+				"slug": "8189339",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
@@ -397,11 +390,10 @@
 		{
 			"name": "capsule_aind_smartspim_cell_segmentation_102_9",
 			"capsule": {
-				"id": "e4e4cf4a-7295-4006-bab1-4e2b1a3247c1",
+				"id": "1937c92b-b912-4e40-adc9-5b241dd80125",
 				"name": "aind-smartspim-cell-segmentation-1.0.2",
-				"slug": "5129020",
-				"commit": "62ab6df8b04a7ce5948d2ea6870be28f71ba6c67",
-				"image_tag": "785c45be70c150b00cddf40e3bc49751"
+				"slug": "3362114",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
@@ -447,11 +439,10 @@
 		{
 			"name": "capsule_aind_smartspim_classification_009_10",
 			"capsule": {
-				"id": "1f5844df-dbb3-4efc-8eb9-fda57bc43735",
+				"id": "e9054c0b-c45c-42c4-a8da-c8e1ddd9e61d",
 				"name": "aind-smartspim-classification-0.1.0",
-				"slug": "5543118",
-				"commit": "995bb4e88b82fd477c159eb493e0d7fb85f6db61",
-				"image_tag": "53b1bb1f67cf744c0d80da467c52e3fc"
+				"slug": "7049712",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 16,
@@ -504,11 +495,10 @@
 		{
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_103_11",
 			"capsule": {
-				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
+				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
-				"slug": "7923375",
-				"commit": "a133851b983b40679aa7cd90fbc20a9e0184d4cd",
-				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
+				"slug": "6615385",
+				"version": 1,
 				"arguments": [
 					"clean"
 				]
@@ -557,11 +547,10 @@
 		{
 			"name": "capsule_create_individual_zgroup_12",
 			"capsule": {
-				"id": "2ae3bb33-55ac-48f4-ae22-93d148b0f5ab",
+				"id": "d0f7b244-ce70-4622-ae2d-efb702c39e7c",
 				"name": "Create individual .zgroup",
-				"slug": "5587181",
-				"commit": "3f8183cc4b08c726f25ff59d44a3641c2de1ad0c",
-				"image_tag": "cbb76805f9b77fda6ae280a5bbda2296"
+				"slug": "3177104",
+				"version": 1
 			},
 			"resources": {
 				"cpus": 1,
@@ -571,11 +560,10 @@
 		{
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_103_13",
 			"capsule": {
-				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
+				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
 				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
-				"slug": "7923375",
-				"commit": "a133851b983b40679aa7cd90fbc20a9e0184d4cd",
-				"image_tag": "ec226c73a74d73ebf24b1404ddd9d2d5",
+				"slug": "6615385",
+				"version": 1,
 				"arguments": [
 					"split_channels"
 				]
