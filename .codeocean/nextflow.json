@@ -65,7 +65,7 @@
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 128
+				"memory": 256
 			},
 			"inputs": [
 				{

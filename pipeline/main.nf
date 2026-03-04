@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:be6c92e6cbf99beebb2bd3e99f70b29923806851ce9494e98037c3424defc92e
+// hash:sha256:ecfa160533633226db1a111ba2725beecf07c5b14e766e6baad4ae478c07b0b5
 
 nextflow.enable.dsl = 1
 
@@ -115,7 +115,7 @@ process capsule_aind_smartspim_stitch_128_2 {
 	container "$REGISTRY_HOST/published/9fd01a17-58d1-48f5-9a7e-beeccb8c90f5:v1"
 
 	cpus 16
-	memory '120 GB'
+	memory '240 GB'
 
 	input:
 	path 'capsule/data/preprocessed_data/' from capsule_aind_smartspim_destripe_shadow_correction_005_1_to_capsule_aind_smartspim_stitch_128_2_6.collect()
@@ -135,7 +135,7 @@ process capsule_aind_smartspim_stitch_128_2 {
 
 	export CO_CAPSULE_ID=9fd01a17-58d1-48f5-9a7e-beeccb8c90f5
 	export CO_CPUS=16
-	export CO_MEMORY=128849018880
+	export CO_MEMORY=257698037760
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
