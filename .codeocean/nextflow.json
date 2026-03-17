@@ -342,9 +342,9 @@
 			"name": "capsule_aind_smartspim_ccf_registration_0034_8",
 			"capsule": {
 				"id": "1d42f62b-68e4-40b7-ab32-32225960c6a3",
-				"name": "aind-smartspim-ccf-registration-0.0.34",
+				"name": "aind-smartspim-ccf-registration-0.0.36",
 				"slug": "8189339",
-				"version": 1
+				"version": 2
 			},
 			"resources": {
 				"cpus": 16,

@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:ecfa160533633226db1a111ba2725beecf07c5b14e766e6baad4ae478c07b0b5
+// hash:sha256:77acc2ad83d1a15ddc60e3788d49355402571b473af19613d106cf220cc4cd9e
 
 nextflow.enable.dsl = 1
 
@@ -37,9 +37,9 @@ capsule_aind_smartspim_pipeline_dispatcher_103_6_to_capsule_aind_smartspim_cell_
 capsule_aind_smartspim_pipeline_dispatcher_103_6_to_capsule_aind_smartspim_cell_quantification_163_7_28 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_103_6_to_capsule_aind_smartspim_cell_quantification_163_7_29 = channel.create()
 capsule_aind_smartspim_ccf_registration_0034_8_to_capsule_aind_smartspim_cell_quantification_163_7_30 = channel.create()
-smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_34_31 = channel.fromPath(params.smartspim_template_2024_05_16_11_26_14_url + "/", type: 'any')
-smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_34_32 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
-smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_34_33 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
+smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_36_31 = channel.fromPath(params.smartspim_template_2024_05_16_11_26_14_url + "/", type: 'any')
+smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_36_32 = channel.fromPath(params.smartspim_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_36_33 = channel.fromPath(params.smartspim_dataset_url + "/acquisition.json", type: 'any')
 capsule_aind_smartspim_fuse_005_bigstitcher_3_to_capsule_aind_smartspim_ccf_registration_0034_8_34 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_103_6_to_capsule_aind_smartspim_cell_segmentation_102_9_35 = channel.create()
 capsule_aind_smartspim_pipeline_dispatcher_103_6_to_capsule_aind_smartspim_cell_segmentation_102_9_36 = channel.create()
@@ -374,18 +374,18 @@ process capsule_aind_smartspim_cell_quantification_163_7 {
 	"""
 }
 
-// capsule - aind-smartspim-ccf-registration-0.0.34
+// capsule - aind-smartspim-ccf-registration-0.0.36
 process capsule_aind_smartspim_ccf_registration_0034_8 {
 	tag 'capsule-8189339'
-	container "$REGISTRY_HOST/published/1d42f62b-68e4-40b7-ab32-32225960c6a3:v1"
+	container "$REGISTRY_HOST/published/1d42f62b-68e4-40b7-ab32-32225960c6a3:v2"
 
 	cpus 16
 	memory '120 GB'
 
 	input:
-	path 'capsule/data/lightsheet_template_ccf_registration' from smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_34_31.collect()
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_34_32.collect()
-	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_34_33.collect()
+	path 'capsule/data/lightsheet_template_ccf_registration' from smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_36_31.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_36_32.collect()
+	path 'capsule/data/' from smartspim_dataset_to_aind_smartspim_ccf_registration_0_0_36_33.collect()
 	path 'capsule/data/fused/' from capsule_aind_smartspim_fuse_005_bigstitcher_3_to_capsule_aind_smartspim_ccf_registration_0034_8_34.collect()
 
 	output:
@@ -408,9 +408,9 @@ process capsule_aind_smartspim_ccf_registration_0034_8 {
 
 	echo "[${task.tag}] cloning git repo..."
 	if [[ "\$(printf '%s\n' "2.20.0" "\$(git version | awk '{print \$3}')" | sort -V | head -n1)" = "2.20.0" ]]; then
-		git -c credential.helper= clone --filter=tree:0 --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8189339.git" capsule-repo
+		git -c credential.helper= clone --filter=tree:0 --branch v2.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8189339.git" capsule-repo
 	else
-		git -c credential.helper= clone --branch v1.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8189339.git" capsule-repo
+		git -c credential.helper= clone --branch v2.0 "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8189339.git" capsule-repo
 	fi
 	mv capsule-repo/code capsule/code && ln -s \$PWD/capsule/code /code
 	rm -rf capsule-repo
