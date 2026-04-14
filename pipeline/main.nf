@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:77acc2ad83d1a15ddc60e3788d49355402571b473af19613d106cf220cc4cd9e
+// hash:sha256:720ad080e7371a9ad3d11bea8dea6dea1d9c72540ca139d64e60f7dd2274a73e
 
 nextflow.enable.dsl = 1
 
@@ -380,7 +380,7 @@ process capsule_aind_smartspim_ccf_registration_0034_8 {
 	container "$REGISTRY_HOST/published/1d42f62b-68e4-40b7-ab32-32225960c6a3:v2"
 
 	cpus 16
-	memory '120 GB'
+	memory '240 GB'
 
 	input:
 	path 'capsule/data/lightsheet_template_ccf_registration' from smartspim_template_2024_05_16_11_26_14_to_aind_smartspim_ccf_registration_0_0_36_31.collect()
@@ -399,7 +399,7 @@ process capsule_aind_smartspim_ccf_registration_0034_8 {
 
 	export CO_CAPSULE_ID=1d42f62b-68e4-40b7-ab32-32225960c6a3
 	export CO_CPUS=16
-	export CO_MEMORY=128849018880
+	export CO_MEMORY=257698037760
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
