@@ -30,12 +30,12 @@ Date: April, 2025.
 nextflow.enable.dsl = 1
 
 // ---------------------------------------------------------------------------
-// Capsule release versions — bump these when releasing a new pipeline version.
-// Each tag must match the corresponding container image tag below.
+// Capsule release versions — keep these in sync with environment/versions.env.
+// Update both files together when releasing a new pipeline version.
 // ---------------------------------------------------------------------------
-params.ver_flatfield      = "si-0.0.1"
+params.ver_flatfield      = "si-0.0.4"
 params.ver_preprocessing  = "si-0.0.4"
-params.ver_stitch         = "si-1.2.7"
+params.ver_stitch         = "si-1.2.9"
 params.ver_fuse           = "si-0.0.4"
 params.ver_registration   = "si-0.0.31"
 params.ver_dispatch       = "si-1.0.1"
