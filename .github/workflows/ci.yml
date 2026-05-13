@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  stub-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Nextflow
+        uses: nf-core/setup-nextflow@v2
+        with:
+          version: "22.10.8"
+
+      - name: Install nf-test
+        run: |
+          wget -qO- https://code.askimed.com/install/nf-test | bash
+          echo "$HOME/.nf-test/bin" >> "$GITHUB_PATH"
+
+      - name: Lint shell scripts
+        run: |
+          sudo apt-get install -y shellcheck
+          shellcheck environment/*.sh pipeline/submit_pipeline_to_slurm.sh
+
+      - name: Run stub tests
+        run: nf-test test tests/stub/ --profile ci

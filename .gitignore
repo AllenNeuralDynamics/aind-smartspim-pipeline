@@ -142,3 +142,12 @@ dmypy.json
 # VSCode
 **/.vscode/
 .vscode
+.codegraph/
+
+# Singularity images (large binary files)
+*.sif
+*.img
+
+# Nextflow work directory and nf-test artifacts
+work/
+.nf-test/

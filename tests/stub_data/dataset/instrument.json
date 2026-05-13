@@ -1,0 +1,6 @@
+{
+    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
+    "schema_version": "0.10.10",
+    "instrument_id": "SmartSPIM1-stub",
+    "instrument_type": "SmartSPIM"
+}

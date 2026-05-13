@@ -1,0 +1,5 @@
+{
+    "voltage": 2.5,
+    "laser_power": 10.0,
+    "channels": ["Ex_488_Em_525"]
+}

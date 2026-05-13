@@ -1,0 +1,32 @@
+nextflow_pipeline {
+    name "SmartSPIM pipeline — stub run"
+    script "pipeline/main_slurm_v3.nf"
+    config "tests/ci.config"
+
+    // Verifies the DAG wires up correctly using Nextflow stub mode.
+    // No containers, no network access, no real data required.
+    // Run with: nf-test test tests/stub/ --profile ci
+    test("All 9 processes launch in stub mode") {
+        when {
+            params {
+                output_path      = "${outputDir}/processed"
+                template_path    = "${baseDir}/tests/stub_data/template"
+                cell_models_path = "${baseDir}/tests/stub_data/models"
+                cloud            = "false"
+            }
+            process {
+                """
+                env DATA_PATH    = "${baseDir}/tests/stub_data/dataset"
+                env RESULTS_PATH = "${outputDir}/nextflow"
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            // 9 processes: flatfield_estimation, preprocessing, stitching, fusion,
+            // atlas_registration, dispatcher, cell_proposals, cell_classification,
+            // cell_quantification, clean_up (10 total — dispatcher runs once here)
+            assert workflow.trace.tasks().size() >= 9
+        }
+    }
+}

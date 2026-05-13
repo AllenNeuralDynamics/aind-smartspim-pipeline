@@ -1,0 +1,7 @@
+{
+    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
+    "schema_version": "0.6.19",
+    "experiment_type": "SmartSPIM",
+    "subject_id": "000000",
+    "instrument_id": "SmartSPIM1-stub"
+}

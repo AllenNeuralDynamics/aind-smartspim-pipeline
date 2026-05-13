@@ -1,0 +1,24 @@
+{
+    "pipeline_processing": {
+        "stitching": {
+            "channel": "Ex_488_Em_525",
+            "resolution": [
+                {"axis_name": "X", "unit": "micrometer", "resolution": 1.8},
+                {"axis_name": "Y", "unit": "micrometer", "resolution": 1.8},
+                {"axis_name": "Z", "unit": "micrometer", "resolution": 2.0}
+            ],
+            "cpus": 4
+        },
+        "registration": {
+            "channels": ["Ex_488_Em_525"],
+            "input_scale": 3
+        },
+        "segmentation": {
+            "channels": ["Ex_488_Em_525"],
+            "input_scale": "0",
+            "chunksize": "64",
+            "signal_start": "0",
+            "signal_end": "-1"
+        }
+    }
+}

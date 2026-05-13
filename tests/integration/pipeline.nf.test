@@ -1,0 +1,40 @@
+nextflow_pipeline {
+    name "SmartSPIM pipeline — real 2-tile integration"
+    script "pipeline/main_slurm_v3.nf"
+    config "tests/ci.config"
+
+    // DEACTIVATED: requires a self-hosted GPU runner + AWS credentials.
+    //
+    // To activate:
+    //   1. Remove the skip() call below.
+    //   2. Upload a 2-tile dataset to s3://aind-open-data/test/SmartSPIM_test_2tiles/
+    //      (one Ex_488_Em_525 channel, ~500 MB total).
+    //   3. Configure a self-hosted runner labeled 'gpu' on a node with:
+    //      - Singularity / Apptainer
+    //      - NVIDIA GPU + CUDA drivers
+    //   4. Set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as repo secrets.
+    //   5. Remove the 'if: false' line from .github/workflows/integration.yml.
+    test("End-to-end run on 2-tile test dataset") {
+        skip()
+
+        when {
+            params {
+                lightsheet_dataset = "s3://aind-open-data/test/SmartSPIM_test_2tiles"
+                output_path        = "${outputDir}/processed"
+                template_path      = "s3://aind-open-data/SmartSPIM-template_2024-05-16_11-26-14"
+                cell_models_path   = "s3://aind-benchmark-data/mesoscale-anatomy-cell-detection/models/smartspim_production_models"
+                cloud              = "false"
+            }
+            process {
+                """
+                env RESULTS_PATH = "${outputDir}/nextflow"
+                """
+            }
+        }
+        then {
+            assert workflow.success
+            assert path("${outputDir}/processed").exists()
+            assert path("${outputDir}/processed/processing.json").exists()
+        }
+    }
+}
