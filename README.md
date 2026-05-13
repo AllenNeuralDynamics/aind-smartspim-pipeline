@@ -250,6 +250,29 @@ Pre-build all images with `environment/create_singularity_containers.sh` and pla
 This pipeline is currently using Nextflow DSL1. Currently, this version is not supported by Nextflow and we will be migrating the nextflow script to DSL2 in a future release. Please, follow this [issue](https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline/issues/7) for more information.
 ---
 
+# Local pipeline testing (stub run)
+
+You can verify that the pipeline DAG and channel wiring are correct on any machine — no GPU, no HPC, no containers required. The `-stub-run` flag makes each process execute its `stub:` block (creates empty placeholder outputs) instead of cloning repos or running real computation.
+
+```bash
+NXF_VER=22.10.8 \
+DATA_PATH="$(pwd)/tests/stub_data/dataset" \
+RESULTS_PATH="/tmp/nf-smartspim-test" \
+nextflow run pipeline/main_slurm_v3.nf \
+  -stub-run \
+  -c tests/ci.config \
+  --output_path /tmp/nf-smartspim-test/processed \
+  --template_path "$(pwd)/tests/stub_data/template" \
+  --cell_models_path "$(pwd)/tests/stub_data/models" \
+  --cloud false \
+  -work-dir /tmp/nf-smartspim-work
+```
+
+A successful run prints all 10 processes as `COMPLETED` and takes a few seconds. This is the same test that runs automatically on every pull request in CI.
+
+> [!NOTE]
+> The stub run does **not** validate scientific correctness, container contents, or network access — it only checks that all channels connect correctly and the workflow completes without errors. Use the integration test with real data for end-to-end validation.
+
 # Datasets for pipeline processing
 
 - [SmartSPIM template v1.0](https://open.quiltdata.com/b/aind-open-data/tree/SmartSPIM-template_2024-05-16_11-26-14/): Please, download this dataset.
