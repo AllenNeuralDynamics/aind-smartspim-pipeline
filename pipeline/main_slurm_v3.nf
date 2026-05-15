@@ -43,6 +43,15 @@ params.ver_detection      = "si-1.0.0"
 params.ver_classification = "si-0.0.6"
 params.ver_quantification = "si-1.6.1"
 
+// Optional dispatcher flags — all default to null.
+// The dispatcher falls back to its own env var defaults when not provided.
+// Pass at submission time with e.g. --ng_base_url https://neuroglancer.example.org
+params.data_folder        = null   // --data-folder        (overrides DATA_FOLDER env var in dispatcher)
+params.results_folder     = null   // --results-folder     (overrides RESULTS_FOLDER env var in dispatcher)
+params.ng_base_url        = null   // --ng-base-url        (Neuroglancer base URL)
+params.ccf_annotation_s3  = null   // --ccf-annotation-s3  (S3 path to CCF annotations)
+params.co_domain          = null   // --co-domain          (CodeOcean domain)
+
 params.lightsheet_dataset = DATA_PATH
 
 println "DATA_PATH: ${DATA_PATH}"
@@ -77,6 +86,15 @@ cell_models_path = params.cell_models_path
 println "Output path: ${output_path}"
 println "Path for deep learning production models: ${cell_models_path}"
 println "Using cloud: ${cloud}"
+
+// Build optional CLI flags for the dispatcher and clean_up processes.
+// Only appends a flag when the param was explicitly provided (non-null, non-empty).
+def _opt(flag, val) { val ? " ${flag} ${val}" : "" }
+dispatcher_extra_args  = _opt("--data-folder",        params.data_folder)
+dispatcher_extra_args += _opt("--results-folder",     params.results_folder)
+dispatcher_extra_args += _opt("--ng-base-url",        params.ng_base_url)
+dispatcher_extra_args += _opt("--ccf-annotation-s3",  params.ccf_annotation_s3)
+dispatcher_extra_args += _opt("--co-domain",          params.co_domain)
 
 // Input Channels - Organized by data source and target process
 // Dataset to Destripe process
@@ -507,7 +525,7 @@ process dispatcher {
     echo "[${task.tag}] running capsule..."
     cd capsule/code
     chmod +x run
-    ./run dispatch ${cloud} ${output_path}
+    ./run dispatch ${cloud} ${output_path}${dispatcher_extra_args}
 
     echo "[${task.tag}] completed!"
     """
@@ -729,7 +747,7 @@ process clean_up {
     echo "[${task.tag}] running capsule..."
     cd capsule/code
     chmod +x run
-    ./run clean ${cloud} ${output_path}
+    ./run clean ${cloud} ${output_path}${dispatcher_extra_args}
 
     echo "[${task.tag}] completed!"
     """
