@@ -11,7 +11,7 @@ source "${SCRIPT_DIR}/versions.env"
 # "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-flatfield-estimation/refs/tags/${FLATFIELD_EST_VERSION}/environment/Dockerfile_local"
 
 wget -O Dockerfile_flat_est \
-    "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-stitch/refs/heads/dev/environment/Dockerfile_local"
+    "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-flatfield-estimation/refs/heads/dev/environment/Dockerfile_local"
 docker build -t "ghcr.io/allenneuraldynamics/aind-smartspim-flatfield-estimation:${FLATFIELD_EST_VERSION}" -f Dockerfile_flat_est .
 
 # "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-destripe/refs/tags/${PREPROCESSING_VERSION}/environment/Dockerfile_local"
