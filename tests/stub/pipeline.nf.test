@@ -1,7 +1,7 @@
 nextflow_pipeline {
     name "SmartSPIM pipeline — stub run"
     script "pipeline/main_slurm_v3.nf"
-    config "tests/ci.config"
+    config ["tests/ci.config", "pipeline/versions.config"]
 
     // Verifies the DAG wires up correctly using Nextflow stub mode.
     // No containers, no network access, no real data required.

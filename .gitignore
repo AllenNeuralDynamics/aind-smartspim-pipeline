@@ -151,3 +151,6 @@ dmypy.json
 # Nextflow work directory and nf-test artifacts
 work/
 .nf-test/
+
+# Deployment config — site-specific paths; each user maintains their own copy
+pipeline/deployment.env

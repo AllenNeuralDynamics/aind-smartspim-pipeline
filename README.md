@@ -141,74 +141,47 @@ After execution, the script will create the environment in the provided location
 
 Before submission, you need to configure the `nextflow_slurm.config` file to use your the partition you want in your SLURM to execute the pipeline.
 
-For submission, you can use the `pipeline/submit_pipeline_to_slurm.sh` script as a template for your script. In this script you will need to provide:
-- PIPELINE_PATH: Path where the repository with the pipeline is located.
-- DATA_PATH: Path where your dataset is located.
-- RESULTS_PATH: Path where you want to store results by default.
-- WORKDIR: Working directory for each of the processes in the pipeline.
-- OUTPUT_PATH: Path where you want to save the processed dataset.
-- TEMPLATE_PATH: Path for the SmartSPIM template. This is necessary for CCF registration.
-- CELL_DETECTION_PATH: Path for the Cell Detection model. This is necessary to identify cells.
-- CLOUD: "true" if you want to store the results in a cloud bucket (only AWS supported at the moment), "false" if you want to store the results locally.
+### Configuration
 
-Finally, depending your SLURM configuration, the containers for the image processing steps won't be downloaded from the cloud. In this scenario, you will need to download them prior execution and change the `pipeline/main_slurm_v3.nf` nextflow script to use the paths where the containers are stored.
+All deployment-specific settings live in a single file: `pipeline/deployment.env`. This file is **not** committed (it is in `.gitignore`) so each user maintains their own copy per cluster. Copy the example and fill in your paths:
 
-Script example to execute pipeline:
 ```bash
-#!/bin/bash
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
-#SBATCH --mem=4GB
-#SBATCH --time=24:00:00
-#SBATCH --partition=YOUR_PARTITION
-
-PIPELINE_PATH="/your/repo-pipeline/path"
-DATA_PATH="/path/to/your/data"
-RESULTS_PATH="/path/to/your/outputs"
-WORKDIR="/path/to/workdir"
-
-# Change this output path to a S3 path if AWS cloud compatibility is needed
-OUTPUT_PATH="/path/to/your/outputdir"
-
-# Template path
-TEMPLATE_PATH="/path/to/templatev2"
-
-# Cell detection path
-CELL_MODELS_PATH="/path/to/production-models"
-
-# Setting cloud parameter - Useful if you want to store the results in a bucket
-CLOUD="false"
-
-NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
-  -C $PIPELINE_PATH/pipeline/nextflow_slurm.config \
-  -log $RESULTS_PATH/nextflow/nextflow.log \
-  run $PIPELINE_PATH/pipeline/main_slurm_v3.nf \
-  -work-dir $WORKDIR \
-  --output_path $OUTPUT_PATH \
-  --template_path $TEMPLATE_PATH \
-  --cell_models_path $CELL_MODELS_PATH \
-  --cloud $CLOUD \
-  -resume
+cp pipeline/deployment.env.example pipeline/deployment.env
+# Edit pipeline/deployment.env with your paths and settings
 ```
+
+Key variables in `pipeline/deployment.env`:
+
+| Variable | Description |
+|---|---|
+| `PIPELINE_PATH` | Absolute path to the root of this repository |
+| `DATA_PATH` | Path to the raw SmartSPIM dataset |
+| `RESULTS_PATH` | Path for Nextflow logs and reports |
+| `WORKDIR` | Nextflow work directory (intermediate files; use scratch storage) |
+| `OUTPUT_PATH` | Where processed results are written (use `s3://…` when `CLOUD=true`) |
+| `TEMPLATE_PATH` | Path to the CCF / SmartSPIM template volume |
+| `CELL_MODELS_PATH` | Path to the cell-detection model weights directory |
+| `CLOUD` | `"true"` to upload results to S3; `"false"` for local output only |
+
+Capsule versions are managed separately in `environment/versions.env` — do not set them in `deployment.env`.
+
+### Submitting the pipeline
+
+Once `deployment.env` is configured, submit with:
+
+```bash
+sbatch pipeline/submit_pipeline_to_slurm.sh
+```
+
+The script reads your settings, auto-generates `pipeline/versions.config` from `environment/versions.env`, and launches Nextflow. You never need to edit `submit_pipeline_to_slurm.sh` itself.
 
 > [!IMPORTANT]
-> You should change the `--partition` parameter to match the partition you want to use on your cluster for the submission job.
-> You need to change the queue in the nextflow slurm config to allocate nodes in that queue.
-> The same partition should be also indicated as the `queue` argument in the `pipeline/nextflow_slurm_custom.config` file for simplicity.
+> Set the `queue` in `pipeline/nextflow_slurm.config` to the SLURM partition that should run the **compute jobs** (not the submission job). The `#SBATCH --partition` in `submit_pipeline_to_slurm.sh` only controls where Nextflow itself runs. Override it at submission time without editing the file:
+> ```bash
+> sbatch --partition=cpu_light pipeline/submit_pipeline_to_slurm.sh
+> ```
 
-In Nextflow, you can also use the `-resume` flag to restart a previous execution:
-```bash
-NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
-  -C $PIPELINE_PATH/pipeline/nextflow_slurm.config \
-  -log $RESULTS_PATH/nextflow/nextflow.log \
-  run $PIPELINE_PATH/pipeline/main_slurm_v3.nf \
-  -resume \
-  -work-dir $WORKDIR \
-  --output_path $OUTPUT_PATH \
-  --template_path $TEMPLATE_PATH \
-  --cell_models_path $CELL_MODELS_PATH \
-  --cloud $CLOUD
-```
+To resume a previous execution, simply re-submit — `-resume` is already included in the script and Nextflow automatically continues from the last checkpoint.
 
 > [!IMPORTANT]
 > If at some point, you are getting a 140 code error, most likely the dataset is large and you need to increase the time of that process.
@@ -261,12 +234,15 @@ RESULTS_PATH="/tmp/nf-smartspim-test" \
 nextflow run pipeline/main_slurm_v3.nf \
   -stub-run \
   -c tests/ci.config \
+  -c pipeline/versions.config \
   --output_path /tmp/nf-smartspim-test/processed \
   --template_path "$(pwd)/tests/stub_data/template" \
   --cell_models_path "$(pwd)/tests/stub_data/models" \
   --cloud false \
   -work-dir /tmp/nf-smartspim-work
 ```
+
+`pipeline/versions.config` is auto-generated from `environment/versions.env` on every submission and is committed to the repo as a snapshot, so stub runs work immediately without running the submit script.
 
 A successful run prints all 10 processes as `COMPLETED` and takes a few seconds. This is the same test that runs automatically on every pull request in CI.
 

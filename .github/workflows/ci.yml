@@ -27,7 +27,52 @@ jobs:
       - name: Lint shell scripts
         run: |
           sudo apt-get install -y shellcheck
-          shellcheck environment/*.sh pipeline/submit_pipeline_to_slurm.sh
+          shellcheck environment/*.sh
+          # submit_pipeline_to_slurm.sh sources deployment.env which is gitignored;
+          # use external-sources mode so shellcheck does not follow dynamic paths.
+          shellcheck --external-sources pipeline/submit_pipeline_to_slurm.sh
+
+      - name: Check versions.config is up to date
+        run: |
+          python3 - <<'PY'
+          import re, sys
+
+          versions = {}
+          with open("environment/versions.env") as f:
+              for line in f:
+                  line = line.strip()
+                  if "=" in line and not line.startswith("#"):
+                      k, v = line.split("=", 1)
+                      versions[k.strip()] = v.strip()
+
+          config = open("pipeline/versions.config").read()
+
+          mapping = {
+              "ver_flatfield":      versions["FLATFIELD_EST_VERSION"],
+              "ver_preprocessing":  versions["PREPROCESSING_VERSION"],
+              "ver_stitch":         versions["STITCH_VERSION"],
+              "ver_fuse":           versions["FUSE_VERSION"],
+              "ver_registration":   versions["REGISTRATION_VERSION"],
+              "ver_dispatch":       versions["DISPATCHER_VERSION"],
+              "ver_detection":      versions["CELL_DETECTION_VERSION"],
+              "ver_classification": versions["CELL_CLASSIFICATION_VERSION"],
+              "ver_quantification": versions["CELL_QUANTIFICATION_VERSION"],
+          }
+
+          errors = []
+          for param, expected in mapping.items():
+              m = re.search(rf'{re.escape(param)}\s*=\s*"([^"]+)"', config)
+              if not m:
+                  errors.append(f"  {param}: not found in versions.config")
+              elif m.group(1) != expected:
+                  errors.append(f"  {param}: versions.config={m.group(1)!r}, versions.env={expected!r}")
+
+          if errors:
+              print("versions.config is stale:\n" + "\n".join(errors))
+              print("Fix: edit environment/versions.env, run submit_pipeline_to_slurm.sh, commit both files.")
+              sys.exit(1)
+          print("versions.config is up to date.")
+          PY
 
       - name: Run stub tests
         run: nf-test test tests/stub/ --profile ci
