@@ -32,7 +32,7 @@ docker build -t "ghcr.io/allenneuraldynamics/aind-smartspim-stitch:${STITCH_VERS
 # "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-ccf-registration/refs/tags/${REGISTRATION_VERSION}/environment/Dockerfile_local"
 
 wget -O Dockerfile_registration \
-    "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-ccf-registration/refs/heads/dev/environment/Dockerfile_local"
+    "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-ccf-registration/refs/heads/feat-update-v2schema/environment/Dockerfile_local"
 docker build -t "ghcr.io/allenneuraldynamics/aind-smartspim-registration:${REGISTRATION_VERSION}" -f Dockerfile_registration .
 
 # "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-fuse/refs/tags/${FUSE_VERSION}/environment/Dockerfile_local"
@@ -47,7 +47,7 @@ docker build -t "ghcr.io/allenneuraldynamics/aind-smartspim-fuse:${FUSE_VERSION}
 # "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher/refs/tags/${DISPATCHER_VERSION}/environment/Dockerfile_local"
 
 wget -O Dockerfile_dispatcher \
-    "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher/refs/heads/refactor-package-for-publication/environment/Dockerfile_local"
+    "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher/refs/heads/dev/environment/Dockerfile_local"
 docker build -t "ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:${DISPATCHER_VERSION}" -f Dockerfile_dispatcher .
 
 # "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation/refs/tags/${CELL_DETECTION_VERSION}/environment/Dockerfile_local"
