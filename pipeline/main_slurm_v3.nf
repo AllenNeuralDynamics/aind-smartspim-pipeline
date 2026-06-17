@@ -29,19 +29,8 @@ Date: April, 2025.
 
 nextflow.enable.dsl = 1
 
-// ---------------------------------------------------------------------------
-// Capsule release versions — keep these in sync with environment/versions.env.
-// Update both files together when releasing a new pipeline version.
-// ---------------------------------------------------------------------------
-params.ver_flatfield      = "si-0.0.4"
-params.ver_preprocessing  = "si-0.0.4"
-params.ver_stitch         = "si-1.2.9"
-params.ver_fuse           = "si-0.0.4"
-params.ver_registration   = "si-0.0.31"
-params.ver_dispatch       = "si-1.0.1"
-params.ver_detection      = "si-1.0.0"
-params.ver_classification = "si-0.0.6"
-params.ver_quantification = "si-1.6.1"
+// Capsule release versions are injected via pipeline/versions.config, which is
+// auto-generated from environment/versions.env by submit_pipeline_to_slurm.sh.
 
 // Optional dispatcher flags — all default to null.
 // The dispatcher falls back to its own env var defaults when not provided.
