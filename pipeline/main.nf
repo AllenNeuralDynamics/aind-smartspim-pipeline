@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:720ad080e7371a9ad3d11bea8dea6dea1d9c72540ca139d64e60f7dd2274a73e
+// hash:sha256:29ba69132831fd0833274ea69c73f24c6988ca7f20e8ee55bb57268d47d2aab2
 
 nextflow.enable.dsl = 1
 
@@ -63,7 +63,7 @@ process capsule_aind_smartspim_destripe_shadow_correction_005_1 {
 	container "$REGISTRY_HOST/published/f7f1d820-253d-4ec4-b8d8-be288d62596f:v1"
 
 	cpus 16
-	memory '120 GB'
+	memory '240 GB'
 
 	input:
 	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_103_13_to_capsule_aind_smartspim_destripe_shadow_correction_005_1_1.flatten()
@@ -84,7 +84,7 @@ process capsule_aind_smartspim_destripe_shadow_correction_005_1 {
 
 	export CO_CAPSULE_ID=f7f1d820-253d-4ec4-b8d8-be288d62596f
 	export CO_CPUS=16
-	export CO_MEMORY=128849018880
+	export CO_MEMORY=257698037760
 
 	mkdir -p capsule
 	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
@@ -536,7 +536,7 @@ process capsule_aind_smartspim_pipeline_dispatcher_103_11 {
 	cpus 2
 	memory '15 GB'
 
-	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
+	publishDir "$RESULTS_PATH", mode: 'copy', saveAs: { filename -> new File(filename).getName() }
 
 	input:
 	path 'capsule/data/' from capsule_aind_smartspim_pipeline_dispatcher_103_6_to_capsule_aind_smartspim_pipeline_dispatcher_103_11_44.collect()
