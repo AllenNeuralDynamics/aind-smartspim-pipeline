@@ -5,13 +5,16 @@
 			"name": "capsule_aind_smartspim_destripe_shadow_correction_005_1",
 			"capsule": {
 				"id": "f7f1d820-253d-4ec4-b8d8-be288d62596f",
-				"name": "aind-smartspim-destripe-shadow-correction-0.0.5",
+				"name": "aind-smartspim-destripe-shadow-correction-0.0.6",
 				"slug": "5224764",
-				"version": 1
+				"version": 2,
+				"arguments": [
+					"aind-open-data"
+				]
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 256
+				"memory": 128
 			},
 			"inputs": [
 				{
@@ -59,13 +62,13 @@
 			"name": "capsule_aind_smartspim_stitch_128_2",
 			"capsule": {
 				"id": "9fd01a17-58d1-48f5-9a7e-beeccb8c90f5",
-				"name": "aind-smartspim-stitch-1.2.8",
+				"name": "aind-smartspim-stitch-1.2.9",
 				"slug": "6599682",
-				"version": 1
+				"version": 2
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 256
+				"memory": 128
 			},
 			"inputs": [
 				{
@@ -116,9 +119,9 @@
 			"name": "capsule_aind_smartspim_fuse_005_bigstitcher_3",
 			"capsule": {
 				"id": "04cf5fe6-caa7-47dd-a95e-1706ab4aa32c",
-				"name": "aind-smartspim-fuse-0.0.5-bigstitcher",
+				"name": "aind-smartspim-fuse-0.0.6-bigstitcher",
 				"slug": "8580265",
-				"version": 1
+				"version": 2
 			},
 			"resources": {
 				"cpus": 16,
@@ -155,9 +158,9 @@
 			"name": "capsule_aind_smartspim_flatfield_estimation_5",
 			"capsule": {
 				"id": "d7a650d2-bf40-4128-a2b4-e0d6afb4b4ce",
-				"name": "aind-smartspim-flatfield-estimation-0.0.3",
+				"name": "aind-smartspim-flatfield-estimation-0.0.4",
 				"slug": "7523377",
-				"version": 2
+				"version": 3
 			},
 			"resources": {
 				"cpus": 4,
@@ -193,11 +196,13 @@
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_103_6",
 			"capsule": {
 				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
-				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
+				"name": "aind-smartspim-pipeline-dispatcher-2.0.0",
 				"slug": "6615385",
-				"version": 1,
+				"version": 2,
 				"arguments": [
-					"dispatch"
+					"dispatch",
+					"true",
+					"aind-scratch-data"
 				]
 			},
 			"resources": {
@@ -268,11 +273,12 @@
 			"name": "capsule_aind_smartspim_cell_quantification_163_7",
 			"capsule": {
 				"id": "035a9a9d-a755-4050-9724-b7b2decff0e9",
-				"name": "aind-smartspim-cell-quantification-1.7.0",
+				"name": "aind-smartspim-cell-quantification-1.7.1",
 				"slug": "9139738",
-				"version": 1,
+				"version": 2,
 				"arguments": [
-					"detect"
+					"detect",
+					"aind-open-data"
 				]
 			},
 			"resources": {
@@ -342,13 +348,13 @@
 			"name": "capsule_aind_smartspim_ccf_registration_0034_8",
 			"capsule": {
 				"id": "1d42f62b-68e4-40b7-ab32-32225960c6a3",
-				"name": "aind-smartspim-ccf-registration-0.0.36",
+				"name": "aind-smartspim-ccf-registration-0.0.37",
 				"slug": "8189339",
-				"version": 2
+				"version": 3
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 256
+				"memory": 128
 			},
 			"inputs": [
 				{
@@ -391,13 +397,13 @@
 			"name": "capsule_aind_smartspim_cell_segmentation_102_9",
 			"capsule": {
 				"id": "1937c92b-b912-4e40-adc9-5b241dd80125",
-				"name": "aind-smartspim-cell-segmentation-1.0.2",
+				"name": "aind-smartspim-cell-segmentation-1.0.3",
 				"slug": "3362114",
-				"version": 1
+				"version": 2
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 61,
+				"memory": 64,
 				"gpus": 1
 			},
 			"inputs": [
@@ -440,13 +446,13 @@
 			"name": "capsule_aind_smartspim_classification_009_10",
 			"capsule": {
 				"id": "e9054c0b-c45c-42c4-a8da-c8e1ddd9e61d",
-				"name": "aind-smartspim-classification-0.1.0",
+				"name": "aind-smartspim-classification-0.1.1",
 				"slug": "7049712",
-				"version": 1
+				"version": 2
 			},
 			"resources": {
 				"cpus": 16,
-				"memory": 61,
+				"memory": 64,
 				"gpus": 1
 			},
 			"inputs": [
@@ -496,11 +502,13 @@
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_103_11",
 			"capsule": {
 				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
-				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
+				"name": "aind-smartspim-pipeline-dispatcher-2.0.0",
 				"slug": "6615385",
-				"version": 1,
+				"version": 2,
 				"arguments": [
-					"clean"
+					"clean",
+					"true",
+					"aind-scratch-data"
 				]
 			},
 			"resources": {
@@ -561,11 +569,13 @@
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_103_13",
 			"capsule": {
 				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
-				"name": "aind-smartspim-pipeline-dispatcher-1.0.3",
+				"name": "aind-smartspim-pipeline-dispatcher-2.0.0",
 				"slug": "6615385",
-				"version": 1,
+				"version": 2,
 				"arguments": [
-					"split_channels"
+					"split_channels",
+					"true",
+					"aind-open-data"
 				]
 			},
 			"resources": {
