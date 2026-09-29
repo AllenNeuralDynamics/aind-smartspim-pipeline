@@ -41,7 +41,7 @@ def capsules():
     params = read_params(VERSIONS_CONFIG)
     bodies = dict(re.findall(r"^process (\w+) \{(.*?)^\}", PIPELINE.read_text(), re.S | re.M))
     unique = {}
-    for p in read_processes(PIPELINE):
+    for p in read_processes(PIPELINE, params):
         classpath = re.search(r"'CLASSPATH':\s*'([^']+)'", bodies[p["process"]])
         capsule = {
             **p,
@@ -49,13 +49,15 @@ def capsules():
             "ref": params[p["ref_param"]],
             "jar_dirs": [c.rstrip("/*") for c in classpath.group(1).split(":")] if classpath else [],
         }
-        key = (capsule["image"], capsule["tag"], capsule["repo"], capsule["ref"], capsule["entrypoint"])
+        key = (capsule["image"], capsule["tag"], capsule["repo_url"], capsule["ref"], capsule["entrypoint"])
         unique.setdefault(key, {**capsule, "processes": []})["processes"].append(p["process"])
     return list(unique.values())
 
 
 def entrypoint_commands(capsule):
     """Parses the conda env and Python script out of the capsule entrypoint"""
+    if not capsule["repo"]:
+        raise ValueError(f"{capsule['repo_url']} is not a GitHub URL; can't read its entrypoint")
     url = f"https://raw.githubusercontent.com/{capsule['repo']}/{capsule['ref']}/code/{capsule['entrypoint']}"
     with urllib.request.urlopen(url, timeout=60) as response:
         text = response.read().decode()
@@ -75,14 +77,14 @@ def smoke(capsule):
     inner = f"""
 set -euo pipefail
 command -v git >/dev/null || {{ echo "git is not installed in the image"; exit 1; }}
-git clone -q --depth 1 --branch {capsule['ref']} https://github.com/{capsule['repo']}.git /tmp/capsule
+git clone -q --depth 1 --branch {capsule['ref']} {capsule['repo_url']} /tmp/capsule
 cd /tmp/capsule/code
 {activate}
 python -c '{IMPORT_SCRIPT}' {script}
 {jar_checks}
 """
     image = f"ghcr.io/{capsule['image']}:{capsule['tag']}"
-    print(f"\n=== {', '.join(capsule['processes'])}: {image} + {capsule['repo']}@{capsule['ref']}", flush=True)
+    print(f"\n=== {', '.join(capsule['processes'])}: {image} + {capsule['repo_url']}@{capsule['ref']}", flush=True)
     subprocess.run(["docker", "pull", "-q", "--platform", "linux/amd64", image], check=True)
     result = subprocess.run(
         ["docker", "run", "--rm", "--platform", "linux/amd64", "--entrypoint", "bash", image, "-c", inner]

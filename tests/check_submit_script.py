@@ -13,6 +13,10 @@ twice:
 2. Only the required variables set. No optional --param may be passed and no
    optional variable exported.
 
+It also checks that the Nextflow config options load both
+nextflow_slurm.config and versions.config: Nextflow ignores every -c file
+when -C is given, which silently drops the pinned capsule versions.
+
 Usage: python3 tests/check_submit_script.py
 """
 
@@ -102,6 +106,20 @@ def passed_params(argv):
     return {a[2:] for a in argv if a.startswith("--")}
 
 
+def config_errors(argv):
+    """Config files Nextflow would actually load, given -C/-c semantics"""
+    exclusive = [argv[i + 1] for i, a in enumerate(argv[:-1]) if a == "-C"]
+    extra = [argv[i + 1] for i, a in enumerate(argv[:-1]) if a == "-c"]
+    loaded = [f for group in exclusive for f in group.split(",")] if exclusive else extra
+    errors = []
+    if exclusive and extra:
+        errors.append(f"-c {' '.join(extra)} is ignored because -C is also given; list it in -C instead")
+    for required in ("nextflow_slurm.config", "versions.config"):
+        if not any(Path(f).name == required for f in loaded):
+            errors.append(f"{required} is not loaded by the Nextflow command")
+    return errors
+
+
 def main():
     required, optional = example_variables()
     params, whitelist = declared_params(), env_whitelist()
@@ -120,6 +138,7 @@ def main():
                 errors.append(f"{name} is set in deployment.env but never reaches Nextflow")
             if exported and not in_args and name not in NEXTFLOW_ENV and name not in whitelist:
                 errors.append(f"{name} is exported but not in envWhitelist, so containers never see it")
+        errors += config_errors(argv)
         for param in sorted(passed_params(argv) - params):
             errors.append(f"--{param} is passed but main_slurm_v3.nf doesn't declare params.{param}")
         print(f"all variables set:  {len(passed_params(argv))} params passed, "

@@ -103,7 +103,7 @@ def read_codeocean(process_map):
 def read_slurm():
     text = SLURM_PIPELINE.read_text()
     params = read_params(VERSIONS_CONFIG)
-    refs = {p["process"]: params.get(p["ref_param"]) for p in read_processes(SLURM_PIPELINE)}
+    refs = {p["process"]: params.get(p["ref_param"]) for p in read_processes(SLURM_PIPELINE, params)}
 
     # Dataset channels: NAME = channel.fromPath(<param> + "/<path>", ...)
     channel_sources = {}

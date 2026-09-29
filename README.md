@@ -296,7 +296,7 @@ The stub run does **not** check scientific correctness, container contents or ne
 
 1. Cut a GitHub Release in the capsule repo.
 2. Build and push the image with `environment/build_envs.sh` and `environment/push_envs.sh`.
-3. In `environment/versions.env`, set both the image tag (`*_VERSION`) and the code release (`*_REF`). They can differ: stitch uses image `si-1.2.9` with code `v1.2.9`.
+3. In `environment/versions.env`, set the image tag (`*_VERSION`) and the code release (`*_REF`). They can differ: stitch uses image `si-1.2.9` with code `v1.2.9`. The repository each capsule is cloned from is also set there (`*_REPO`); change it to move a capsule to another repo or point it at a mirror. `main_slurm_v3.nf` and `build_envs.sh` both read these values, so nothing else needs editing.
 4. Run `make versions test`, and `make smoke CAPSULE=<process>` if docker is available.
 5. If CodeOcean isn't bumped at the same time, `make parity` reports the version drift. Add it to `tests/parity_allowlist.json` with a reason, and remove the entry once CodeOcean catches up.
 6. Open a PR. The smoke tests run automatically because `versions.env` changed.

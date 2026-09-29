@@ -41,9 +41,9 @@ done
 
 # ── Run the pipeline (DATA_PATH / RESULTS_PATH come from deployment.env)
 export DATA_PATH RESULTS_PATH
+# -C takes a comma-separated list; any -c file is ignored when -C is used.
 NXF_VER=22.10.8 nextflow \
-    -C "${PIPELINE_PATH}/pipeline/nextflow_slurm.config" \
-    -c "${PIPELINE_PATH}/pipeline/versions.config" \
+    -C "${PIPELINE_PATH}/pipeline/nextflow_slurm.config,${PIPELINE_PATH}/pipeline/versions.config" \
     -log "${RESULTS_PATH}/nextflow/nextflow.log" \
     run "${PIPELINE_PATH}/pipeline/main_slurm_v3.nf" \
     -work-dir "$WORKDIR" \

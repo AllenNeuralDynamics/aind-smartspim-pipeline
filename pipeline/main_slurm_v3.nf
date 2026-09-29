@@ -30,8 +30,8 @@ Date: April, 2025.
 
 nextflow.enable.dsl = 1
 
-// Capsule image tags (params.ver_*) and code release refs (params.ref_*) are injected
-// via pipeline/versions.config, which is
+// Capsule image tags (params.ver_*), code release refs (params.ref_*) and code
+// repositories (params.repo_*) are injected via pipeline/versions.config, which is
 // auto-generated from environment/versions.env by submit_pipeline_to_slurm.sh.
 
 // Optional dispatcher flags — all default to null.
@@ -256,7 +256,7 @@ process split_channels {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_dispatch} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher.git" capsule-repo
+        "${params.repo_dispatch}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -306,7 +306,7 @@ process flatfield_estimation {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_flatfield} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-flatfield-estimation.git" capsule-repo
+        "${params.repo_flatfield}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -363,7 +363,7 @@ process preprocessing {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_preprocessing} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-destripe.git" capsule-repo
+        "${params.repo_preprocessing}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -422,7 +422,7 @@ process stitching {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_stitch} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-stitch.git" capsule-repo
+        "${params.repo_stitch}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -484,7 +484,7 @@ process fusion {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_fuse} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
+        "${params.repo_fuse}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -535,7 +535,7 @@ process atlas_registration {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_registration} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-ccf-registration.git" capsule-repo
+        "${params.repo_registration}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -602,7 +602,7 @@ process dispatcher {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_dispatch} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher.git" capsule-repo
+        "${params.repo_dispatch}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -665,7 +665,7 @@ process cell_proposals {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_detection} \
-        "https://github.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation.git" capsule-repo
+        "${params.repo_detection}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -721,7 +721,7 @@ process cell_classification {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_classification} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-classification.git" capsule-repo
+        "${params.repo_classification}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -774,7 +774,7 @@ process cell_quantification {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_quantification} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-quantification.git" capsule-repo
+        "${params.repo_quantification}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -825,7 +825,7 @@ process clean_up {
 
     echo "[${task.tag}] cloning git repo..."
     git clone --depth 1 --branch ${params.ref_dispatch} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher.git" capsule-repo
+        "${params.repo_dispatch}" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 

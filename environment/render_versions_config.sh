@@ -35,5 +35,14 @@ params {
     ref_detection      = "${CELL_DETECTION_REF}"
     ref_classification = "${CELL_CLASSIFICATION_REF}"
     ref_quantification = "${CELL_QUANTIFICATION_REF}"
+    repo_flatfield      = "${FLATFIELD_EST_REPO}"
+    repo_preprocessing  = "${PREPROCESSING_REPO}"
+    repo_stitch         = "${STITCH_REPO}"
+    repo_fuse           = "${FUSE_REPO}"
+    repo_registration   = "${REGISTRATION_REPO}"
+    repo_dispatch       = "${DISPATCHER_REPO}"
+    repo_detection      = "${CELL_DETECTION_REPO}"
+    repo_classification = "${CELL_CLASSIFICATION_REPO}"
+    repo_quantification = "${CELL_QUANTIFICATION_REPO}"
 }
 EOF

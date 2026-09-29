@@ -47,28 +47,43 @@ def read_params(path):
     return dict(re.findall(r'(\w+)\s*=\s*"([^"]+)"', path.read_text()))
 
 
-def read_processes(path):
-    """Extracts the container image and cloned repo of every process"""
+def github_slug(url):
+    """Returns 'owner/name' for a GitHub clone URL, or None for any other host (e.g. a mirror)"""
+    match = re.match(r"https://github\.com/([^/]+/[^/]+?)(?:\.git)?/?$", url)
+    return match.group(1) if match else None
+
+
+def read_processes(path, params=None):
+    """
+    Extracts the container image and cloned repo of every process.
+    Repo URLs come from params.repo_* in versions.config.
+    """
+    params = read_params(VERSIONS_CONFIG) if params is None else params
     text = path.read_text()
     processes = []
     for match in re.finditer(r"^process (\w+) \{(.*?)^\}", text, re.S | re.M):
         name, body = match.groups()
         image = re.search(r'container "ghcr\.io/([^:"]+):\$\{params\.(\w+)\}"', body)
         clone = re.search(
-            r"--branch \$\{params\.(\w+)\}.*?\"https://github\.com/([^\"]+?)\.git\"",
+            r"--branch \$\{params\.(\w+)\}.*?\"\$\{params\.(\w+)\}\" capsule-repo",
             body,
             re.S,
         )
         entrypoint = re.search(r"chmod \+x (\S+)", body)
         if not image or not clone or not entrypoint:
             raise ValueError(f"Could not parse container/clone/entrypoint for process '{name}'")
+        repo_param = clone.group(2)
+        if repo_param not in params:
+            raise ValueError(f"Process '{name}' clones params.{repo_param}, which versions.config doesn't set")
         processes.append(
             {
                 "process": name,
                 "image": image.group(1),
                 "image_param": image.group(2),
-                "repo": clone.group(2),
                 "ref_param": clone.group(1),
+                "repo_param": repo_param,
+                "repo_url": params[repo_param],
+                "repo": github_slug(params[repo_param]),
                 "entrypoint": entrypoint.group(1),
             }
         )
@@ -122,9 +137,9 @@ def release_exists(repo, ref):
 
 
 @functools.lru_cache(maxsize=None)
-def git_tag_exists(repo, ref):
+def git_tag_exists(repo_url, ref):
     result = subprocess.run(
-        ["git", "ls-remote", "--exit-code", f"https://github.com/{repo}.git", f"refs/tags/{ref}"],
+        ["git", "ls-remote", "--exit-code", repo_url, f"refs/tags/{ref}"],
         capture_output=True,
         text=True,
     )
@@ -140,7 +155,7 @@ def main():
     params = read_params(VERSIONS_CONFIG)
     errors = []
 
-    for p in read_processes(PIPELINE):
+    for p in read_processes(PIPELINE, params):
         tag = params.get(p["image_param"])
         ref = params.get(p["ref_param"])
         label = f"{p['process']:<22}"
@@ -153,10 +168,15 @@ def main():
         checks = [
             (f"image {p['image']}:{tag}", platforms is not None),
             (f"image platform linux/amd64 (has {sorted(platforms or [])})", "linux/amd64" in (platforms or ())),
-            (f"tag {p['repo']}@{ref}", git_tag_exists(p["repo"], ref)),
-            (f"release {p['repo']}@{ref}", release_exists(p["repo"], ref)),
-            (f"code/{p['entrypoint']} @ {ref}", entrypoint_exists(p["repo"], ref, p["entrypoint"])),
+            (f"tag {p['repo_url']}@{ref}", git_tag_exists(p["repo_url"], ref)),
         ]
+        if p["repo"]:
+            checks += [
+                (f"release {p['repo']}@{ref}", release_exists(p["repo"], ref)),
+                (f"code/{p['entrypoint']} @ {ref}", entrypoint_exists(p["repo"], ref, p["entrypoint"])),
+            ]
+        else:
+            print(f"{label} SKIPPED release and entrypoint checks: {p['repo_url']} is not a GitHub URL")
         for what, ok in checks:
             print(f"{label} {'OK     ' if ok else 'MISSING'} {what}")
             if not ok:
