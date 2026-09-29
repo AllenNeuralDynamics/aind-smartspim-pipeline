@@ -29,6 +29,9 @@ jobs:
       - name: Check versions.config is up to date
         run: make check-versions
 
+      - name: Check deployment.env, submit script and pipeline params agree
+        run: make check-deploy
+
   wiring:
     name: Wiring (CodeOcean parity, stub run)
     runs-on: ubuntu-latest

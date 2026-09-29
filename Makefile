@@ -13,12 +13,12 @@ STUB_OUT   := .nf-test/stub-direct
 CAPSULE    ?=
 
 .DEFAULT_GOAL := help
-.PHONY: help test lint versions check-versions parity stub stub-direct check-refs smoke
+.PHONY: help test lint versions check-versions check-deploy parity stub stub-direct check-refs smoke
 
 help: ## List targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-15s %s\n", $$1, $$2}'
 
-test: lint check-versions parity $(STUB) check-refs ## Run every fast check (Tiers 0-2) before pushing
+test: lint check-versions check-deploy parity $(STUB) check-refs ## Run every fast check (Tiers 0-2) before pushing
 
 lint: ## Tier 0: shellcheck all shell scripts
 	$(SHELLCHECK) -x --source-path=SCRIPTDIR environment/*.sh pipeline/submit_pipeline_to_slurm.sh
@@ -28,6 +28,9 @@ versions: ## Regenerate pipeline/versions.config from environment/versions.env
 
 check-versions: ## Tier 0: fail if pipeline/versions.config is stale
 	$(PYTHON) tests/check_versions.py
+
+check-deploy: ## Tier 0: deployment.env.example, submit script and pipeline params agree
+	$(PYTHON) tests/check_submit_script.py
 
 parity: ## Tier 1: compare CodeOcean wiring/args/versions with main_slurm_v3.nf
 	$(PYTHON) tests/check_parity.py

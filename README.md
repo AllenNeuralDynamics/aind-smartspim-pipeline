@@ -163,6 +163,17 @@ Key variables in `pipeline/deployment.env`:
 | `CELL_MODELS_PATH` | Path to the cell-detection model weights directory |
 | `CLOUD` | `"true"` to upload results to S3; `"false"` for local output only |
 
+Optional settings (commented out in the example; leave unset to use the defaults):
+
+| Variable | Description |
+|---|---|
+| `INPUT_PATH` | Raw-data root for channel splitting. The dispatcher looks for channels under `<INPUT_PATH>/<data_description.name>/SPIM`. It defaults to the parent folder of `DATA_PATH`, so set it if your dataset folder name differs from `data_description.json`'s `name`. |
+| `NG_BASE_URL`, `CCF_ANNOTATION_S3`, `CO_DOMAIN` | Neuroglancer base URL, CCF annotation volume and CodeOcean org URL used in result links |
+| `DATA_FOLDER`, `RESULTS_FOLDER` | Override the dispatcher's data/results folders |
+| `ALERT_BOT_LINK`, `API_SECRET`, `SES_TOKEN_PATH`, `SMARTSHEET_ID`, `SOURCE_EMAIL` | Teams alerts, CodeOcean token and email alerts. Exported into the dispatcher containers only when set. |
+
+The submit script passes the optional settings to the pipeline only when they are set. `make check-deploy` verifies that every variable in the example reaches the pipeline.
+
 Capsule versions are managed separately in `environment/versions.env` — do not set them in `deployment.env`.
 
 ### Submitting the pipeline
@@ -258,6 +269,7 @@ make test STUB=stub-direct   # same, on a machine without Java 17 / nf-test
 |---|---|---|
 | `make lint` | 0 | shellcheck on `environment/*.sh` and the submit script |
 | `make check-versions` | 0 | `pipeline/versions.config` matches `environment/versions.env` |
+| `make check-deploy` | 0 | every `deployment.env.example` setting reaches Nextflow; passed `--params` exist in `main_slurm_v3.nf`; exported variables are in `envWhitelist` |
 | `make versions` | — | regenerates `pipeline/versions.config` (then commit both files) |
 | `make parity` | 1 | CodeOcean wiring, capsule arguments and versions match `main_slurm_v3.nf`, apart from documented differences |
 | `make stub` | 1 | nf-test stub run of `main_slurm_v3.nf` on a 2-channel stub dataset: task count per process, published results |
@@ -271,7 +283,7 @@ Set `GITHUB_TOKEN` to avoid GitHub API rate limits in `make check-refs`.
 
 | Tier | Catches | Runs in CI |
 |---|---|---|
-| 0 Static | shell errors, stale `versions.config` | every PR (`ci.yml`) |
+| 0 Static | shell errors, stale `versions.config`, `deployment.env` settings that never reach the pipeline | every PR (`ci.yml`) |
 | 1 Wiring | broken channel wiring or fan-out in `main_slurm_v3.nf`; drift from the CodeOcean pipeline | every PR (`ci.yml`) |
 | 2 Artifacts | missing or unpublished image, tag, release or entrypoint | every PR (`ci.yml`) and nightly (`smoke.yml`) |
 | 3 Container smoke | code that doesn't import in its image; missing git or Java jars | PRs touching versions, pipelines or `.codeocean/`, plus nightly (`smoke.yml`) |
