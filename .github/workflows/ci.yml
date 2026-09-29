@@ -1,0 +1,73 @@
+name: CI
+
+# Fast checks (Tiers 0-2). Every job calls the same `make` target developers
+# run locally — see "Development and testing" in README.md.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  static:
+    name: Static checks (lint, versions)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get install -y shellcheck
+
+      - name: Lint shell scripts
+        run: make lint
+
+      - name: Check versions.config is up to date
+        run: make check-versions
+
+      - name: Check deployment.env, submit script and pipeline params agree
+        run: make check-deploy
+
+  wiring:
+    name: Wiring (CodeOcean parity, stub run)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check CodeOcean <-> SLURM parity
+        run: make parity
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Nextflow
+        uses: nf-core/setup-nextflow@v2
+        with:
+          version: "22.10.8"
+
+      - name: Install nf-test
+        run: |
+          wget -qO- https://code.askimed.com/install/nf-test | bash -s 0.9.5
+          echo "$PWD" >> "$GITHUB_PATH"
+
+      - name: Run stub tests
+        run: make stub
+
+  artifacts:
+    name: Artifacts (images, tags, releases, entrypoints)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check capsule images, releases and entrypoints
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: make check-refs

@@ -4,35 +4,52 @@
 #SBATCH --mem=4GB
 #SBATCH --time=24:00:00
 #SBATCH --partition=your_partition
+#
+# Override any SBATCH directive at submission time without editing this file:
+#   sbatch --partition=gpu --mem=8GB pipeline/submit_pipeline_to_slurm.sh
+#
+# This script is a fixed wrapper — edit pipeline/deployment.env instead.
 
-# Export the credentials for GHCR if images are private, not needed for SmartSPIM
-# export SINGULARITY_DOCKER_USERNAME=your_github_username
-# export SINGULARITY_DOCKER_PASSWORD=your_personal_access_token
+set -euo pipefail
 
-PIPELINE_PATH="/your/repo-pipeline/path"
-DATA_PATH="/path/to/your/data"
-RESULTS_PATH="/path/to/your/outputs"
-WORKDIR="/path/to/workdir"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Change this output path to a S3 path if AWS cloud compatibility is needed
-OUTPUT_PATH="/path/to/your/outputdir"
+# ── Load deployment settings (paths, cloud flag, optional dispatcher overrides).
+# DEPLOYMENT_ENV points at a different file (used by tests/check_submit_script.py).
+# shellcheck source=/dev/null
+source "${DEPLOYMENT_ENV:-${SCRIPT_DIR}/deployment.env}"
 
-# Template path
-TEMPLATE_PATH="/path/to/templatev2"
+# ── Optional pipeline parameters: passed only when set in deployment.env
+OPTIONAL_PARAMS=()
+add_param() { if [ -n "$2" ]; then OPTIONAL_PARAMS+=("$1" "$2"); fi; }
+add_param --input_path        "${INPUT_PATH:-}"
+add_param --ng_base_url       "${NG_BASE_URL:-}"
+add_param --ccf_annotation_s3 "${CCF_ANNOTATION_S3:-}"
+add_param --co_domain         "${CO_DOMAIN:-}"
+add_param --data_folder       "${DATA_FOLDER:-}"
+add_param --results_folder    "${RESULTS_FOLDER:-}"
 
-# Cell detection path
-CELL_MODELS_PATH="/path/to/production-models"
+# ── Optional dispatcher credentials and alert settings: exported only when set,
+# then forwarded into the containers by envWhitelist in nextflow_slurm.config
+for var in ALERT_BOT_LINK API_SECRET SES_TOKEN_PATH SMARTSHEET_ID SOURCE_EMAIL; do
+    if [ -n "${!var:-}" ]; then export "${var?}"; fi
+done
 
-# Setting cloud parameter - Useful if you want to store the results in a bucket
-CLOUD="false"
+# ── Generate the Nextflow versions config from environment/versions.env
+# (fast — runs on every submission so the pinned capsule versions are always current)
+"${PIPELINE_PATH}/environment/render_versions_config.sh" "${PIPELINE_PATH}/pipeline/versions.config"
 
-NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
-  -C $PIPELINE_PATH/pipeline/nextflow_slurm.config \
-  -log $RESULTS_PATH/nextflow/nextflow.log \
-  run $PIPELINE_PATH/pipeline/main_slurm_v3.nf \
-  -work-dir $WORKDIR \
-  --output_path $OUTPUT_PATH \
-  --template_path $TEMPLATE_PATH \
-  --cell_models_path $CELL_MODELS_PATH \
-  --cloud $CLOUD \
-  -resume
+# ── Run the pipeline (DATA_PATH / RESULTS_PATH come from deployment.env)
+export DATA_PATH RESULTS_PATH
+# -C takes a comma-separated list; any -c file is ignored when -C is used.
+NXF_VER=22.10.8 nextflow \
+    -C "${PIPELINE_PATH}/pipeline/nextflow_slurm.config,${PIPELINE_PATH}/pipeline/versions.config" \
+    -log "${RESULTS_PATH}/nextflow/nextflow.log" \
+    run "${PIPELINE_PATH}/pipeline/main_slurm_v3.nf" \
+    -work-dir "$WORKDIR" \
+    --output_path "$OUTPUT_PATH" \
+    --template_path "$TEMPLATE_PATH" \
+    --cell_models_path "$CELL_MODELS_PATH" \
+    --cloud "$CLOUD" \
+    ${OPTIONAL_PARAMS[@]+"${OPTIONAL_PARAMS[@]}"} \
+    -resume

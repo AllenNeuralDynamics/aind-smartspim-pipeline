@@ -13,6 +13,7 @@ ENV_PATH="$1"
 conda create --prefix "$ENV_PATH" python=3.8 -y
 
 # Activate the environment
+# shellcheck source=/dev/null
 source activate "$ENV_PATH"
 
 # Install the specified version of Nextflow
