@@ -5,6 +5,7 @@ Nextflow Script: SmartSPIM Pipeline
 Note: This pipeline works with ome.zarr files.
 
 This script executes the SmartSPIM pipeline, performing the following operations:
+0. Channel splitting (dispatcher split_channels)
 1. Retrospective flatfield correction
 2. Image horizontal destriping
 3. Flatfield correction
@@ -29,7 +30,8 @@ Date: April, 2025.
 
 nextflow.enable.dsl = 1
 
-// Capsule release versions are injected via pipeline/versions.config, which is
+// Capsule image tags (params.ver_*) and code release refs (params.ref_*) are injected
+// via pipeline/versions.config, which is
 // auto-generated from environment/versions.env by submit_pipeline_to_slurm.sh.
 
 // Optional dispatcher flags — all default to null.
@@ -41,10 +43,25 @@ params.ng_base_url        = null   // --ng-base-url        (Neuroglancer base UR
 params.ccf_annotation_s3  = null   // --ccf-annotation-s3  (S3 path to CCF annotations)
 params.co_domain          = null   // --co-domain          (CodeOcean domain)
 
-params.lightsheet_dataset = DATA_PATH
+// Raw data root handed to the dispatcher's split_channels mode. The dispatcher
+// looks for channels under <input_path>/<data_description.name>/SPIM, so this
+// defaults to the parent folder of DATA_PATH. In cloud mode pass the bucket name.
+params.input_path         = null
 
-println "DATA_PATH: ${DATA_PATH}"
-println "RESULTS_PATH: ${RESULTS_PATH}"
+// Dataset and results locations: --lightsheet_dataset / --results_path,
+// falling back to the DATA_PATH / RESULTS_PATH env vars set by submit_pipeline_to_slurm.sh
+params.lightsheet_dataset = System.getenv('DATA_PATH')
+params.results_path       = System.getenv('RESULTS_PATH')
+
+if (!params.lightsheet_dataset) {
+    exit 1, "Error: Missing dataset path. Set DATA_PATH or pass --lightsheet_dataset."
+}
+if (!params.results_path) {
+    exit 1, "Error: Missing results path. Set RESULTS_PATH or pass --results_path."
+}
+
+println "DATA_PATH: ${params.lightsheet_dataset}"
+println "RESULTS_PATH: ${params.results_path}"
 println "PARAMS: ${params}"
 
 // Retrieve keys from params
@@ -76,6 +93,9 @@ println "Output path: ${output_path}"
 println "Path for deep learning production models: ${cell_models_path}"
 println "Using cloud: ${cloud}"
 
+split_input_path = params.input_path ?: file(params.lightsheet_dataset).parent.toString()
+println "Raw data root for channel splitting: ${split_input_path}"
+
 // Build optional CLI flags for the dispatcher and clean_up processes.
 // Only appends a flag when the param was explicitly provided (non-null, non-empty).
 def _opt(flag, val) { val ? " ${flag} ${val}" : "" }
@@ -86,9 +106,14 @@ dispatcher_extra_args += _opt("--ccf-annotation-s3",  params.ccf_annotation_s3)
 dispatcher_extra_args += _opt("--co-domain",          params.co_domain)
 
 // Input Channels - Organized by data source and target process
+// Dataset to Channel Splitting (dispatcher split_channels)
+ch_dataset_to_split_metadata = channel.fromPath(params.lightsheet_dataset + "/*.json", type: 'any')
+ch_dataset_to_split_manifest = channel.fromPath(params.lightsheet_dataset + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+
 // Dataset to Destripe process
 ch_dataset_to_destripe_derivatives = channel.fromPath(params.lightsheet_dataset + "/SPIM/derivatives", type: 'any')
 ch_dataset_to_destripe_acquisition = channel.fromPath(params.lightsheet_dataset + "/acquisition.json", type: 'any')
+ch_dataset_to_destripe_data_description = channel.fromPath(params.lightsheet_dataset + "/data_description.json", type: 'any')
 ch_dataset_to_destripe_images = channel.fromPath(params.lightsheet_dataset + "/SPIM/Ex_*_Em_*", type: 'any')
 
 // Dataset to Stitching process
@@ -116,6 +141,12 @@ ch_dataset_to_registration_acquisition = channel.fromPath(params.lightsheet_data
 ch_models_to_classification = channel.fromPath(cell_models_path + "/", type: 'any')
 
 // Inter-process channels (organized by source -> target)
+// Channel Splitting -> Destripe
+ch_split_to_preprocessing = channel.create()
+
+// Channel Splitting -> Flatfield
+ch_split_to_flatfield = channel.create()
+
 // Flatfield -> Destripe
 ch_flatfield_to_destripe = channel.create()
 
@@ -173,9 +204,8 @@ ch_dispatcher_to_classification_description = channel.create()
 ch_dispatcher_to_classification_acquisition = channel.create()
 
 // Dispatcher -> Final Dispatcher
-ch_dispatcher_to_final_processing = channel.create()
 ch_dispatcher_to_final_manifest = channel.create()
-ch_dispatcher_to_final_description = channel.create()
+ch_dispatcher_to_final_metadata = channel.create()
 
 // Classification -> Quantification
 ch_classification_to_quantification = channel.create()
@@ -188,6 +218,56 @@ ch_segmentation_to_classification = channel.create()
 
 // Quantification -> Final Dispatcher
 ch_quantification_to_final = channel.create()
+
+// Splits the dataset into per-channel preprocess_<channel>.json configs
+process split_channels {
+    tag 'split-channels'
+    container "ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:${params.ver_dispatch}"
+
+    cpus 2
+    memory '16 GB'
+    time '1h'
+
+    input:
+    path 'capsule/data/input_aind_metadata/' from ch_dataset_to_split_metadata.collect()
+    path 'capsule/data/' from ch_dataset_to_split_manifest.collect()
+
+    output:
+    path 'capsule/results/preprocess_*.json' into ch_split_to_preprocessing
+    path 'capsule/results/*' into ch_split_to_flatfield
+
+    stub:
+    """
+    mkdir -p capsule/results
+    for channel in ${params.lightsheet_dataset}/SPIM/Ex_*_Em_*; do
+        touch "capsule/results/preprocess_\$(basename "\$channel").json"
+    done
+    """
+
+    script:
+    """
+    #!/usr/bin/env bash
+    set -e
+
+    mkdir -p capsule
+    mkdir -p capsule/data
+    mkdir -p capsule/results
+    mkdir -p capsule/scratch
+
+    echo "[${task.tag}] cloning git repo..."
+    git clone --depth 1 --branch ${params.ref_dispatch} \
+        "https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher.git" capsule-repo
+    mv capsule-repo/code capsule/code
+    rm -rf capsule-repo
+
+    echo "[${task.tag}] running capsule..."
+    cd capsule/code
+    chmod +x run
+    ./run split_channels ${cloud} ${split_input_path}${dispatcher_extra_args}
+
+    echo "[${task.tag}] completed!"
+    """
+}
 
 // Retrospective flatfield correction
 process flatfield_estimation {
@@ -202,6 +282,7 @@ process flatfield_estimation {
     path 'capsule/data/' from ch_dataset_to_flatfield_metadata.collect()
     path 'capsule/data/' from ch_dataset_to_flatfield_images.collect()
     path 'capsule/data/' from ch_dataset_to_flatfield_data_description.collect()
+    path 'capsule/data/' from ch_split_to_flatfield.collect()
 
     output:
     path 'capsule/results/*' into ch_flatfield_to_destripe
@@ -224,7 +305,7 @@ process flatfield_estimation {
     mkdir -p capsule/scratch
 
     echo "[${task.tag}] cloning git repo..."
-    git clone --depth 1 --branch ${params.ver_flatfield} \
+    git clone --depth 1 --branch ${params.ref_flatfield} \
         "https://github.com/AllenNeuralDynamics/aind-smartspim-flatfield-estimation.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
@@ -250,8 +331,10 @@ process preprocessing {
     input:
     path 'capsule/data/' from ch_dataset_to_destripe_derivatives.collect()
     path 'capsule/data/' from ch_dataset_to_destripe_acquisition.collect()
+    path 'capsule/data/' from ch_dataset_to_destripe_data_description.collect()
     path 'capsule/data/' from ch_dataset_to_destripe_images
     path 'capsule/data/' from ch_flatfield_to_destripe.collect()
+    path 'capsule/data/' from ch_split_to_preprocessing.collect()
 
     output:
     path 'capsule/results/destriped_data/Ex_*_Em_*' into ch_destripe_to_stitch
@@ -260,8 +343,12 @@ process preprocessing {
 
     stub:
     """
-    mkdir -p capsule/results/destriped_data/Ex_488_Em_525
-    touch capsule/results/image_destriping_stub.json
+    mkdir -p capsule/results
+    for channel in capsule/data/Ex_*_Em_*; do
+        name=\$(basename "\$channel")
+        mkdir -p "capsule/results/destriped_data/\$name"
+        touch "capsule/results/image_destriping_\$name.json"
+    done
     """
 
     script:
@@ -275,7 +362,7 @@ process preprocessing {
     mkdir -p capsule/scratch
 
     echo "[${task.tag}] cloning git repo..."
-    git clone --depth 1 --branch ${params.ver_preprocessing} \
+    git clone --depth 1 --branch ${params.ref_preprocessing} \
         "https://github.com/AllenNeuralDynamics/aind-smartspim-destripe.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
@@ -330,8 +417,11 @@ process stitching {
 
     export HOME=/root
 
+    # Mirrors the create_individual_zgroup capsule in the CodeOcean pipeline
+    echo '{"zarr_format": 2}' > capsule/data/preprocessed_data/.zgroup
+
     echo "[${task.tag}] cloning git repo..."
-    git clone --depth 1 --branch ${params.ver_stitch} \
+    git clone --depth 1 --branch ${params.ref_stitch} \
         "https://github.com/AllenNeuralDynamics/aind-smartspim-stitch.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
@@ -372,8 +462,12 @@ process fusion {
 
     stub:
     """
-    mkdir -p capsule/results/Ex_488_Em_525.zarr
-    touch capsule/results/fusion_metadata.json
+    mkdir -p capsule/results
+    for channel in capsule/data/preprocessed_data/Ex_*_Em_*; do
+        name=\$(basename "\$channel")
+        mkdir -p "capsule/results/\$name.zarr"
+        touch "capsule/results/fusion_metadata_\$name.json"
+    done
     """
 
     script:
@@ -389,7 +483,7 @@ process fusion {
     export HOME=/root
 
     echo "[${task.tag}] cloning git repo..."
-    git clone --depth 1 --branch ${params.ver_fuse} \
+    git clone --depth 1 --branch ${params.ref_fuse} \
         "https://github.com/AllenNeuralDynamics/aind-smartspim-fuse.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
@@ -440,8 +534,8 @@ process atlas_registration {
     ln -s "${template_path}" "capsule/data/lightsheet_template_ccf_registration"
 
     echo "[${task.tag}] cloning git repo..."
-    git clone --depth 1 --branch ${params.ver_registration} \
-        "https://github.com/AllenNeuralDynamics/aind-ccf-registration.git" capsule-repo
+    git clone --depth 1 --branch ${params.ref_registration} \
+        "https://github.com/AllenNeuralDynamics/aind-smartspim-ccf-registration.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -481,14 +575,15 @@ process dispatcher {
     path 'capsule/results/segmentation_processing_manifest_*.json' into ch_dispatcher_to_segmentation_manifest
     path 'capsule/results/output_aind_metadata/data_description.json' into ch_dispatcher_to_classification_description
     path 'capsule/results/output_aind_metadata/acquisition.json' into ch_dispatcher_to_classification_acquisition
-    path 'capsule/results/output_aind_metadata/processing.json' into ch_dispatcher_to_final_processing
     path 'capsule/results/modified_processing_manifest.json' into ch_dispatcher_to_final_manifest
-    path 'capsule/results/output_aind_metadata/data_description.json' into ch_dispatcher_to_final_description
+    path 'capsule/results/output_aind_metadata/*.json' into ch_dispatcher_to_final_metadata
 
     stub:
     """
     mkdir -p capsule/results/output_aind_metadata
-    touch capsule/results/segmentation_processing_manifest_stub.json
+    for fused in capsule/data/fused/Ex_*_Em_*.zarr; do
+        touch "capsule/results/segmentation_processing_manifest_\$(basename "\$fused" .zarr).json"
+    done
     touch capsule/results/output_aind_metadata/data_description.json
     touch capsule/results/output_aind_metadata/acquisition.json
     touch capsule/results/output_aind_metadata/processing.json
@@ -506,8 +601,8 @@ process dispatcher {
     mkdir -p capsule/scratch
 
     echo "[${task.tag}] cloning git repo..."
-    git clone --depth 1 --branch ${params.ver_dispatch} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher.git" capsule-repo
+    git clone --depth 1 --branch ${params.ref_dispatch} \
+        "https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 
@@ -543,8 +638,8 @@ process cell_proposals {
 
     stub:
     """
-    mkdir -p capsule/results
-    touch capsule/results/cell_proposals_stub.xml
+    manifest=\$(basename capsule/data/segmentation_processing_manifest_*.json .json)
+    mkdir -p "capsule/results/proposals_\${manifest#segmentation_processing_manifest_}"
     """
 
     script:
@@ -569,7 +664,7 @@ process cell_proposals {
     python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')" || echo "PyTorch not available"
 
     echo "[${task.tag}] cloning git repo..."
-    git clone --depth 1 --branch ${params.ver_detection} \
+    git clone --depth 1 --branch ${params.ref_detection} \
         "https://github.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
@@ -609,7 +704,9 @@ process cell_classification {
     stub:
     """
     mkdir -p capsule/results
-    touch capsule/results/classified_cells_stub.csv
+    for proposals in capsule/data/proposals_*; do
+        mkdir -p "capsule/results/cell_\${proposals##*/proposals_}"
+    done
     """
 
     script:
@@ -623,7 +720,7 @@ process cell_classification {
     mkdir -p capsule/scratch
 
     echo "[${task.tag}] cloning git repo..."
-    git clone --depth 1 --branch ${params.ver_classification} \
+    git clone --depth 1 --branch ${params.ref_classification} \
         "https://github.com/AllenNeuralDynamics/aind-smartspim-classification.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
@@ -659,8 +756,8 @@ process cell_quantification {
 
     stub:
     """
-    mkdir -p capsule/results
-    touch capsule/results/cell_quantification_stub.csv
+    manifest=\$(basename capsule/data/segmentation_processing_manifest_*.json .json)
+    mkdir -p "capsule/results/quant_\${manifest#segmentation_processing_manifest_}"
     """
 
     script:
@@ -676,7 +773,7 @@ process cell_quantification {
     ln -s "${template_path}" "capsule/data/lightsheet_template_ccf_registration"
 
     echo "[${task.tag}] cloning git repo..."
-    git clone --depth 1 --branch ${params.ver_quantification} \
+    git clone --depth 1 --branch ${params.ref_quantification} \
         "https://github.com/AllenNeuralDynamics/aind-smartspim-quantification.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
@@ -684,7 +781,7 @@ process cell_quantification {
     echo "[${task.tag}] running capsule..."
     cd capsule/code
     chmod +x run
-    ./run detect
+    ./run detect ${output_path}
 
     echo "[${task.tag}] completed!"
     """
@@ -699,12 +796,11 @@ process clean_up {
     memory '64 GB'
     time '24h'
 
-    publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
+    publishDir "${params.results_path}", saveAs: { filename -> new File(filename).getName() }
 
     input:
-    path 'capsule/data/input_aind_metadata/' from ch_dispatcher_to_final_processing.collect()
     path 'capsule/data/' from ch_dispatcher_to_final_manifest.collect()
-    path 'capsule/data/input_aind_metadata/' from ch_dispatcher_to_final_description.collect()
+    path 'capsule/data/input_aind_metadata/' from ch_dispatcher_to_final_metadata.collect()
     path 'capsule/data/' from ch_classification_to_final.collect()
     path 'capsule/data/' from ch_quantification_to_final.collect()
 
@@ -728,8 +824,8 @@ process clean_up {
     mkdir -p capsule/scratch
 
     echo "[${task.tag}] cloning git repo..."
-    git clone --depth 1 --branch ${params.ver_dispatch} \
-        "https://github.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher.git" capsule-repo
+    git clone --depth 1 --branch ${params.ref_dispatch} \
+        "https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher.git" capsule-repo
     mv capsule-repo/code capsule/code
     rm -rf capsule-repo
 

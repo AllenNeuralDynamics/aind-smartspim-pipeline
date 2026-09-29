@@ -1,7 +1,6 @@
 nextflow_pipeline {
     name "SmartSPIM pipeline — real 2-tile integration"
     script "pipeline/main_slurm_v3.nf"
-    config "tests/ci.config"
 
     // DEACTIVATED: requires a self-hosted GPU runner + AWS credentials.
     //
@@ -20,15 +19,11 @@ nextflow_pipeline {
         when {
             params {
                 lightsheet_dataset = "s3://aind-open-data/test/SmartSPIM_test_2tiles"
+                results_path       = "${outputDir}/nextflow"
                 output_path        = "${outputDir}/processed"
                 template_path      = "s3://aind-open-data/SmartSPIM-template_2024-05-16_11-26-14"
                 cell_models_path   = "s3://aind-benchmark-data/mesoscale-anatomy-cell-detection/models/smartspim_production_models"
                 cloud              = "false"
-            }
-            process {
-                """
-                env RESULTS_PATH = "${outputDir}/nextflow"
-                """
             }
         }
         then {

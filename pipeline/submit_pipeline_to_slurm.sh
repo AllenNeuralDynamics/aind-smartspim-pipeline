@@ -18,29 +18,13 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "${SCRIPT_DIR}/deployment.env"
 
-# ── Load capsule release tags (single source of truth)
-# shellcheck source=../environment/versions.env
-source "${PIPELINE_PATH}/environment/versions.env"
+# ── Generate the Nextflow versions config from environment/versions.env
+# (fast — runs on every submission so the pinned capsule versions are always current)
+"${PIPELINE_PATH}/environment/render_versions_config.sh" "${PIPELINE_PATH}/pipeline/versions.config"
 
-# ── Generate the Nextflow versions config (fast — runs on every submission)
-cat > "${PIPELINE_PATH}/pipeline/versions.config" <<EOF
-// AUTO-GENERATED on every submission from environment/versions.env — do not edit by hand.
-// To update versions: edit environment/versions.env, then re-submit (or commit versions.config).
-params {
-    ver_flatfield      = "${FLATFIELD_EST_VERSION}"
-    ver_preprocessing  = "${PREPROCESSING_VERSION}"
-    ver_stitch         = "${STITCH_VERSION}"
-    ver_fuse           = "${FUSE_VERSION}"
-    ver_registration   = "${REGISTRATION_VERSION}"
-    ver_dispatch       = "${DISPATCHER_VERSION}"
-    ver_detection      = "${CELL_DETECTION_VERSION}"
-    ver_classification = "${CELL_CLASSIFICATION_VERSION}"
-    ver_quantification = "${CELL_QUANTIFICATION_VERSION}"
-}
-EOF
-
-# ── Run the pipeline
-NXF_VER=22.10.8 DATA_PATH=$DATA_PATH RESULTS_PATH=$RESULTS_PATH nextflow \
+# ── Run the pipeline (DATA_PATH / RESULTS_PATH come from deployment.env)
+export DATA_PATH RESULTS_PATH
+NXF_VER=22.10.8 nextflow \
     -C "${PIPELINE_PATH}/pipeline/nextflow_slurm.config" \
     -c "${PIPELINE_PATH}/pipeline/versions.config" \
     -log "${RESULTS_PATH}/nextflow/nextflow.log" \

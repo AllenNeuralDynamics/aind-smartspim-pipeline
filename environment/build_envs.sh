@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BRANCH="dev"
+BRANCH="main"
 DOCKER_BUILD_PARAMS="--no-cache"
 # shellcheck source=versions.env
 source "${SCRIPT_DIR}/versions.env"

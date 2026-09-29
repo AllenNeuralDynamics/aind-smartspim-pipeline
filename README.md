@@ -5,7 +5,7 @@ Nextflow pipeline for processing SmartSPIM light-sheet microscopy datasets on SL
 - [aind-smartspim-destripe](https://github.com/AllenNeuralDynamics/aind-smartspim-destripe): Removes horizontal streaks from individual 2D tiles using a wavelet-based filtering algorithm and applies flat field correction (estimated retrospectively if not provided).
 - [aind-smartspim-stitch](https://github.com/AllenNeuralDynamics/aind-smartspim-stitch): Estimates tile stitching transformations for the whole dataset to allow reconstruction.
 - [aind-smartspim-fuse](https://github.com/AllenNeuralDynamics/aind-smartspim-fuse): Reconstructs the dataset from stitching transformations. Output is OMEZarr format.
-- [aind-ccf-registration](https://github.com/AllenNeuralDynamics/aind-ccf-registration): Registers datasets to the Allen CCFv3 atlas using the third multiscale.
+- [aind-smartspim-ccf-registration](https://github.com/AllenNeuralDynamics/aind-smartspim-ccf-registration): Registers datasets to the Allen CCFv3 atlas using the third multiscale.
 - [aind-smartspim-pipeline-dispatcher](https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline-dispatcher): Copies fused data to the destination, creates processing metadata ([aind-data-schema](https://github.com/AllenNeuralDynamics/aind-data-schema)), and generates Neuroglancer visualization links.
 - [aind-smartspim-segmentation](https://github.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation): Chunked cell proposals using an optimized DoG. Generates Neuroglancer links for visualization.
 - [aind-smartspim-classification](https://github.com/AllenNeuralDynamics/aind-smartspim-classification): Cell classification of cell proposals using a fine-tuned [cellfinder](https://github.com/brainglobe/cellfinder) model.
@@ -113,7 +113,7 @@ Before deployment, ensure the following tools are installed and accessible on th
 | [Singularity](https://docs.sylabs.io/guides/3.0/user-guide/installation.html) / [Apptainer](https://apptainer.org/docs/user/main/quick_start.html) | any recent | Container runtime on HPC compute nodes |
 | [conda](https://docs.conda.io/projects/conda/en/stable/user-guide/install/) or [mamba](https://mamba.readthedocs.io/) | any recent | Required by `environment/create_slurm_env.sh` |
 
-**Pipeline script to use:** `pipeline/main_slurm_v3.nf` (current production version). `main_slurm_v2.nf` is retained for historical reference.
+**Pipeline script to use:** `pipeline/main_slurm_v3.nf` (current production version). `main_slurm_v2.nf` is deprecated, untested and kept only for historical reference.
 
 # Approximate runtimes
 
@@ -223,31 +223,75 @@ Pre-build all images with `environment/create_singularity_containers.sh` and pla
 This pipeline is currently using Nextflow DSL1. Currently, this version is not supported by Nextflow and we will be migrating the nextflow script to DSL2 in a future release. Please, follow this [issue](https://github.com/AllenNeuralDynamics/aind-smartspim-pipeline/issues/7) for more information.
 ---
 
-# Local pipeline testing (stub run)
+# Development and testing
 
-You can verify that the pipeline DAG and channel wiring are correct on any machine — no GPU, no HPC, no containers required. The `-stub-run` flag makes each process execute its `stub:` block (creates empty placeholder outputs) instead of cloning repos or running real computation.
+The repo has two pipelines that must stay in sync:
+- **`pipeline/main.nf`**: runs on CodeOcean / AWS Batch. CodeOcean generates it from `.codeocean/nextflow.json`; never edit or lint it by hand.
+- **`pipeline/main_slurm_v3.nf`**: runs on SLURM and is maintained by hand. Every check below targets it.
+
+`pipeline/main_slurm_v2.nf` is deprecated and untested.
+
+All checks run through `make`, and CI runs the same targets, so a local run matches CI.
+
+## Prerequisites
+
+| Tool | Version | Needed for |
+|---|---|---|
+| Python | 3.9+ (standard library only) | every check |
+| [shellcheck](https://www.shellcheck.net/) | any recent | `make lint` |
+| [Nextflow](https://www.nextflow.io/docs/latest/install.html) | 22.10.8 (the Makefile pins `NXF_VER`) | `make stub`, `make stub-direct` |
+| Java | 17 for nf-test; 11+ for `stub-direct` | stub runs |
+| [nf-test](https://www.nf-test.com/) | 0.9.5 | `make stub` |
+| Docker | any recent | `make smoke` only |
+
+Install nf-test into the current directory with `curl -fsSL https://code.askimed.com/install/nf-test | bash -s 0.9.5`. No GPU, HPC or data is needed for anything except the smoke tests.
+
+## Commands
 
 ```bash
-NXF_VER=22.10.8 \
-DATA_PATH="$(pwd)/tests/stub_data/dataset" \
-RESULTS_PATH="/tmp/nf-smartspim-test" \
-nextflow run pipeline/main_slurm_v3.nf \
-  -stub-run \
-  -c tests/ci.config \
-  -c pipeline/versions.config \
-  --output_path /tmp/nf-smartspim-test/processed \
-  --template_path "$(pwd)/tests/stub_data/template" \
-  --cell_models_path "$(pwd)/tests/stub_data/models" \
-  --cloud false \
-  -work-dir /tmp/nf-smartspim-work
+make                    # list targets
+make test               # every fast check (Tiers 0-2); run before every push
+make test STUB=stub-direct   # same, on a machine without Java 17 / nf-test
 ```
 
-`pipeline/versions.config` is auto-generated from `environment/versions.env` on every submission and is committed to the repo as a snapshot, so stub runs work immediately without running the submit script.
+| Target | Tier | What it checks |
+|---|---|---|
+| `make lint` | 0 | shellcheck on `environment/*.sh` and the submit script |
+| `make check-versions` | 0 | `pipeline/versions.config` matches `environment/versions.env` |
+| `make versions` | — | regenerates `pipeline/versions.config` (then commit both files) |
+| `make parity` | 1 | CodeOcean wiring, capsule arguments and versions match `main_slurm_v3.nf`, apart from documented differences |
+| `make stub` | 1 | nf-test stub run of `main_slurm_v3.nf` on a 2-channel stub dataset: task count per process, published results |
+| `make stub-direct` | 1 | the same stub run with plain Nextflow (no nf-test) |
+| `make check-refs` | 2 | for every process: image tag on GHCR, `linux/amd64` build, git tag, GitHub Release, entrypoint at that tag |
+| `make smoke [CAPSULE="stitching fusion"]` | 3 | pulls each image, clones the pinned code inside it and imports its entrypoint (catches new code on an old image) |
 
-A successful run prints all 10 processes as `COMPLETED` and takes a few seconds. This is the same test that runs automatically on every pull request in CI.
+Set `GITHUB_TOKEN` to avoid GitHub API rate limits in `make check-refs`.
 
-> [!NOTE]
-> The stub run does **not** validate scientific correctness, container contents, or network access — it only checks that all channels connect correctly and the workflow completes without errors. Use the integration test with real data for end-to-end validation.
+## Test tiers
+
+| Tier | Catches | Runs in CI |
+|---|---|---|
+| 0 Static | shell errors, stale `versions.config` | every PR (`ci.yml`) |
+| 1 Wiring | broken channel wiring or fan-out in `main_slurm_v3.nf`; drift from the CodeOcean pipeline | every PR (`ci.yml`) |
+| 2 Artifacts | missing or unpublished image, tag, release or entrypoint | every PR (`ci.yml`) and nightly (`smoke.yml`) |
+| 3 Container smoke | code that doesn't import in its image; missing git or Java jars | PRs touching versions, pipelines or `.codeocean/`, plus nightly (`smoke.yml`) |
+| 4 Synthetic data *(planned)* | end-to-end failures of the real capsules on a small generated dataset | manual / weekly on a GPU runner or SLURM (`integration.yml`, disabled) |
+| 5 Real data *(planned)* | scientific regressions on TB-scale benchmark brains | manual, before pipeline releases; never in PR CI |
+
+The stub run does **not** check scientific correctness, container contents or network access; Tiers 2-3 cover artifacts and containers, and Tiers 4-5 will cover real data (see [docs/testing_roadmap.md](docs/testing_roadmap.md)).
+
+## Bumping a capsule
+
+1. Cut a GitHub Release in the capsule repo.
+2. Build and push the image with `environment/build_envs.sh` and `environment/push_envs.sh`.
+3. In `environment/versions.env`, set both the image tag (`*_VERSION`) and the code release (`*_REF`). They can differ: stitch uses image `si-1.2.9` with code `v1.2.9`.
+4. Run `make versions test`, and `make smoke CAPSULE=<process>` if docker is available.
+5. If CodeOcean isn't bumped at the same time, `make parity` reports the version drift. Add it to `tests/parity_allowlist.json` with a reason, and remove the entry once CodeOcean catches up.
+6. Open a PR. The smoke tests run automatically because `versions.env` changed.
+
+## Keeping SLURM in sync with CodeOcean
+
+After CodeOcean re-exports `main.nf` and `.codeocean/nextflow.json`, run `make parity`. Each reported difference either needs a fix in `main_slurm_v3.nf`, or an entry in `tests/parity_allowlist.json` explaining why SLURM differs, for example local data staging or bucket arguments. Allowlist entries that no longer match anything also fail, so the list stays current.
 
 # Datasets for pipeline processing
 
