@@ -1,0 +1,7 @@
+{
+    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
+    "schema_version": "0.13.3",
+    "name": "SmartSPIM_000000_2025-01-01_00-00-00",
+    "institution": "AIND",
+    "data_level": "raw"
+}

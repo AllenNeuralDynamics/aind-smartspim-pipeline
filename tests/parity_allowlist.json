@@ -1,0 +1,80 @@
+{
+  "process_map": {
+    "aind-smartspim-flatfield-estimation": "flatfield_estimation",
+    "aind-smartspim-destripe-shadow-correction": "preprocessing",
+    "aind-smartspim-stitch": "stitching",
+    "aind-smartspim-fuse": "fusion",
+    "aind-smartspim-ccf-registration": "atlas_registration",
+    "aind-smartspim-pipeline-dispatcher": {
+      "split_channels": "split_channels",
+      "dispatch": "dispatcher",
+      "clean": "clean_up"
+    },
+    "aind-smartspim-cell-segmentation": "cell_proposals",
+    "aind-smartspim-classification": "cell_classification",
+    "aind-smartspim-cell-quantification": "cell_quantification",
+    "Create individual .zgroup": null
+  },
+  "allowed": [
+    {
+      "key": "missing-process:capsule_create_individual_zgroup_12",
+      "reason": "SLURM writes preprocessed_data/.zgroup inline in the stitching script instead of running a separate capsule."
+    },
+    {
+      "key": "missing-edge:stitching:<co:capsule_create_individual_zgroup_12>:zgroup_folder/.zgroup -> preprocessed_data [collect]",
+      "reason": "Same as above: the .zgroup is created inline in stitching."
+    },
+    {
+      "key": "missing-edge:atlas_registration:template:* -> lightsheet_template_ccf_registration [collect]",
+      "reason": "SLURM symlinks params.template_path into capsule/data instead of staging the template dataset."
+    },
+    {
+      "key": "missing-edge:cell_quantification:template:* -> lightsheet_template_ccf_registration [collect]",
+      "reason": "SLURM symlinks params.template_path into capsule/data instead of staging the template dataset."
+    },
+    {
+      "key": "extra-edge:flatfield_estimation:dataset:SPIM/Ex_*_Em_* -> . [collect]",
+      "reason": "SLURM reads raw tiles from local storage; staging them keeps the paths bind-mounted in Singularity. CO reads them from S3."
+    },
+    {
+      "key": "extra-edge:preprocessing:dataset:SPIM/Ex_*_Em_* -> . [-]",
+      "reason": "SLURM fans preprocessing out per staged local channel folder (destripe's local mode globs Ex_* in the data folder). CO reads channels from S3."
+    },
+    {
+      "key": "missing-edge:preprocessing:split_channels:preprocess_*.json -> . [flatten]",
+      "reason": "In SLURM the per-channel fan-out comes from the staged channel folders, so the preprocess_*.json files are collected rather than flattened."
+    },
+    {
+      "key": "extra-edge:preprocessing:split_channels:preprocess_*.json -> . [collect]",
+      "reason": "Destripe requires preprocess_*.json to exist; in local mode it takes the channel from the staged folder, so all configs are passed to each job."
+    },
+    {
+      "key": "arguments:preprocessing:co='aind-open-data' slurm=''",
+      "reason": "No bucket: destripe runs in local mode and reads the staged channel folder."
+    },
+    {
+      "key": "arguments:split_channels:co='split_channels true aind-open-data' slurm='split_channels ${cloud} ${split_input_path}${dispatcher_extra_args}'",
+      "reason": "SLURM passes the cloud flag, the local raw-data root and optional dispatcher overrides instead of a hard-coded S3 bucket."
+    },
+    {
+      "key": "arguments:dispatcher:co='dispatch true aind-scratch-data' slurm='dispatch ${cloud} ${output_path}${dispatcher_extra_args}'",
+      "reason": "SLURM passes the cloud flag, the deployment output path and optional dispatcher overrides instead of a hard-coded S3 bucket."
+    },
+    {
+      "key": "arguments:clean_up:co='clean true aind-scratch-data' slurm='clean ${cloud} ${output_path}${dispatcher_extra_args}'",
+      "reason": "SLURM passes the cloud flag, the deployment output path and optional dispatcher overrides instead of a hard-coded S3 bucket."
+    },
+    {
+      "key": "arguments:cell_quantification:co='detect aind-open-data' slurm='detect ${output_path}'",
+      "reason": "Quantification needs a bucket/path argument; on SLURM the fused data lives under the deployment output path."
+    },
+    {
+      "key": "version:cell_proposals:co=1.0.3 slurm=1.0.4",
+      "reason": "SLURM already runs segmentation release si-1.0.4. Remove this entry once the CodeOcean capsule is bumped to 1.0.4."
+    },
+    {
+      "key": "version:cell_classification:co=0.1.1 slurm=0.1.2",
+      "reason": "SLURM already runs classification release 0.1.2. Remove this entry once the CodeOcean capsule is bumped to 0.1.2."
+    }
+  ]
+}

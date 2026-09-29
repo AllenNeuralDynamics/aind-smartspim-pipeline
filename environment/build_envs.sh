@@ -1,32 +1,60 @@
-# Download the Dockerfiles
-wget -O Dockerfile_flat_est https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-flatfield-estimation/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
-docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-flatfield-estimation:si-0.0.1 -f Dockerfile_flat_est .
+#!/usr/bin/env bash
+# Build Docker images for all pipeline capsules.
+# Versions and repositories are defined in versions.env — edit that file to bump a capsule.
 
-wget -O Dockerfile_preprocessing https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-destripe/refs/heads/feat-slurm-pipeline-v3/environment/Dockerfile_local
-docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-preprocessing:si-0.0.4 -f Dockerfile_preprocessing .
+set -euo pipefail
 
-wget -O Dockerfile_stitch https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-stitch/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
-wget -O postInstall https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-stitch/refs/heads/feat-slurm-deployment/environment/postInstall
-docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-stitch:si-1.2.7 -f Dockerfile_stitch .
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BRANCH="main"
+DOCKER_BUILD_PARAMS="--no-cache"
+# shellcheck source=versions.env
+source "${SCRIPT_DIR}/versions.env"
 
-wget -O Dockerfile_registration https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-ccf-registration/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
-docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-registration:si-0.0.31 -f Dockerfile_registration .
+# Raw-file URL for environment/<file> on ${BRANCH} of a capsule repo (the *_REPO clone URLs in versions.env)
+raw_url() {
+    local slug="${1#https://github.com/}"
+    echo "https://raw.githubusercontent.com/${slug%.git}/refs/heads/${BRANCH}/environment/$2"
+}
 
-wget -O Dockerfile_fuse https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-fuse/refs/heads/fix-multiscale-fusion/environment/Dockerfile_local
-wget -O postInstall https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-fuse/refs/heads/fix-multiscale-fusion/environment/postInstall
-docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-fuse:si-0.0.4 -f Dockerfile_fuse .
+wget -O Dockerfile_flat_est \
+    "$(raw_url "${FLATFIELD_EST_REPO}" Dockerfile_local)"
+docker build ${DOCKER_BUILD_PARAMS} -t "ghcr.io/allenneuraldynamics/aind-smartspim-flatfield-estimation:${FLATFIELD_EST_VERSION}" -f Dockerfile_flat_est .
 
-wget -O Dockerfile_dispatcher https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-external-dispatcher/refs/heads/feat-v3-deployment/environment/Dockerfile_local
-docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:si-1.0.1 -f Dockerfile_dispatcher .
+wget -O Dockerfile_preprocessing \
+    "$(raw_url "${PREPROCESSING_REPO}" Dockerfile_local)"
+docker build ${DOCKER_BUILD_PARAMS} -t "ghcr.io/allenneuraldynamics/aind-smartspim-preprocessing:${PREPROCESSING_VERSION}" -f Dockerfile_preprocessing .
 
-wget -O Dockerfile_cell_detection https://raw.githubusercontent.com/AllenNeuralDynamics/aind-SmartSPIM-segmentation/refs/heads/feat-fast-detection/environment/Dockerfile_local
-docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:si-1.0.0 -f Dockerfile_cell_detection .
+wget -O Dockerfile_stitch \
+    "$(raw_url "${STITCH_REPO}" Dockerfile_local)"
+wget -O postInstall \
+    "$(raw_url "${STITCH_REPO}" postInstall)"
+docker build ${DOCKER_BUILD_PARAMS} -t "ghcr.io/allenneuraldynamics/aind-smartspim-stitch:${STITCH_VERSION}" -f Dockerfile_stitch .
 
-wget -O Dockerfile_cell_classification https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-classification/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
-docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-cell-classification:si-0.0.6 -f Dockerfile_cell_classification .
+wget -O Dockerfile_registration \
+    "$(raw_url "${REGISTRATION_REPO}" Dockerfile_local)"
+docker build ${DOCKER_BUILD_PARAMS} -t "ghcr.io/allenneuraldynamics/aind-smartspim-registration:${REGISTRATION_VERSION}" -f Dockerfile_registration .
 
-wget -O Dockerfile_cell_quantification https://raw.githubusercontent.com/AllenNeuralDynamics/aind-smartspim-quantification/refs/heads/feat-slurm-deployment/environment/Dockerfile_local
-docker build -t ghcr.io/allenneuraldynamics/aind-smartspim-cell-quantification:si-1.6.1 -f Dockerfile_cell_quantification .
+wget -O Dockerfile_fuse \
+    "$(raw_url "${FUSE_REPO}" Dockerfile_local)"
+wget -O postInstall \
+    "$(raw_url "${FUSE_REPO}" postInstall)"
+docker build ${DOCKER_BUILD_PARAMS} -t "ghcr.io/allenneuraldynamics/aind-smartspim-fuse:${FUSE_VERSION}" -f Dockerfile_fuse .
+
+wget -O Dockerfile_dispatcher \
+    "$(raw_url "${DISPATCHER_REPO}" Dockerfile_local)"
+docker build ${DOCKER_BUILD_PARAMS} -t "ghcr.io/allenneuraldynamics/aind-smartspim-dispatch:${DISPATCHER_VERSION}" -f Dockerfile_dispatcher .
+
+wget -O Dockerfile_cell_detection \
+    "$(raw_url "${CELL_DETECTION_REPO}" Dockerfile_local)"
+docker build ${DOCKER_BUILD_PARAMS} -t "ghcr.io/allenneuraldynamics/aind-smartspim-cell-detection:${CELL_DETECTION_VERSION}" -f Dockerfile_cell_detection .
+
+wget -O Dockerfile_cell_classification \
+    "$(raw_url "${CELL_CLASSIFICATION_REPO}" Dockerfile_local)"
+docker build ${DOCKER_BUILD_PARAMS} -t "ghcr.io/allenneuraldynamics/aind-smartspim-cell-classification:${CELL_CLASSIFICATION_VERSION}" -f Dockerfile_cell_classification .
+
+wget -O Dockerfile_cell_quantification \
+    "$(raw_url "${CELL_QUANTIFICATION_REPO}" Dockerfile_local)"
+docker build ${DOCKER_BUILD_PARAMS} -t "ghcr.io/allenneuraldynamics/aind-smartspim-cell-quantification:${CELL_QUANTIFICATION_VERSION}" -f Dockerfile_cell_quantification .
 
 rm Dockerfile_*
 rm postInstall

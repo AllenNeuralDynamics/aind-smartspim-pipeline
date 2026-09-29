@@ -1,0 +1,68 @@
+name: Container smoke tests
+
+# Tier 3: pulls every pinned capsule image and imports the pinned code inside
+# it (catches new code on an old image). Runs when versions or pipelines
+# change, and nightly to catch images, tags or releases that were deleted or
+# retagged after merge.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - environment/versions.env
+      - pipeline/versions.config
+      - pipeline/main*.nf
+      - .codeocean/**
+      - tests/smoke_capsule.py
+      - .github/workflows/smoke.yml
+  schedule:
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refs:
+    name: Artifacts (images, tags, releases, entrypoints)
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check capsule images, releases and entrypoints
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: make check-refs
+
+  smoke:
+    name: Smoke (${{ matrix.capsule }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        # One process per unique image; split_channels covers the dispatcher,
+        # which also backs dispatcher and clean_up.
+        capsule:
+          - split_channels
+          - flatfield_estimation
+          - preprocessing
+          - stitching
+          - fusion
+          - atlas_registration
+          - cell_proposals
+          - cell_classification
+          - cell_quantification
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space for large images
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          docker system prune -af
+          df -h /
+
+      - name: Smoke test ${{ matrix.capsule }}
+        run: make smoke CAPSULE=${{ matrix.capsule }}

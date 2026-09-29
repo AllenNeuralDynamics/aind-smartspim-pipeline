@@ -1,0 +1,44 @@
+name: Integration Test
+
+# DISABLED — activate by:
+#   1. Removing the 'if: false' line in the job definition below.
+#   2. Registering a self-hosted runner labeled 'gpu' on a node with
+#      Singularity, NVIDIA GPU + CUDA drivers, and SLURM access.
+#   3. Adding AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as repo secrets.
+#   4. Uploading the 2-tile test dataset to S3 (see tests/integration/pipeline.nf.test).
+#   5. Removing the skip() guard from tests/integration/pipeline.nf.test.
+
+on:
+  workflow_dispatch:   # manual trigger only until activated
+
+jobs:
+  integration:
+    # Self-hosted runner requirements:
+    #   - Label: gpu
+    #   - OS: Linux x86-64
+    #   - Singularity / Apptainer installed
+    #   - NVIDIA GPU with working CUDA drivers
+    #   - Access to a SLURM cluster (or run locally if resources allow)
+    runs-on: [self-hosted, linux, gpu]
+    timeout-minutes: 240   # 4 h ceiling — typical pipeline run is ~3 h
+    if: false              # ← remove this line to activate
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Nextflow
+        uses: nf-core/setup-nextflow@v2
+        with:
+          version: "22.10.8"
+
+      - name: Install nf-test
+        run: |
+          wget -qO- https://code.askimed.com/install/nf-test | bash
+          echo "$HOME/.nf-test/bin" >> "$GITHUB_PATH"
+
+      - name: Run integration test
+        env:
+          AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION:    us-east-1
+        run: nf-test test tests/integration/ --profile slurm_ci

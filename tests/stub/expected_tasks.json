@@ -1,0 +1,14 @@
+{
+  "_comment": "Expected task count per process for the 2-channel stub dataset (tests/stub_data). Per-channel processes run twice. Read by tests/stub/pipeline.nf.test and tests/check_stub_trace.py.",
+  "split_channels": 1,
+  "flatfield_estimation": 1,
+  "preprocessing": 2,
+  "stitching": 1,
+  "fusion": 2,
+  "atlas_registration": 1,
+  "dispatcher": 1,
+  "cell_proposals": 2,
+  "cell_classification": 2,
+  "cell_quantification": 2,
+  "clean_up": 1
+}

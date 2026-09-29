@@ -1,0 +1,36 @@
+nextflow_pipeline {
+    name "SmartSPIM pipeline — stub run"
+    script "pipeline/main_slurm_v3.nf"
+
+    // Verifies the DAG wires up correctly using Nextflow stub mode.
+    // No containers, no network access, no real data required.
+    // Run with: make stub   (or: nf-test test tests/stub/ --profile ci)
+    test("2-channel stub run fans out per channel and publishes results") {
+        options "-stub-run"
+
+        when {
+            params {
+                lightsheet_dataset = "${baseDir}/tests/stub_data/dataset"
+                results_path       = "${outputDir}/nextflow"
+                output_path        = "${outputDir}/processed"
+                template_path      = "${baseDir}/tests/stub_data/template"
+                cell_models_path   = "${baseDir}/tests/stub_data/models"
+                cloud              = "false"
+            }
+        }
+        then {
+            assert workflow.success
+
+            // Same expectations as `make stub-direct` (tests/check_stub_trace.py)
+            def expected = new groovy.json.JsonSlurper()
+                .parse(file("${baseDir}/tests/stub/expected_tasks.json"))
+                .findAll { k, v -> !k.startsWith("_") }
+            def actual = workflow.trace.tasks()
+                .collect { it.name.tokenize(" ")[0] }
+                .countBy { it }
+            assert actual == expected
+
+            assert path("${outputDir}/nextflow/processing.json").exists()
+        }
+    }
+}
