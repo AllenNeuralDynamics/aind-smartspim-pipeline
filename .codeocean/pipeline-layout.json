@@ -301,7 +301,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "de997ea8-f900-4eef-8432-7d6726a579ae"
+				"capsule_id": "61ffdab7-797a-4022-9b9e-8792ad843cd3"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_103_6",
 			"position": {
@@ -358,7 +358,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "de997ea8-f900-4eef-8432-7d6726a579ae"
+				"capsule_id": "61ffdab7-797a-4022-9b9e-8792ad843cd3"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_103_11",
 			"position": {
@@ -370,7 +370,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "de997ea8-f900-4eef-8432-7d6726a579ae"
+				"capsule_id": "61ffdab7-797a-4022-9b9e-8792ad843cd3"
 			},
 			"id": "capsule_aind_smartspim_pipeline_dispatcher_103_13",
 			"position": {
@@ -381,10 +381,10 @@
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1771971944656,
+	"timestamp": 1790878667882,
 	"viewport": {
-		"x": 746.1357363007075,
-		"y": -416.9182210377289,
+		"x": 485.13573630070755,
+		"y": -216.91822103772893,
 		"zoom": 0.3
 	}
 }

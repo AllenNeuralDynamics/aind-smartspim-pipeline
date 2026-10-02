@@ -195,10 +195,11 @@
 		{
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_103_6",
 			"capsule": {
-				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
+				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
 				"name": "aind-smartspim-pipeline-dispatcher-2.0.0",
-				"slug": "6615385",
-				"version": 2,
+				"slug": "7923375",
+				"commit": "3b25500018b639b6fd89b935a17b5c5e1291b71a",
+				"image_tag": "837cf7b8a31e895aa7d42d32c71f3f26",
 				"arguments": [
 					"dispatch",
 					"true",
@@ -501,10 +502,11 @@
 		{
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_103_11",
 			"capsule": {
-				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
+				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
 				"name": "aind-smartspim-pipeline-dispatcher-2.0.0",
-				"slug": "6615385",
-				"version": 2,
+				"slug": "7923375",
+				"commit": "3b25500018b639b6fd89b935a17b5c5e1291b71a",
+				"image_tag": "837cf7b8a31e895aa7d42d32c71f3f26",
 				"arguments": [
 					"clean",
 					"true",
@@ -568,10 +570,11 @@
 		{
 			"name": "capsule_aind_smartspim_pipeline_dispatcher_103_13",
 			"capsule": {
-				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
+				"id": "61ffdab7-797a-4022-9b9e-8792ad843cd3",
 				"name": "aind-smartspim-pipeline-dispatcher-2.0.0",
-				"slug": "6615385",
-				"version": 2,
+				"slug": "7923375",
+				"commit": "3b25500018b639b6fd89b935a17b5c5e1291b71a",
+				"image_tag": "837cf7b8a31e895aa7d42d32c71f3f26",
 				"arguments": [
 					"split_channels",
 					"true",
