@@ -15,6 +15,22 @@
     "aind-smartspim-cell-quantification": "cell_quantification",
     "Create individual .zgroup": null
   },
+  "argument_roles": {
+    "_comment": "Positional arguments of each capsule by role. Only 'mode' is compared; 'cloud' and 'location' (buckets, paths) are deployment-specific and ignored. A capsule not listed here has all its arguments compared literally.",
+    "aind-smartspim-pipeline-dispatcher": [
+      "mode",
+      "cloud",
+      "location",
+      "location"
+    ],
+    "aind-smartspim-cell-quantification": [
+      "mode",
+      "location"
+    ],
+    "aind-smartspim-destripe-shadow-correction": [
+      "location"
+    ]
+  },
   "allowed": [
     {
       "key": "missing-process:capsule_create_individual_zgroup_12",
@@ -47,26 +63,6 @@
     {
       "key": "extra-edge:preprocessing:split_channels:preprocess_*.json -> . [collect]",
       "reason": "Destripe requires preprocess_*.json to exist; in local mode it takes the channel from the staged folder, so all configs are passed to each job."
-    },
-    {
-      "key": "arguments:preprocessing:co='aind-open-data' slurm=''",
-      "reason": "No bucket: destripe runs in local mode and reads the staged channel folder."
-    },
-    {
-      "key": "arguments:split_channels:co='split_channels true aind-open-data' slurm='split_channels ${cloud} ${split_input_path}${dispatcher_extra_args}'",
-      "reason": "SLURM passes the cloud flag, the local raw-data root and optional dispatcher overrides instead of a hard-coded S3 bucket."
-    },
-    {
-      "key": "arguments:dispatcher:co='dispatch true aind-scratch-data' slurm='dispatch ${cloud} ${output_path}${dispatcher_extra_args}'",
-      "reason": "SLURM passes the cloud flag, the deployment output path and optional dispatcher overrides instead of a hard-coded S3 bucket."
-    },
-    {
-      "key": "arguments:clean_up:co='clean true aind-scratch-data' slurm='clean ${cloud} ${output_path}${dispatcher_extra_args}'",
-      "reason": "SLURM passes the cloud flag, the deployment output path and optional dispatcher overrides instead of a hard-coded S3 bucket."
-    },
-    {
-      "key": "arguments:cell_quantification:co='detect aind-open-data' slurm='detect ${output_path}'",
-      "reason": "Quantification needs a bucket/path argument; on SLURM the fused data lives under the deployment output path."
     },
     {
       "key": "version:cell_proposals:co=1.0.3 slurm=1.0.4",

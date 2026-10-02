@@ -8,7 +8,10 @@ linted. The SLURM side is parsed from main_slurm_v3.nf.
 
 For every process it compares:
 - Input edges: (source process/dataset, glob, target folder, collect/flatten)
-- Capsule arguments
+- Capsule arguments that change behavior (e.g. the dispatcher mode). Buckets,
+  paths and the cloud flag are per-deployment, so they are never compared;
+  each capsule's positional arguments are described by role in the
+  allowlist's "argument_roles"
 - Capsule version (CO capsule name vs the numeric part of ref_*)
 
 Every difference must be listed, with a reason, in
@@ -92,6 +95,7 @@ def read_codeocean(process_map):
             edges.add(edge_key(source, glob, i.get("target_path") or "", op))
         processes[mapped] = {
             "co_name": p["name"],
+            "capsule": re.sub(r"-\d+\.\d+\.\d+.*$", "", capsule["name"]),
             "unmapped": names[p["name"]] is None,
             "edges": edges,
             "arguments": " ".join(capsule.get("arguments") or []),
@@ -139,7 +143,36 @@ def read_slurm():
     return processes
 
 
-def compare(co, slurm):
+# Argument roles compared between CodeOcean and SLURM; every other role
+# (cloud, location) depends on the deployment and is ignored
+COMPARED_ROLES = {"mode"}
+
+
+def argument_differences(name, co_args, slurm_args, roles):
+    """Compares capsule arguments position by position, by role"""
+    co_tokens, slurm_tokens = co_args.split(), slurm_args.split()
+    if roles is None:
+        if co_args == slurm_args:
+            return []
+        return [f"arguments:{name}:co={co_args!r} slurm={slurm_args!r}"]
+
+    differences = []
+    if len(co_tokens) > len(roles):
+        differences.append(
+            f"arguments:{name}:co passes {len(co_tokens)} arguments but argument_roles "
+            f"describes {len(roles)}: {co_args!r}"
+        )
+    for i, role in enumerate(roles):
+        if role not in COMPARED_ROLES:
+            continue
+        co_value = co_tokens[i] if i < len(co_tokens) else ""
+        slurm_value = slurm_tokens[i] if i < len(slurm_tokens) else ""
+        if co_value != slurm_value:
+            differences.append(f"arguments:{name}:{role} co={co_value!r} slurm={slurm_value!r}")
+    return differences
+
+
+def compare(co, slurm, argument_roles):
     differences = []
     for name in sorted(set(co) | set(slurm)):
         if name not in slurm:
@@ -151,8 +184,9 @@ def compare(co, slurm):
         c, s = co[name], slurm[name]
         differences += [f"missing-edge:{name}:{e}" for e in sorted(c["edges"] - s["edges"])]
         differences += [f"extra-edge:{name}:{e}" for e in sorted(s["edges"] - c["edges"])]
-        if c["arguments"] != s["arguments"]:
-            differences.append(f"arguments:{name}:co={c['arguments']!r} slurm={s['arguments']!r}")
+        differences += argument_differences(
+            name, c["arguments"], s["arguments"], argument_roles.get(c["capsule"])
+        )
         if c["version"] != s["version"]:
             differences.append(f"version:{name}:co={c['version']} slurm={s['version']}")
     return differences
@@ -162,7 +196,10 @@ def main():
     allowlist = json.loads(ALLOWLIST.read_text())
     allowed = {entry["key"]: entry["reason"] for entry in allowlist["allowed"]}
 
-    differences = compare(read_codeocean(allowlist["process_map"]), read_slurm())
+    differences = compare(
+        read_codeocean(allowlist["process_map"]), read_slurm(),
+        {k: v for k, v in allowlist["argument_roles"].items() if not k.startswith("_")},
+    )
 
     unexpected = [d for d in differences if d not in allowed]
     stale = [k for k in allowed if k not in differences]

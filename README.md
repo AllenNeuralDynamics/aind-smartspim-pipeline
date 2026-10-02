@@ -271,7 +271,7 @@ make test STUB=stub-direct   # same, on a machine without Java 17 / nf-test
 | `make check-versions` | 0 | `pipeline/versions.config` matches `environment/versions.env` |
 | `make check-deploy` | 0 | every `deployment.env.example` setting reaches Nextflow; passed `--params` exist in `main_slurm_v3.nf`; exported variables are in `envWhitelist` |
 | `make versions` | — | regenerates `pipeline/versions.config` (then commit both files) |
-| `make parity` | 1 | CodeOcean wiring, capsule arguments and versions match `main_slurm_v3.nf`, apart from documented differences |
+| `make parity` | 1 | CodeOcean wiring, capsule modes and versions match `main_slurm_v3.nf`, apart from documented differences. Buckets, paths and the cloud flag are per-deployment and never compared. |
 | `make stub` | 1 | nf-test stub run of `main_slurm_v3.nf` on a 2-channel stub dataset: task count per process, published results |
 | `make stub-direct` | 1 | the same stub run with plain Nextflow (no nf-test) |
 | `make check-refs` | 2 | for every process: image tag on GHCR, `linux/amd64` build, git tag, GitHub Release, entrypoint at that tag |
@@ -303,7 +303,9 @@ The stub run does **not** check scientific correctness, container contents or ne
 
 ## Keeping SLURM in sync with CodeOcean
 
-After CodeOcean re-exports `main.nf` and `.codeocean/nextflow.json`, run `make parity`. Each reported difference either needs a fix in `main_slurm_v3.nf`, or an entry in `tests/parity_allowlist.json` explaining why SLURM differs, for example local data staging or bucket arguments. Allowlist entries that no longer match anything also fail, so the list stays current.
+After CodeOcean re-exports `main.nf` and `.codeocean/nextflow.json`, run `make parity`. Each reported difference either needs a fix in `main_slurm_v3.nf`, or an entry in `tests/parity_allowlist.json` explaining why SLURM differs, for example local data staging. Allowlist entries that no longer match anything also fail, so the list stays current.
+
+Buckets and paths can differ freely between the two deployments. `argument_roles` in the allowlist marks each capsule's positional arguments as `mode` (compared), or `cloud`/`location` (ignored). If a capsule gains a new argument, add its role there.
 
 # Datasets for pipeline processing
 
