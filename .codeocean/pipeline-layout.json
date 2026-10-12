@@ -334,14 +334,14 @@
 		},
 		{
 			"data": {
-				"capsule_id": "e9054c0b-c45c-42c4-a8da-c8e1ddd9e61d"
+				"capsule_id": "1f5844df-dbb3-4efc-8eb9-fda57bc43735"
 			},
 			"id": "capsule_aind_smartspim_classification_009_10",
 			"position": {
 				"x": -113.99949283696117,
 				"y": 1826.3930332187706
 			},
-			"selected": false,
+			"selected": true,
 			"type": "capsule"
 		},
 		{
@@ -365,7 +365,7 @@
 				"x": -382.9598223517013,
 				"y": 2293.1554079292227
 			},
-			"selected": true,
+			"selected": false,
 			"type": "capsule"
 		},
 		{
@@ -381,10 +381,10 @@
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1790957715194,
+	"timestamp": 1791821429588,
 	"viewport": {
-		"x": 505.13573630070755,
-		"y": -160.91822103772898,
+		"x": 910.6318426248396,
+		"y": -84.06617308778289,
 		"zoom": 0.3
 	}
 }

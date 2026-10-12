@@ -445,10 +445,9 @@
 		{
 			"name": "capsule_aind_smartspim_classification_009_10",
 			"capsule": {
-				"id": "e9054c0b-c45c-42c4-a8da-c8e1ddd9e61d",
+				"id": "1f5844df-dbb3-4efc-8eb9-fda57bc43735",
 				"name": "aind-smartspim-classification-0.1.1",
-				"slug": "7049712",
-				"version": 2
+				"slug": "5543118"
 			},
 			"resources": {
 				"cpus": 16,
