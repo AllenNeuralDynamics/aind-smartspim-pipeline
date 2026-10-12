@@ -334,7 +334,7 @@
 		},
 		{
 			"data": {
-				"capsule_id": "1f5844df-dbb3-4efc-8eb9-fda57bc43735"
+				"capsule_id": "e9054c0b-c45c-42c4-a8da-c8e1ddd9e61d"
 			},
 			"id": "capsule_aind_smartspim_classification_009_10",
 			"position": {
@@ -381,7 +381,7 @@
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1791821429588,
+	"timestamp": 1791822546171,
 	"viewport": {
 		"x": 910.6318426248396,
 		"y": -84.06617308778289,
