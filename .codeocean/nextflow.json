@@ -198,7 +198,7 @@
 				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
 				"name": "aind-smartspim-pipeline-dispatcher-2.0.0",
 				"slug": "6615385",
-				"version": 3,
+				"version": 4,
 				"arguments": [
 					"dispatch",
 					"true",
@@ -504,7 +504,7 @@
 				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
 				"name": "aind-smartspim-pipeline-dispatcher-2.0.0",
 				"slug": "6615385",
-				"version": 3,
+				"version": 4,
 				"arguments": [
 					"clean",
 					"true",
@@ -571,7 +571,7 @@
 				"id": "de997ea8-f900-4eef-8432-7d6726a579ae",
 				"name": "aind-smartspim-pipeline-dispatcher-2.0.0",
 				"slug": "6615385",
-				"version": 3,
+				"version": 4,
 				"arguments": [
 					"split_channels",
 					"true",
